@@ -1,0 +1,247 @@
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] Removing directory '/workspace/results/csr/csr_warl_cover'.
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/results/csr/csr_warl_cover/src/config_pkg.sv'.
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/csr/csr_warl_cover/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/results/csr/csr_warl_cover/src/riscv_pkg.sv'.
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/results/csr/csr_warl_cover/src/build_config_pkg.sv'.
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/csr/csr_warl_cover/src/cf_math_pkg.sv'.
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] Copy '/workspace/fv/checks/../../cva6/core/include/ariane_pkg.sv' to '/workspace/results/csr/csr_warl_cover/src/ariane_pkg.sv'.
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] Copy '/workspace/fv/checks/../../cva6/core/include/rvfi_types.svh' to '/workspace/results/csr/csr_warl_cover/src/rvfi_types.svh'.
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] Copy '/workspace/fv/checks/../../cva6/core/csr_regfile.sv' to '/workspace/results/csr/csr_warl_cover/src/csr_regfile.sv'.
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] Copy '/workspace/fv/checks/../sva/csr_pmp_sva.sv' to '/workspace/results/csr/csr_warl_cover/src/csr_pmp_sva.sv'.
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] Copy '/workspace/fv/checks/../wrappers/csr_fv.sv' to '/workspace/results/csr/csr_warl_cover/src/csr_fv.sv'.
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] Copy '/workspace/fv/checks/../sva/csr_pmp_bind.sv' to '/workspace/results/csr/csr_warl_cover/src/csr_pmp_bind.sv'.
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] engine_0: smtbmc boolector
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: starting process "cd /workspace/results/csr/csr_warl_cover/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'flush_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'halt_csr_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'csr_rdata_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'csr_exception_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'epc_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'eret_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'trap_vector_base_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'priv_lvl_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'v_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'fs_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'vfs_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'fflags_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'frm_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'fprec_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'vs_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'irq_ctrl_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'en_translation_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'en_g_translation_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'en_ld_st_translation_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'en_ld_st_g_translation_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'ld_st_priv_lvl_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'ld_st_v_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'sum_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'vs_sum_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'mxr_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'vmxr_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'satp_ppn_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'asid_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'vsatp_ppn_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'vs_asid_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'hgatp_ppn_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'vmid_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'set_debug_pc_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'tvm_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'tw_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'vtw_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'tsr_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'hu_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'debug_mode_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'single_step_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'icache_en_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'dcache_en_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'acc_cons_en_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'perf_addr_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'perf_data_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'perf_we_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'pmpcfg_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'pmpaddr_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'mcountinhibit_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'rvfi_csr_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: csr_fv.sv:101:5: warning: output port 'jvt_o' has no connection [-Wunconnected-output-port]
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ) dut (
+SBY  0:22:56 [/workspace/results/csr/csr_warl_cover] base: ^
+SBY  0:22:58 [/workspace/results/csr/csr_warl_cover] base: Top level design units:
+SBY  0:22:58 [/workspace/results/csr/csr_warl_cover] base: csr_fv
+SBY  0:22:58 [/workspace/results/csr/csr_warl_cover] base: Build succeeded: 0 errors, 51 warnings
+SBY  0:22:58 [/workspace/results/csr/csr_warl_cover] base: finished (returncode=0)
+SBY  0:22:58 [/workspace/results/csr/csr_warl_cover] prep: starting process "cd /workspace/results/csr/csr_warl_cover/model; yosys -ql design_prep.log design_prep.ys"
+SBY  0:22:59 [/workspace/results/csr/csr_warl_cover] prep: finished (returncode=0)
+SBY  0:22:59 [/workspace/results/csr/csr_warl_cover] smt2: starting process "cd /workspace/results/csr/csr_warl_cover/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY  0:22:59 [/workspace/results/csr/csr_warl_cover] smt2: finished (returncode=0)
+SBY  0:22:59 [/workspace/results/csr/csr_warl_cover] engine_0: starting process "cd /workspace/results/csr/csr_warl_cover; yosys-smtbmc -s boolector --presat --unroll -c --noprogress -t 15  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2"
+SBY  0:22:59 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Solver: boolector
+SBY  0:22:59 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY  0:22:59 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Checking cover reachability in step 1..
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Checking cover reachability in step 2..
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Reached cover statement in step 3 at csr_fv: dut.i_csr_pmp_sva.gen_warl[1].c_locked_seen
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace0.smtc
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace0.yw
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Reached cover statement in step 3 at csr_fv: dut.i_csr_pmp_sva.gen_warl[6].c_locked_seen
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace1.vcd
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace1_tb.v
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace1.smtc
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace1.yw
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Reached cover statement in step 3 at csr_fv: dut.i_csr_pmp_sva.gen_warl[7].c_locked_seen
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace2.vcd
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace2_tb.v
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace2.smtc
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace2.yw
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Checking cover reachability in step 3..
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Reached cover statement in step 3 at csr_fv: dut.i_csr_pmp_sva.gen_warl[4].c_locked_seen
+SBY  0:23:00 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to VCD file: engine_0/trace3.vcd
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace3_tb.v
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace3.smtc
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace3.yw
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Checking cover reachability in step 3..
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Reached cover statement in step 3 at csr_fv: dut.i_csr_pmp_sva.gen_warl[5].c_locked_seen
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to VCD file: engine_0/trace4.vcd
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace4_tb.v
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace4.smtc
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace4.yw
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Checking cover reachability in step 3..
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Reached cover statement in step 3 at csr_fv: dut.i_csr_pmp_sva.gen_warl[2].c_locked_seen
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to VCD file: engine_0/trace5.vcd
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace5_tb.v
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace5.smtc
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace5.yw
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Checking cover reachability in step 3..
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Reached cover statement in step 3 at csr_fv: dut.i_csr_pmp_sva.gen_warl[3].c_locked_seen
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to VCD file: engine_0/trace6.vcd
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace6_tb.v
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace6.smtc
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace6.yw
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:02  Checking cover reachability in step 3..
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:02  Reached cover statement in step 3 at csr_fv: dut.i_csr_pmp_sva.gen_warl[0].c_locked_seen
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:02  Writing trace to VCD file: engine_0/trace7.vcd
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:02  Writing trace to Verilog testbench: engine_0/trace7_tb.v
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:02  Writing trace to constraints file: engine_0/trace7.smtc
+SBY  0:23:01 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:02  Writing trace to Yosys witness file: engine_0/trace7.yw
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] engine_0: ##   0:00:02  Status: passed
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] engine_0: finished (returncode=0)
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] engine_0: Status returned by engine: pass
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:05 (5)
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:06 (6)
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary: engine_0 (smtbmc boolector) returned pass
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary: cover trace: /workspace/results/csr/csr_warl_cover/engine_0/trace0.vcd
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary:   reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[1].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary: cover trace: /workspace/results/csr/csr_warl_cover/engine_0/trace1.vcd
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary:   reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[6].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary: cover trace: /workspace/results/csr/csr_warl_cover/engine_0/trace2.vcd
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary:   reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[7].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary: cover trace: /workspace/results/csr/csr_warl_cover/engine_0/trace3.vcd
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary:   reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[4].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary: cover trace: /workspace/results/csr/csr_warl_cover/engine_0/trace4.vcd
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary:   reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[5].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary: and 3 further traces
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] summary: see /workspace/results/csr/csr_warl_cover/PASS for a complete summary
+SBY  0:23:02 [/workspace/results/csr/csr_warl_cover] DONE (PASS, rc=0)

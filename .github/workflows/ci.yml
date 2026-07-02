@@ -1,0 +1,26 @@
+name: ci
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tier1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: YosysHQ/setup-oss-cad-suite@v3
+        with:
+          osscadsuite-version: '2026-04-07'
+      - run: make verify-pmp
+      - run: make results
+      - name: assert all tier-1 tasks passed
+        run: |
+          for base in pmp_entry pmp_match; do
+            for task in bmc prove cover; do
+              test -f "results/pmp/${base}_${task}/PASS"
+            done
+          done

@@ -1,0 +1,34 @@
+# PMP single-entry matching (PMP-5/6/7) - pmp_entry.
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc:   mode bmc
+bmc:   depth 2
+prove: mode prove
+prove: depth 2
+cover: mode cover
+cover: depth 3
+
+[engines]
+bmc:   smtbmc boolector
+prove: abc pdr
+cover: smtbmc boolector
+
+[script]
+plugin -i slang
+read_slang --top pmp_entry_fv config_pkg.sv cv64a6_imafdc_sv39_config_pkg.sv riscv_pkg.sv build_config_pkg.sv lzc.sv cf_math_pkg.sv pmp_entry.sv pmp_entry_sva.sv pmp_entry_fv.sv
+prep -top pmp_entry_fv
+
+[files]
+../../cva6/core/include/config_pkg.sv
+../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv
+../../cva6/core/include/riscv_pkg.sv
+../../cva6/core/include/build_config_pkg.sv
+../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv
+../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv
+../../cva6/core/pmp/src/pmp_entry.sv
+../sva/pmp_entry_sva.sv
+../wrappers/pmp_entry_fv.sv

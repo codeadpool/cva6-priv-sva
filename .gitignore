@@ -1,0 +1,14 @@
+notes/
+results/
+# solver
+*.vcd
+*.fst
+*.smt2
+!evidence/**/*.vcd
+__pycache__/
+*.pyc
+.venv/
+*.swp
+*~
+.nvim/
+

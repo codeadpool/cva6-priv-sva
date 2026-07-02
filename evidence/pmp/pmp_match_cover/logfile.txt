@@ -1,0 +1,46 @@
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] Removing directory '/workspace/results/pmp/pmp_match_cover'.
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/results/pmp/pmp_match_cover/src/config_pkg.sv'.
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/pmp/pmp_match_cover/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/results/pmp/pmp_match_cover/src/riscv_pkg.sv'.
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/results/pmp/pmp_match_cover/src/build_config_pkg.sv'.
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/results/pmp/pmp_match_cover/src/lzc.sv'.
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/pmp/pmp_match_cover/src/cf_math_pkg.sv'.
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp_entry.sv' to '/workspace/results/pmp/pmp_match_cover/src/pmp_entry.sv'.
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp.sv' to '/workspace/results/pmp/pmp_match_cover/src/pmp.sv'.
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] Copy '/workspace/fv/checks/../sva/pmp_sva.sv' to '/workspace/results/pmp/pmp_match_cover/src/pmp_sva.sv'.
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] Copy '/workspace/fv/checks/../wrappers/pmp_fv.sv' to '/workspace/results/pmp/pmp_match_cover/src/pmp_fv.sv'.
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] engine_0: smtbmc boolector
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] base: starting process "cd /workspace/results/pmp/pmp_match_cover/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] base: Top level design units:
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] base: pmp_fv
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] base: Build succeeded: 0 errors, 0 warnings
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] base: finished (returncode=0)
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] prep: starting process "cd /workspace/results/pmp/pmp_match_cover/model; yosys -ql design_prep.log design_prep.ys"
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] prep: finished (returncode=0)
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] smt2: starting process "cd /workspace/results/pmp/pmp_match_cover/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] smt2: finished (returncode=0)
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] engine_0: starting process "cd /workspace/results/pmp/pmp_match_cover; yosys-smtbmc -s boolector --presat --unroll -c --noprogress -t 3  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2"
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Solver: boolector
+SBY 22:51:28 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Reached cover statement in step 0 at pmp_fv: chk.c_m_allow
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace0.smtc
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace0.yw
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Reached cover statement in step 0 at pmp_fv: chk.c_su_deny
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace1.vcd
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace1_tb.v
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace1.smtc
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace1.yw
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: ##   0:00:00  Status: passed
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: finished (returncode=0)
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] engine_0: Status returned by engine: pass
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] summary: engine_0 (smtbmc boolector) returned pass
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] summary: cover trace: /workspace/results/pmp/pmp_match_cover/engine_0/trace0.vcd
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] summary:   reached cover statement pmp_fv.\chk.c_m_allow at pmp_sva.sv:29.5-29.79
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] summary: cover trace: /workspace/results/pmp/pmp_match_cover/engine_0/trace1.vcd
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] summary:   reached cover statement pmp_fv.\chk.c_su_deny at pmp_sva.sv:30.5-30.91
+SBY 22:51:29 [/workspace/results/pmp/pmp_match_cover] DONE (PASS, rc=0)
