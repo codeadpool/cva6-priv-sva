@@ -15,8 +15,6 @@ bind csr_regfile csr_priv_sva #(
     .sret_i      (sret),
     .debug_mode  (debug_mode_q),
     .medeleg     (medeleg_q),
-    .mtval       (mtval_q),
     .ex_valid    (ex_i.valid),
-    .ex_cause    (ex_i.cause),
-    .ex_tval     (ex_i.tval)
+    .ex_cause    (ex_i.cause)
 );

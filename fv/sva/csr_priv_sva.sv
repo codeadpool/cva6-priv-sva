@@ -16,10 +16,8 @@ module csr_priv_sva #(
     input logic                                sret_i,        // sret
     input logic                                debug_mode,    // debug_mode_q
     input logic             [CVA6Cfg.XLEN-1:0] medeleg,       // medeleg_q
-    input logic             [CVA6Cfg.XLEN-1:0] mtval,         // mtval_q
     input logic                                ex_valid,      // ex_i.valid
-    input logic             [CVA6Cfg.XLEN-1:0] ex_cause,      // ex_i.cause
-    input logic             [CVA6Cfg.XLEN-1:0] ex_tval        // ex_i.tval
+    input logic             [CVA6Cfg.XLEN-1:0] ex_cause       // ex_i.cause
 );
   localparam int unsigned CW = $clog2(CVA6Cfg.XLEN);
   logic is_irq;
@@ -33,15 +31,14 @@ module csr_priv_sva #(
   // architectural trap taken (csr_regfile.sv:1814: a debug request is not a trap)
   logic trap_taken;
   assign trap_taken = ex_valid && !debug_mode && (!CVA6Cfg.DebugEn || ex_cause != riscv::DEBUG_REQUEST);
-  logic ante_mret, ante_sret, ante_mtrapM, ante_strapS, ante_irqM;
-  assign ante_mret = mret_i && !ex_valid && !debug_mode;
-  assign ante_sret = sret_i && !ex_valid && !debug_mode;
+  logic ante_mret, ante_sret, ante_mtrapM, ante_strapS;
+  assign ante_mret   = mret_i && !ex_valid && !debug_mode;
+  assign ante_sret   = sret_i && !ex_valid && !debug_mode;
   assign ante_mtrapM = trap_taken && !mret_i && !sret_i && (trap_to_priv == riscv::PRIV_LVL_M);
   assign ante_strapS = trap_taken && !mret_i && !sret_i && (trap_to_priv == riscv::PRIV_LVL_S);
-  assign ante_irqM = trap_taken && is_irq && !mret_i && !sret_i && (trap_to_priv == riscv::PRIV_LVL_M);
 
   // previous-cycle copies for the |=> stacking/return checks
-  logic ante_mret_q, ante_sret_q, ante_mtrapM_q, ante_strapS_q, ante_irqM_q;
+  logic ante_mret_q, ante_sret_q, ante_mtrapM_q, ante_strapS_q;
   logic mst_mie_q, mst_mpie_q, mst_sie_q, mst_spie_q, mst_spp_q;
   riscv::priv_lvl_t mst_mpp_q, priv_lvl_q1;
 
@@ -61,13 +58,11 @@ module csr_priv_sva #(
       ante_sret_q   <= 1'b0;
       ante_mtrapM_q <= 1'b0;
       ante_strapS_q <= 1'b0;
-      ante_irqM_q   <= 1'b0;
     end else begin
       ante_mret_q   <= ante_mret;
       ante_sret_q   <= ante_sret;
       ante_mtrapM_q <= ante_mtrapM;
       ante_strapS_q <= ante_strapS;
-      ante_irqM_q   <= ante_irqM;
     end
 
   always_ff @(posedge clk_i)
@@ -84,10 +79,6 @@ module csr_priv_sva #(
             (mst_mie  == 1'b0)
          && (mst_mpie == mst_mie_q)
          && (mst_mpp  == priv_lvl_q1)));
-
-      // F5: csr_regfile.sv:1919 tests ex_cause[GPLEN-1]=cause[40], not the IRQ bit
-      // cause[63] -> interrupt mtval not zeroed. EXPECTED CEX (prior-cycle ex_tval!=0).
-      a_irq_mtval_zero : assert (!ante_irqM_q || (mtval == '0));
     end
 
   if (CVA6Cfg.RVS) begin : gen_sret
@@ -130,14 +121,9 @@ module csr_priv_sva #(
       end
   end
 
-  // F5 isolation: assume interrupts carry no tval -> a_irq_mtval_zero PASSES.
-  // always_ff @(posedge clk_i) if (rst_ni)
-  //   au_irq_tval0 : assume (!is_irq || (ex_tval == '0));
-
   always_ff @(posedge clk_i)
     if (rst_ni) begin
       c_mret_seen : cover (ante_mret);
       c_mtrapM_seen : cover (ante_mtrapM);
-      c_irqM_tvalnz : cover (ante_irqM && ex_tval != '0);
     end
 endmodule
