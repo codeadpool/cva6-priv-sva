@@ -1,0 +1,9 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:03 (3)
+Elapsed process time [H:MM:SS (secs)]: 0:00:04 (4)
+engine_0 (smtbmc boolector) returned pass
+cover trace: engine_0/trace0.vcd
+cover trace: engine_0/trace0.yw
+  reached cover statement csr_fv.\dut.i_mstatus_mprv_sva.c_mretU_mprv1 at mstatus_mprv_sva.sv:48.7-48.42 step 3
+cover trace: engine_0/trace1.vcd
+cover trace: engine_0/trace1.yw
+  reached cover statement csr_fv.\dut.i_mstatus_mprv_sva.c_sret_mprv1 at mstatus_mprv_sva.sv:49.7-49.40 step 3
