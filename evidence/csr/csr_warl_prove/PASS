@@ -1,5 +1,5 @@
-Elapsed clock time [H:MM:SS (secs)]: 0:00:09 (9)
-Elapsed process time [H:MM:SS (secs)]: 0:00:11 (11)
+Elapsed clock time [H:MM:SS (secs)]: 0:00:10 (10)
+Elapsed process time [H:MM:SS (secs)]: 0:00:16 (16)
 engine_0 (smtbmc boolector) returned pass for basecase
 engine_0 (smtbmc boolector) returned pass for induction
 engine_0 did not produce any traces

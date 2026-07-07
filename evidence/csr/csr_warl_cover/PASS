@@ -1,27 +1,46 @@
-Elapsed clock time [H:MM:SS (secs)]: 0:00:05 (5)
-Elapsed process time [H:MM:SS (secs)]: 0:00:06 (6)
+Elapsed clock time [H:MM:SS (secs)]: 0:00:06 (6)
+Elapsed process time [H:MM:SS (secs)]: 0:00:07 (7)
 engine_0 (smtbmc boolector) returned pass
 cover trace: engine_0/trace0.vcd
 cover trace: engine_0/trace0.yw
-  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[1].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.c_pmpaddr_rd_napot at csr_pmp_sva.sv:73.5-73.91 step 2
 cover trace: engine_0/trace1.vcd
 cover trace: engine_0/trace1.yw
-  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[6].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.c_pmpaddr_rd_tor at csr_pmp_sva.sv:74.5-74.87 step 2
+cover trace: engine_0/trace10.vcd
+cover trace: engine_0/trace10.yw
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_tor_shield[3].c_tor_shield_seen at csr_pmp_sva.sv:56.9-56.99 step 3
+cover trace: engine_0/trace11.vcd
+cover trace: engine_0/trace11.yw
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_tor_shield[0].c_tor_shield_seen at csr_pmp_sva.sv:56.9-56.99 step 3
+cover trace: engine_0/trace12.vcd
+cover trace: engine_0/trace12.yw
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_tor_shield[5].c_tor_shield_seen at csr_pmp_sva.sv:56.9-56.99 step 3
 cover trace: engine_0/trace2.vcd
 cover trace: engine_0/trace2.yw
-  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[7].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[0].c_locked_seen at csr_pmp_sva.sv:40.44-40.87 step 3
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[1].c_locked_seen at csr_pmp_sva.sv:40.44-40.87 step 3
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[2].c_locked_seen at csr_pmp_sva.sv:40.44-40.87 step 3
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[3].c_locked_seen at csr_pmp_sva.sv:40.44-40.87 step 3
 cover trace: engine_0/trace3.vcd
 cover trace: engine_0/trace3.yw
-  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[4].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_tor_shield[6].c_tor_shield_seen at csr_pmp_sva.sv:56.9-56.99 step 3
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[7].c_locked_seen at csr_pmp_sva.sv:40.44-40.87 step 3
 cover trace: engine_0/trace4.vcd
 cover trace: engine_0/trace4.yw
-  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[5].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[4].c_locked_seen at csr_pmp_sva.sv:40.44-40.87 step 3
 cover trace: engine_0/trace5.vcd
 cover trace: engine_0/trace5.yw
-  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[2].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[5].c_locked_seen at csr_pmp_sva.sv:40.44-40.87 step 3
 cover trace: engine_0/trace6.vcd
 cover trace: engine_0/trace6.yw
-  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[3].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_tor_shield[4].c_tor_shield_seen at csr_pmp_sva.sv:56.9-56.99 step 3
 cover trace: engine_0/trace7.vcd
 cover trace: engine_0/trace7.yw
-  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[0].c_locked_seen at csr_pmp_sva.sv:36.7-36.50 step 3
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_tor_shield[2].c_tor_shield_seen at csr_pmp_sva.sv:56.9-56.99 step 3
+cover trace: engine_0/trace8.vcd
+cover trace: engine_0/trace8.yw
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_tor_shield[1].c_tor_shield_seen at csr_pmp_sva.sv:56.9-56.99 step 3
+cover trace: engine_0/trace9.vcd
+cover trace: engine_0/trace9.yw
+  reached cover statement csr_fv.\dut.i_csr_pmp_sva.gen_warl[6].c_locked_seen at csr_pmp_sva.sv:40.44-40.87 step 3

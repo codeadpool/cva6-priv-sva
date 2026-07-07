@@ -13,8 +13,15 @@ bind csr_regfile csr_priv_sva #(
     .trap_to_priv(trap_to_priv_lvl),
     .mret_i      (mret),
     .sret_i      (sret),
+    .dret_i      (dret),
     .debug_mode  (debug_mode_q),
     .medeleg     (medeleg_q),
+    .mideleg     (mideleg_q),
     .ex_valid    (ex_i.valid),
-    .ex_cause    (ex_i.cause)
+    .ex_cause    (ex_i.cause),
+    .pc          (pc_i),
+    .mepc        (mepc_q),
+    .mcause      (mcause_q),
+    .sepc        (sepc_q),
+    .scause      (scause_q)
 );

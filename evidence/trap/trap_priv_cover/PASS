@@ -1,9 +1,34 @@
-Elapsed clock time [H:MM:SS (secs)]: 0:00:03 (3)
-Elapsed process time [H:MM:SS (secs)]: 0:00:03 (3)
+Elapsed clock time [H:MM:SS (secs)]: 0:00:05 (5)
+Elapsed process time [H:MM:SS (secs)]: 0:00:06 (6)
 engine_0 (smtbmc boolector) returned pass
 cover trace: engine_0/trace0.vcd
 cover trace: engine_0/trace0.yw
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_mtrapM_seen at csr_priv_sva.sv:127.7-127.43 step 2
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_mtrapM_seen at csr_priv_sva.sv:195.7-195.43 step 2
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_trap6_seen at csr_priv_sva.sv:197.7-197.41 step 2
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_trapM_from_m at csr_priv_sva.sv:196.7-196.88 step 2
 cover trace: engine_0/trace1.vcd
 cover trace: engine_0/trace1.yw
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_mret_seen at csr_priv_sva.sv:126.7-126.39 step 2
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_mret_seen at csr_priv_sva.sv:194.7-194.39 step 2
+cover trace: engine_0/trace2.vcd
+cover trace: engine_0/trace2.yw
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_dret_seen at csr_priv_sva.sv:198.7-198.36 step 2
+cover trace: engine_0/trace3.vcd
+cover trace: engine_0/trace3.yw
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_sret_seen at csr_priv_sva.sv:205.9-205.41 step 2
+cover trace: engine_0/trace4.vcd
+cover trace: engine_0/trace4.yw
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_priv_u_seen at csr_priv_sva.sv:199.7-199.61 step 3
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_irq_no_deleg_to_m_seen at csr_priv_sva.sv:214.9-215.103 step 3
+cover trace: engine_0/trace5.vcd
+cover trace: engine_0/trace5.yw
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_no_deleg_to_m_seen at csr_priv_sva.sv:210.9-211.104 step 3
+cover trace: engine_0/trace6.vcd
+cover trace: engine_0/trace6.yw
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_deleg_to_s_seen at csr_priv_sva.sv:208.9-209.103 step 4
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_strapS_seen at csr_priv_sva.sv:206.9-206.45 step 4
+cover trace: engine_0/trace7.vcd
+cover trace: engine_0/trace7.yw
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_irq_deleg_to_s_seen at csr_priv_sva.sv:212.9-213.102 step 4
+cover trace: engine_0/trace8.vcd
+cover trace: engine_0/trace8.yw
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_priv_s_seen at csr_priv_sva.sv:207.9-207.63 step 4
