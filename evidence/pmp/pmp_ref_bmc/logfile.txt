@@ -1,0 +1,35 @@
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] Removing directory '/workspace/results/pmp/pmp_ref_bmc'.
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/results/pmp/pmp_ref_bmc/src/config_pkg.sv'.
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/pmp/pmp_ref_bmc/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/results/pmp/pmp_ref_bmc/src/riscv_pkg.sv'.
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/results/pmp/pmp_ref_bmc/src/build_config_pkg.sv'.
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/results/pmp/pmp_ref_bmc/src/lzc.sv'.
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/pmp/pmp_ref_bmc/src/cf_math_pkg.sv'.
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp_entry.sv' to '/workspace/results/pmp/pmp_ref_bmc/src/pmp_entry.sv'.
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp.sv' to '/workspace/results/pmp/pmp_ref_bmc/src/pmp.sv'.
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] Copy '/workspace/fv/checks/../sva/pmp_ref_sva.sv' to '/workspace/results/pmp/pmp_ref_bmc/src/pmp_ref_sva.sv'.
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] Copy '/workspace/fv/checks/../wrappers/pmp_ref_fv.sv' to '/workspace/results/pmp/pmp_ref_bmc/src/pmp_ref_fv.sv'.
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] engine_0: smtbmc boolector
+SBY 19:06:48 [/workspace/results/pmp/pmp_ref_bmc] base: starting process "cd /workspace/results/pmp/pmp_ref_bmc/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] base: Top level design units:
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] base: pmp_ref_fv
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] base: Build succeeded: 0 errors, 0 warnings
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] base: finished (returncode=0)
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] prep: starting process "cd /workspace/results/pmp/pmp_ref_bmc/model; yosys -ql design_prep.log design_prep.ys"
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] prep: finished (returncode=0)
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] smt2: starting process "cd /workspace/results/pmp/pmp_ref_bmc/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] smt2: finished (returncode=0)
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] engine_0: starting process "cd /workspace/results/pmp/pmp_ref_bmc; yosys-smtbmc -s boolector --presat --unroll --noprogress -t 2  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2"
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] engine_0: ##   0:00:00  Solver: boolector
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] engine_0: ##   0:00:00  Checking assumptions in step 0..
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] engine_0: ##   0:00:00  Checking assertions in step 0..
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] engine_0: ##   0:00:00  Checking assumptions in step 1..
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] engine_0: ##   0:00:00  Checking assertions in step 1..
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] engine_0: ##   0:00:00  Status: passed
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] engine_0: finished (returncode=0)
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] engine_0: Status returned by engine: pass
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] summary: engine_0 (smtbmc boolector) returned pass
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] summary: engine_0 did not produce any traces
+SBY 19:06:49 [/workspace/results/pmp/pmp_ref_bmc] DONE (PASS, rc=0)
