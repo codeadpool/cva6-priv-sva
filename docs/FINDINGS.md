@@ -8,7 +8,7 @@ pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
 
 ## F5 - interrupt traps leave the instruction encoding in mtval/stval
 
-Filed upstream 2026-07-06; both defects live on master `b30e7db`.
+Filed upstream 2026-07-06 as openhwgroup/cva6 #3379; both defects live on master.
 
 **F5a, wrong bit-select.** `csr_regfile.sv:1919` gates mtval zeroing on
 `ex_i.cause[GPLEN-1]` (bit 40); every sibling site uses the interrupt flag
@@ -45,14 +45,19 @@ match - spec allows, CVA6 denies.
 Known upstream (#3177). Probe `pmp_mpri_sva.sv` (expected bmc CEX against a
 spec-priority reference model).
 
-## F8 - dcsr.prv stored unlegalized; dret enters a reserved privilege mode
+## F8 - dcsr.prv is not WARL-legalized; dret sets priv_lvl to an unimplemented encoding
 
 `csr_regfile.sv:1054-1066`: the DCSR write path legalizes
-xdebugver/nmip/stopcount/stoptime but stores `prv` raw, so prv can hold 2'b10
-(reserved, H not implemented). `dret` loads `priv_lvl_d` from `dcsr_q.prv`
-(`:2166`), so the hart enters 2'b10 - unequal to M/S/U, and downstream privilege
-checks (delegation, PMP M-bypass, CSR access) run on an undefined mode. Debug
-spec v1.0 makes prv WARL over the supported modes.
+xdebugver/nmip/stopcount/stoptime but stores `prv` raw. `dret` loads `priv_lvl_d`
+from `dcsr_q.prv` (`:2166`) with no clamp, so a debugger can drive `priv_lvl` to
+2'b10. CVA6's enum labels 2'b10 `PRIV_LVL_HS` (riscv_pkg.sv), a hypervisor-CSR
+access level, not a distinct operating mode; with RVH=0 the H extension is absent,
+so 2'b10 is unimplemented. `priv_lvl` then equals none of M/S/U, and this build's
+privilege logic compares only against those (delegation, PMP M-bypass), so the
+hart runs at an unimplemented privilege - losing the M-mode PMP bypass, traps
+routing as if below M. This is a WARL/robustness conformance gap (the same class
+as #1984/#1985 for other dcsr fields), not an escalation. Debug spec v1.0 makes
+prv WARL over the supported modes.
 Adjacent #1984/#1985 cover other dcsr fields, not prv or the post-dret
 corruption (checked 2026-07-05). Unreported; issue draft ready.
 Witness: `priv_dret_sva.sv::a_priv_legal` - the CEX enters debug mode, writes

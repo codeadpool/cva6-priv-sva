@@ -11,8 +11,8 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 > and the MMU-PMP interaction. Four probes fail by design, each a
 > machine-checked witness of a spec nonconformance: F5 (interrupt mtval, filed
 > upstream), F6 (MPRV-on-xret, upstream #3294), F7 (PMP M-mode priority,
-> upstream #3177), F8 (unlegalized `dcsr.prv` lets `dret` enter a reserved
-> privilege mode). Findings: `docs/FINDINGS.md`; full table:
+> upstream #3177), F8 (unlegalized `dcsr.prv` lets `dret` set priv_lvl to an
+> unimplemented encoding). Findings: `docs/FINDINGS.md`; full table:
 > `docs/PROPERTY_PLAN.md`.
 
 ## Layout
