@@ -1,6 +1,3 @@
-# F5 witness (MST-6): mtval on interrupt traps - bmc is EXPECTED TO FAIL.
-# The counterexample is the finding (docs/FINDINGS.md F5); cover proves the
-# antecedent reachable. No prove task: the property is false by design.
 [tasks]
 bmc
 cover

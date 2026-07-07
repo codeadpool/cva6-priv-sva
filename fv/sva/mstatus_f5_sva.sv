@@ -1,9 +1,3 @@
-// F5 witness probe (MST-6) - EXPECTED CEX, do not "fix" the assert.
-// csr_regfile.sv:1919 gates M-trap mtval zeroing on cause[GPLEN-1] (bit 40)
-// instead of the IRQ bit cause[XLEN-1]; with ariane_pkg::ZERO_TVAL=0 (default,
-// non-SPIKE_TANDEM) the zeroing arm is off entirely, so an interrupt trap to M
-// writes ex_i.tval into mtval. Priv spec v1.13 3.1.1.16: "For other traps,
-// mtval is set to zero." Evidence chain: docs/FINDINGS.md F5.
 module mstatus_f5_sva #(
     parameter config_pkg::cva6_cfg_t CVA6Cfg = config_pkg::cva6_cfg_empty
 ) (
@@ -42,7 +36,5 @@ module mstatus_f5_sva #(
     if (rst_ni && past_valid)
       a_irq_mtval_zero : assert (!ante_irqM_q || (mtval == '0));
 
-  always_ff @(posedge clk_i)
-    if (rst_ni)
-      c_irqM_tvalnz : cover (ante_irqM && ex_tval != '0);
+  always_ff @(posedge clk_i) if (rst_ni) c_irqM_tvalnz : cover (ante_irqM && ex_tval != '0);
 endmodule
