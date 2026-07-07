@@ -1,0 +1,54 @@
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Removing directory '/workspace/results/vm/vm_cover'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/results/vm/vm_cover/src/config_pkg.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/vm/vm_cover/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/results/vm/vm_cover/src/riscv_pkg.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/results/vm/vm_cover/src/build_config_pkg.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/results/vm/vm_cover/src/lzc.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/vm/vm_cover/src/cf_math_pkg.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../../cva6/core/include/ariane_pkg.sv' to '/workspace/results/vm/vm_cover/src/ariane_pkg.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp_entry.sv' to '/workspace/results/vm/vm_cover/src/pmp_entry.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp.sv' to '/workspace/results/vm/vm_cover/src/pmp.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../../cva6/core/cva6_mmu/cva6_ptw.sv' to '/workspace/results/vm/vm_cover/src/cva6_ptw.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../sva/ptw_pmp_sva.sv' to '/workspace/results/vm/vm_cover/src/ptw_pmp_sva.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../wrappers/ptw_fv.sv' to '/workspace/results/vm/vm_cover/src/ptw_fv.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] Copy '/workspace/fv/checks/../sva/ptw_pmp_bind.sv' to '/workspace/results/vm/vm_cover/src/ptw_pmp_bind.sv'.
+SBY 19:08:14 [/workspace/results/vm/vm_cover] engine_0: smtbmc boolector
+SBY 19:08:14 [/workspace/results/vm/vm_cover] base: starting process "cd /workspace/results/vm/vm_cover/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY 19:08:15 [/workspace/results/vm/vm_cover] base: Top level design units:
+SBY 19:08:15 [/workspace/results/vm/vm_cover] base: ptw_fv
+SBY 19:08:15 [/workspace/results/vm/vm_cover] base: Build succeeded: 0 errors, 0 warnings
+SBY 19:08:15 [/workspace/results/vm/vm_cover] base: finished (returncode=0)
+SBY 19:08:15 [/workspace/results/vm/vm_cover] prep: starting process "cd /workspace/results/vm/vm_cover/model; yosys -ql design_prep.log design_prep.ys"
+SBY 19:08:15 [/workspace/results/vm/vm_cover] prep: finished (returncode=0)
+SBY 19:08:15 [/workspace/results/vm/vm_cover] smt2: starting process "cd /workspace/results/vm/vm_cover/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY 19:08:15 [/workspace/results/vm/vm_cover] smt2: finished (returncode=0)
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: starting process "cd /workspace/results/vm/vm_cover; yosys-smtbmc -s boolector --presat --unroll -c --noprogress -t 20  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2"
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Solver: boolector
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Checking cover reachability in step 1..
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Checking cover reachability in step 2..
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Checking cover reachability in step 4..
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Reached cover statement in step 4 at ptw_fv: dut.i_ptw_pmp_sva.c_tlb_fill_seen
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace0.smtc
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace0.yw
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Checking cover reachability in step 4..
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Checking cover reachability in step 5..
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Reached cover statement in step 5 at ptw_fv: dut.i_ptw_pmp_sva.c_acc_err_seen
+SBY 19:08:15 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace1.vcd
+SBY 19:08:16 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace1_tb.v
+SBY 19:08:16 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace1.smtc
+SBY 19:08:16 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace1.yw
+SBY 19:08:16 [/workspace/results/vm/vm_cover] engine_0: ##   0:00:00  Status: passed
+SBY 19:08:16 [/workspace/results/vm/vm_cover] engine_0: finished (returncode=0)
+SBY 19:08:16 [/workspace/results/vm/vm_cover] engine_0: Status returned by engine: pass
+SBY 19:08:16 [/workspace/results/vm/vm_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY 19:08:16 [/workspace/results/vm/vm_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY 19:08:16 [/workspace/results/vm/vm_cover] summary: engine_0 (smtbmc boolector) returned pass
+SBY 19:08:16 [/workspace/results/vm/vm_cover] summary: cover trace: /workspace/results/vm/vm_cover/engine_0/trace0.vcd
+SBY 19:08:16 [/workspace/results/vm/vm_cover] summary:   reached cover statement ptw_fv.\dut.i_ptw_pmp_sva.c_tlb_fill_seen at ptw_pmp_sva.sv:37.7-37.43 step 4
+SBY 19:08:16 [/workspace/results/vm/vm_cover] summary: cover trace: /workspace/results/vm/vm_cover/engine_0/trace1.vcd
+SBY 19:08:16 [/workspace/results/vm/vm_cover] summary:   reached cover statement ptw_fv.\dut.i_ptw_pmp_sva.c_acc_err_seen at ptw_pmp_sva.sv:36.7-36.46 step 5
+SBY 19:08:16 [/workspace/results/vm/vm_cover] DONE (PASS, rc=0)
