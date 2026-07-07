@@ -1,6 +1,6 @@
 # =============================================================================
-# cva6-priv-sva — formal verification of the CVA6 privileged ISA.
-# Layout (CVA6 is a pinned submodule inside this repo — never edited):
+# cva6-priv-sva - formal verification of the CVA6 privileged ISA.
+# Layout (CVA6 is a pinned submodule inside this repo - never edited):
 #     cva6-priv-sva/cva6/   ← upstream CVA6 v5.3.0 @ 2ef1c1b
 #     cva6-priv-sva/        ← this repo
 # Each fv/checks/<cat>.sby is a real sby script with bmc/prove/cover tasks.
@@ -14,14 +14,14 @@ CHECKS_DIR   := fv/checks
 # sby tasks run per category (override e.g.: make verify-pmp TASKS=prove)
 TASKS        ?= bmc prove cover
 
-CATEGORIES   := pmp csr trap priv mstatus vm
+CATEGORIES   := pmp csr trap priv mstatus vm probe
 
 .DEFAULT_GOAL := help
 
 # ── Help (default goal) ──────────────────────────────────────────────────────
 .PHONY: help
 help:
-	@printf "cva6-priv-sva — formal verification of CVA6 privileged ISA\n\n"
+	@printf "cva6-priv-sva - formal verification of CVA6 privileged ISA\n\n"
 	@printf "Targets:\n"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 	    | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -42,7 +42,7 @@ versions:
 	    printf "commit:    %s\n" "$$(git -C $(CVA6) rev-parse HEAD)"; \
 	    printf "describe:  %s\n" "$$(git -C $(CVA6) describe --always --tags --dirty 2>/dev/null || echo n/a)"; \
 	else \
-	    printf "CVA6 not at $(CVA6) — run: git submodule update --init cva6\n"; \
+	    printf "CVA6 not at $(CVA6) - run: git submodule update --init cva6\n"; \
 	fi
 
 # ── Verification ─────────────────────────────────────────────────────────────
@@ -96,6 +96,8 @@ evidence:
 	    for d in $(RESULTS_DIR)/$$c/*/; do \
 	        [ -d "$$d" ] || continue; t=$$(basename "$$d"); \
 	        mkdir -p evidence/$$c/$$t; \
+	        rm -f evidence/$$c/$$t/PASS evidence/$$c/$$t/FAIL evidence/$$c/$$t/ERROR \
+	              evidence/$$c/$$t/UNKNOWN evidence/$$c/$$t/TIMEOUT evidence/$$c/$$t/trace*.vcd; \
 	        cp -f "$$d/logfile.txt" "evidence/$$c/$$t/" 2>/dev/null || true; \
 	        for m in PASS FAIL ERROR UNKNOWN TIMEOUT; do \
 	            [ -f "$$d$$m" ] && cp -f "$$d$$m" "evidence/$$c/$$t/" || true; \
@@ -103,13 +105,13 @@ evidence:
 	        find "$$d" -maxdepth 2 -name 'trace*.vcd' \
 	            -exec cp -f {} "evidence/$$c/$$t/" \; 2>/dev/null || true; \
 	    done; \
-	done; printf "evidence/ updated — review, then commit\n"
+	done; printf "evidence/ updated - review, then commit\n"
 
 # ── Cleanup ──────────────────────────────────────────────────────────────────
 .PHONY: clean clean-cat
 clean:
 	rm -rf $(RESULTS_DIR)/
 
-clean-cat: ## Remove one category's results: make clean-cat CAT=pmp
+clean-cat:
 	@[ -n "$(CAT)" ] || { echo "usage: make clean-cat CAT=<category>"; exit 1; }
 	rm -rf $(RESULTS_DIR)/$(CAT)/
