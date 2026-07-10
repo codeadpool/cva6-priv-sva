@@ -3,4 +3,4 @@ Elapsed process time [H:MM:SS (secs)]: 0:00:03 (3)
 engine_0 (smtbmc boolector) returned FAIL
 counterexample trace: engine_0/trace.vcd
 counterexample trace: engine_0/trace.yw
-  failed assertion csr_fv.\dut.i_mstatus_f5_sva.a_irq_mtval_zero at mstatus_f5_sva.sv:43.7-43.65 step 3
+  failed assertion csr_fv.\dut.i_mstatus_f5_sva.a_irq_mtval_zero at mstatus_f5_sva.sv:37.7-37.65 step 3

@@ -1,46 +1,46 @@
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] Removing directory '/workspace/results/probe/probe_pmp_mpri_cover'.
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/config_pkg.sv'.
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/cv64a6_imafdc_sv39_config_pkg.sv'.
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/riscv_pkg.sv'.
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/build_config_pkg.sv'.
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/lzc.sv'.
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/cf_math_pkg.sv'.
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp_entry.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/pmp_entry.sv'.
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/pmp.sv'.
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../sva/pmp_mpri_sva.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/pmp_mpri_sva.sv'.
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../wrappers/pmp_mpri_fv.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/pmp_mpri_fv.sv'.
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: smtbmc boolector
-SBY 21:18:32 [/workspace/results/probe/probe_pmp_mpri_cover] base: starting process "cd /workspace/results/probe/probe_pmp_mpri_cover/src; yosys -ql ../model/design.log ../model/design.ys"
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] base: Top level design units:
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] base: pmp_mpri_fv
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] base: Build succeeded: 0 errors, 0 warnings
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] base: finished (returncode=0)
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] prep: starting process "cd /workspace/results/probe/probe_pmp_mpri_cover/model; yosys -ql design_prep.log design_prep.ys"
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] prep: finished (returncode=0)
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] smt2: starting process "cd /workspace/results/probe/probe_pmp_mpri_cover/model; yosys -ql design_smt2.log design_smt2.ys"
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] smt2: finished (returncode=0)
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: starting process "cd /workspace/results/probe/probe_pmp_mpri_cover; yosys-smtbmc -s boolector --presat --unroll -c --noprogress -t 3  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2"
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Solver: boolector
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Reached cover statement in step 0 at pmp_mpri_fv: chk.c_m_first_unlocked
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace0_tb.v
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace0.smtc
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace0.yw
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Reached cover statement in step 0 at pmp_mpri_fv: chk.c_overrule_shape
-SBY 21:18:33 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace1.vcd
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace1_tb.v
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace1.smtc
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace1.yw
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Status: passed
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: finished (returncode=0)
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: Status returned by engine: pass
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] summary: engine_0 (smtbmc boolector) returned pass
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] summary: cover trace: /workspace/results/probe/probe_pmp_mpri_cover/engine_0/trace0.vcd
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] summary:   reached cover statement pmp_mpri_fv.\chk.c_m_first_unlocked at pmp_mpri_sva.sv:55.5-55.98
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] summary: cover trace: /workspace/results/probe/probe_pmp_mpri_cover/engine_0/trace1.vcd
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] summary:   reached cover statement pmp_mpri_fv.\chk.c_overrule_shape at pmp_mpri_sva.sv:57.5-59.95
-SBY 21:18:34 [/workspace/results/probe/probe_pmp_mpri_cover] DONE (PASS, rc=0)
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] Removing directory '/workspace/results/probe/probe_pmp_mpri_cover'.
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/config_pkg.sv'.
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/riscv_pkg.sv'.
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/build_config_pkg.sv'.
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/lzc.sv'.
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/cf_math_pkg.sv'.
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp_entry.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/pmp_entry.sv'.
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/pmp.sv'.
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../sva/pmp_mpri_sva.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/pmp_mpri_sva.sv'.
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] Copy '/workspace/fv/checks/../wrappers/pmp_mpri_fv.sv' to '/workspace/results/probe/probe_pmp_mpri_cover/src/pmp_mpri_fv.sv'.
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: smtbmc boolector
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] base: starting process "cd /workspace/results/probe/probe_pmp_mpri_cover/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] base: Top level design units:
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] base: pmp_mpri_fv
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] base: Build succeeded: 0 errors, 0 warnings
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] base: finished (returncode=0)
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] prep: starting process "cd /workspace/results/probe/probe_pmp_mpri_cover/model; yosys -ql design_prep.log design_prep.ys"
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] prep: finished (returncode=0)
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] smt2: starting process "cd /workspace/results/probe/probe_pmp_mpri_cover/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] smt2: finished (returncode=0)
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: starting process "cd /workspace/results/probe/probe_pmp_mpri_cover; yosys-smtbmc -s boolector --presat --unroll -c --noprogress -t 3  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2"
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Solver: boolector
+SBY  2:02:30 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Reached cover statement in step 0 at pmp_mpri_fv: chk.c_m_first_unlocked
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace0.smtc
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace0.yw
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Reached cover statement in step 0 at pmp_mpri_fv: chk.c_overrule_shape
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace1.vcd
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace1_tb.v
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace1.smtc
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace1.yw
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: ##   0:00:00  Status: passed
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: finished (returncode=0)
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] engine_0: Status returned by engine: pass
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] summary: engine_0 (smtbmc boolector) returned pass
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] summary: cover trace: /workspace/results/probe/probe_pmp_mpri_cover/engine_0/trace0.vcd
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] summary:   reached cover statement pmp_mpri_fv.\chk.c_m_first_unlocked at pmp_mpri_sva.sv:48.5-48.98
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] summary: cover trace: /workspace/results/probe/probe_pmp_mpri_cover/engine_0/trace1.vcd
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] summary:   reached cover statement pmp_mpri_fv.\chk.c_overrule_shape at pmp_mpri_sva.sv:49.5-51.95
+SBY  2:02:31 [/workspace/results/probe/probe_pmp_mpri_cover] DONE (PASS, rc=0)

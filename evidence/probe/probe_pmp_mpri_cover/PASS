@@ -3,7 +3,7 @@ Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
 engine_0 (smtbmc boolector) returned pass
 cover trace: engine_0/trace0.vcd
 cover trace: engine_0/trace0.yw
-  reached cover statement pmp_mpri_fv.\chk.c_m_first_unlocked at pmp_mpri_sva.sv:55.5-55.98
+  reached cover statement pmp_mpri_fv.\chk.c_m_first_unlocked at pmp_mpri_sva.sv:48.5-48.98
 cover trace: engine_0/trace1.vcd
 cover trace: engine_0/trace1.yw
-  reached cover statement pmp_mpri_fv.\chk.c_overrule_shape at pmp_mpri_sva.sv:57.5-59.95
+  reached cover statement pmp_mpri_fv.\chk.c_overrule_shape at pmp_mpri_sva.sv:49.5-51.95

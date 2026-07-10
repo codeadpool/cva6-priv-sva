@@ -1,6 +1,6 @@
-Elapsed clock time [H:MM:SS (secs)]: 0:00:00 (0)
-Elapsed process time [H:MM:SS (secs)]: 0:00:00 (0)
+Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
 engine_0 (smtbmc boolector) returned FAIL
 counterexample trace: engine_0/trace.vcd
 counterexample trace: engine_0/trace.yw
-  failed assertion pmp_mpri_fv.\chk.a_m_spec_priority at pmp_mpri_sva.sv:50.5-51.92
+  failed assertion pmp_mpri_fv.\chk.a_m_spec_priority at pmp_mpri_sva.sv:43.5-44.92

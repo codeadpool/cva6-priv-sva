@@ -3,7 +3,7 @@ Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
 engine_0 (smtbmc boolector) returned pass
 cover trace: engine_0/trace0.vcd
 cover trace: engine_0/trace0.yw
-  reached cover statement ptw_fv.\dut.i_ptw_pmp_sva.c_tlb_fill_seen at ptw_pmp_sva.sv:37.7-37.43 step 4
+  reached cover statement ptw_fv.\dut.i_ptw_pmp_sva.c_tlb_fill_seen at ptw_pmp_sva.sv:32.7-32.43 step 4
 cover trace: engine_0/trace1.vcd
 cover trace: engine_0/trace1.yw
-  reached cover statement ptw_fv.\dut.i_ptw_pmp_sva.c_acc_err_seen at ptw_pmp_sva.sv:36.7-36.46 step 5
+  reached cover statement ptw_fv.\dut.i_ptw_pmp_sva.c_acc_err_seen at ptw_pmp_sva.sv:31.7-31.46 step 5
