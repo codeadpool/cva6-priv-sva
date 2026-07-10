@@ -22,7 +22,7 @@ fv/
   sva/<m>_sva.sv       checkers
   sva/<m>_bind.sv
   wrappers/<m>_fv.sv   formal tops
-  checks/<cat>.sby     sby scripts - tasks: bmc / prove / cover
+  checks/<cat>.sby     sby scripts (tasks: bmc / prove / cover)
 docs/
 Makefile               verify-<cat>, verify-all, results, versions, clean
 Dockerfile             pins one OSS-CAD-Suite release (yosys + sby + solvers + slang)
