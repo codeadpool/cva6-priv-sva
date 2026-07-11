@@ -1,7 +1,7 @@
 # Findings
 
 CVA6 v5.3.0 (`2ef1c1b`, `cv64a6_imafdc_sv39`) against the RISC-V privileged
-spec v1.13. Two unreported nonconformances (F5, filed upstream; F8), two known
+spec v1.13. Two unreported nonconformances (F5 and F8, both filed upstream), two known
 upstream (F6, F7), and two design characterizations (F1, F2). Each has a witness
 under `evidence/`: the F5-F8 probes fail in bmc by design, the base properties
 pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.

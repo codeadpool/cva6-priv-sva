@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  tier1:
+  verify:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -15,12 +15,29 @@ jobs:
       - uses: YosysHQ/setup-oss-cad-suite@v3
         with:
           osscadsuite-version: '2026-04-07'
-      - run: make verify-pmp
-      - run: make results
-      - name: assert all tier-1 tasks passed
+      - run: make versions
+      # The four expected-CEX probes fail bmc by design, so keep going and gate on
+      # the explicit verdict check below rather than the aggregate exit code
+      - run: make -k verify-all || true
+      - run: make results || true
+      - name: assert expected verdicts
         run: |
-          for base in pmp_entry pmp_match; do
-            for task in bmc prove cover; do
-              test -f "results/pmp/${base}_${task}/PASS"
-            done
+          set -e
+          pass() { test -f "results/$1/PASS" || { echo "MISSING PASS: $1"; exit 1; }; }
+          fail() { test -f "results/$1/FAIL" || { echo "PROBE NOT FAILING: $1"; exit 1; }; }
+          # proven checks: every task passes bmc/prove/cover
+          for t in bmc prove cover; do
+            pass "pmp/pmp_entry_$t"
+            pass "pmp/pmp_match_$t"
+            pass "pmp/pmp_ref_$t"
+            pass "csr/csr_warl_$t"
+            pass "trap/trap_priv_$t"
+            pass "vm/vm_$t"
           done
+          # expected-CEX probes (the findings): bmc fails, cover reaches
+          for p in mstatus/mstatus_f5 mstatus/mstatus_mprv \
+                   probe/probe_pmp_mpri probe/probe_priv_dret; do
+            fail "${p}_bmc"
+            pass "${p}_cover"
+          done
+          echo "all verdicts as expected"

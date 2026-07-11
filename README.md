@@ -5,14 +5,15 @@ Open-source formal verification (SystemVerilog Assertions, proven with
 trap delegation, `mret`/`sret`, mstatus stacking, and the MMU↔PMP interaction
 as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule).
 
-> Status (2026-07-06): base properties proven (bmc + induction + cover, every
+> Status (2026-07-10): base properties proven (bmc + induction + cover, every
 > antecedent cover-witnessed) across PMP incl. a multi-entry reference model,
 > PMP-CSR WARL, trap delegation/return, mstatus stacking, privilege invariants,
-> and the MMU-PMP interaction. Four probes fail by design, each a
-> machine-checked witness of a spec nonconformance: F5 (interrupt mtval, filed
-> upstream), F6 (MPRV-on-xret, upstream #3294), F7 (PMP M-mode priority,
-> upstream #3177), F8 (unlegalized `dcsr.prv` lets `dret` set priv_lvl to an
-> unimplemented encoding). Findings: `docs/FINDINGS.md`; full table:
+> and the MMU-PMP interaction. Four probes fail by design, each a machine-checked
+> witness of a spec nonconformance. Two are previously unreported and filed by us:
+> F5 (interrupt mtval, #3379) and F8 (unlegalized `dcsr.prv` lets `dret` set
+> priv_lvl to an unimplemented encoding, #3383). Two independently rediscover
+> known-open upstream issues: F6 (MPRV-on-xret, #3294) and F7 (PMP M-mode
+> priority, #3177). Findings: `docs/FINDINGS.md`; full table:
 > `docs/PROPERTY_PLAN.md`.
 
 ## Layout
