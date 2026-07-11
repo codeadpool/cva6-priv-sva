@@ -1,5 +1,7 @@
 notes/
 results/
+/cva6-fork/
+*.snapshot.txt
 # solver
 *.vcd
 *.fst

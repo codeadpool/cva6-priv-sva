@@ -14,7 +14,7 @@ jobs:
           submodules: true
       - uses: YosysHQ/setup-oss-cad-suite@v3
         with:
-          osscadsuite-version: '2026-04-07'
+          version: '2026-04-07'
       - run: make versions
       # The four expected-CEX probes fail bmc by design, so keep going and gate on
       # the explicit verdict check below rather than the aggregate exit code
