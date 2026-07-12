@@ -9,9 +9,10 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 > antecedent cover-witnessed) across PMP incl. a multi-entry reference model,
 > PMP-CSR WARL, trap delegation/return, mstatus stacking, privilege invariants,
 > and the MMU-PMP interaction. Four probes fail by design, each a machine-checked
-> witness of a spec nonconformance. Two are previously unreported and filed by us:
-> F5 (interrupt mtval, #3379) and F8 (unlegalized `dcsr.prv` lets `dret` set
-> priv_lvl to an unimplemented encoding, #3383). Two independently rediscover
+> witness of a spec nonconformance. Two are previously unreported, reported by us,
+> and fixed upstream via pull requests: F5 (interrupt mtval, #3379, PR #3386) and
+> F8 (unlegalized `dcsr.prv` lets `dret` set priv_lvl to an unimplemented
+> encoding, #3383, PR #3387). Two independently rediscover
 > known-open upstream issues: F6 (MPRV-on-xret, #3294) and F7 (PMP M-mode
 > priority, #3177). Findings: `docs/FINDINGS.md`; full table:
 > `docs/PROPERTY_PLAN.md`.

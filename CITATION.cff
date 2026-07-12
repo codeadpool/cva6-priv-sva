@@ -4,7 +4,8 @@ title: "cva6-priv-sva: open-source formal verification of the CVA6 privileged ar
 type: software
 authors:
   - given-names: Dharani Suryachandra
-    email: dharani.soorya1@gmail.com
+    family-names: Malleswarapu
+    email: dharanisuryachandra@gmail.com
     orcid: "https://orcid.org/0009-0005-2063-7126"
 repository-code: "https://github.com/codeadpool/cva6-priv-sva"
 license: Apache-2.0

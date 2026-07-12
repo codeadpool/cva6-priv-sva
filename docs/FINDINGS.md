@@ -1,14 +1,16 @@
 # Findings
 
 CVA6 v5.3.0 (`2ef1c1b`, `cv64a6_imafdc_sv39`) against the RISC-V privileged
-spec v1.13. Two unreported nonconformances (F5 and F8, both filed upstream), two known
+spec v1.13. Two unreported nonconformances (F5 and F8, both reported and fixed
+upstream via pull requests), two known
 upstream (F6, F7), and two design characterizations (F1, F2). Each has a witness
 under `evidence/`: the F5-F8 probes fail in bmc by design, the base properties
 pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
 
 ## F5: interrupt traps leave the instruction encoding in mtval/stval
 
-Filed upstream 2026-07-06 as openhwgroup/cva6 #3379; both defects live on master.
+Reported 2026-07-06 as openhwgroup/cva6 #3379, fixed in PR #3386; both defects
+live on master.
 
 **F5a, wrong bit-select.** `csr_regfile.sv:1919` gates mtval zeroing on
 `ex_i.cause[GPLEN-1]` (bit 40); every sibling site uses the interrupt flag
@@ -59,7 +61,8 @@ routing as if below M. This is a WARL/robustness conformance gap (the same class
 as #1984/#1985 for other dcsr fields), not an escalation. Debug spec v1.0 makes
 prv WARL over the supported modes.
 Adjacent #1984/#1985 cover other dcsr fields, not prv or the post-dret
-corruption (checked 2026-07-05). Filed upstream 2026-07-07 as openhwgroup/cva6 #3383.
+corruption (checked 2026-07-05). Reported 2026-07-07 as openhwgroup/cva6 #3383,
+fixed in PR #3387 (which also closes #1984 and #1985).
 Witness: `priv_dret_sva.sv::a_priv_legal`. The CEX enters debug mode, writes
 dcsr prv=2'b10, executes dret, and `priv_lvl_q` reads back 2'b10; cover
 `c_dcsr_prv_illegal` reachable.
