@@ -1,4 +1,7 @@
-// Priv spec v1.13 3.7.1: the lowest-numbered PMP entry that matches decides;
+// F7 (PMP-9) probe. Priv spec v1.13 3.7.1: th lowest-numbered matching PMP
+// entry decides, and its lock bit then governs M-mode enforcement. CVA6 filters
+// non-locked entries before selecting the match, so a later locked entry can
+// overrule an earlier unlocked one. Expected CEX, corroborates upstream #3177.
 module pmp_mpri_sva #(
     parameter config_pkg::cva6_cfg_t CVA6Cfg = config_pkg::cva6_cfg_empty
 ) (
@@ -39,12 +42,15 @@ module pmp_mpri_sva #(
   end
 
   always_comb begin
-    // spec: M + lowest match non-locked => access succeeds
+    // F7 (PMP-9): in M-mode, if the lowest matching entry is unlocked the access
+    // succeeds regardless of any later locked entry
     a_m_spec_priority :
     assert (!(priv_lvl_i == riscv::PRIV_LVL_M && hit_any && first_is_unlocked) || allow_i);
   end
 
   always_comb begin
+    // antecedent reachability, and exact overrule shape (entry0 unlocked
+    // match, entry1 locked and would deny) so the CEX is solid
     c_m_first_unlocked : cover (priv_lvl_i == riscv::PRIV_LVL_M && hit_any && first_is_unlocked);
     c_overrule_shape :
     cover (priv_lvl_i == riscv::PRIV_LVL_M && match[0] && !conf_i[0].locked && match[1]

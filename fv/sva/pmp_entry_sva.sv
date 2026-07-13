@@ -1,4 +1,4 @@
-// PMP single-entry match (TOR/NAPOT/OFF/NA4) - checker for pmp_entry.sv.
+// PMP single-entry match (TOR/NAPOT/OFF/NA4), checker for pmp_entry.sv.
 module pmp_entry_sva #(
     parameter config_pkg::cva6_cfg_t CVA6Cfg = config_pkg::cva6_cfg_empty
 ) (
@@ -23,20 +23,27 @@ module pmp_entry_sva #(
   assign napot_base = ({2'b00, conf_addr_i} << 2) & napot_mask;
 
   always_comb begin
+    // PMP-7: OFF mode never matches
     a_off_never_match : assert (!(conf_addr_mode_i == riscv::OFF) || !match_o);
+    // PMP-7: a stored NA4 never matches (NA4 is not selectable at G=1)
     a_na4_never_match : assert (!(conf_addr_mode_i == riscv::NA4) || !match_o);
+    // PMP-5: TOR matches exactly when prev*4 <= addr < this*4
     a_tor_exact :
     assert (!(conf_addr_mode_i == riscv::TOR) ||
         (match_o == ((addr_i >= tor_lo) && (addr_i < tor_hi))));
+    // PMP-6: NAPOT matches exactly when (addr & mask) == base
     a_napot_exact :
     assert (!(conf_addr_mode_i == riscv::NAPOT) ||
         (match_o == ((addr_i & napot_mask) == napot_base)));
+    // PMP-5: the TOR lower bound is inclusive
     a_tor_lo_inclusive :
     assert (!(conf_addr_mode_i == riscv::TOR && (tor_lo < tor_hi) && addr_i == tor_lo) || match_o);
+    // PMP-5: the TOR upper bound is exclusive
     a_tor_hi_exclusive : assert (!(conf_addr_mode_i == riscv::TOR && addr_i == tor_hi) || !match_o);
   end
 
   always_comb begin
+    // antecedent reachability, so the match asserts above are not vacuous
     c_tor_match : cover (conf_addr_mode_i == riscv::TOR && match_o);
     c_napot_match : cover (conf_addr_mode_i == riscv::NAPOT && match_o);
     c_off_seen : cover (conf_addr_mode_i == riscv::OFF);

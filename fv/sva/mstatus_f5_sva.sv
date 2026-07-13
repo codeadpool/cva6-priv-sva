@@ -20,21 +20,26 @@ module mstatus_f5_sva #(
     if (!rst_ni) past_valid <= 1'b0;
     else past_valid <= 1'b1;
 
-  // architectural trap taken (csr_regfile.sv:1814: a debug request is not a trap)
+  // arch.. trap taken (csr_regfile.sv:1814: a debug request is not a trap)
   logic trap_taken;
   assign trap_taken = ex_valid && !debug_mode && (!CVA6Cfg.DebugEn || ex_cause != riscv::DEBUG_REQUEST);
 
-  logic ante_irqM;
-  assign ante_irqM = trap_taken && is_irq && !mret_i && !sret_i && (trap_to_priv == riscv::PRIV_LVL_M);
+  logic ante_irq_m;
+  assign ante_irq_m = trap_taken && is_irq && !mret_i && !sret_i && (trap_to_priv == riscv::PRIV_LVL_M);
 
-  logic ante_irqM_q;
+  logic ante_irq_m_q;
   always_ff @(posedge clk_i)
-    if (!rst_ni) ante_irqM_q <= 1'b0;
-    else ante_irqM_q <= ante_irqM;
+    if (!rst_ni) ante_irq_m_q <= 1'b0;
+    else ante_irq_m_q <= ante_irq_m;
 
   always_ff @(posedge clk_i)
     if (rst_ni && past_valid)
-      a_irq_mtval_zero : assert (!ante_irqM_q || (mtval == '0));
+      // F5 (MST-6) probe: after an interrupt trap to M, mtval must read 0,
+      // interrupts are "other traps", which the spec requires to zero mtval.
+      // expected CEX on the golden RTL, proven after the fix in PR #3386.
+      a_irq_mtval_zero :
+      assert (!ante_irq_m_q || (mtval == '0));
 
-  always_ff @(posedge clk_i) if (rst_ni) c_irqM_tvalnz : cover (ante_irqM && ex_tval != '0);
+  // antecedent reachability: an interrupt trap to M with nonzero ex.tval
+  always_ff @(posedge clk_i) if (rst_ni) c_irq_m_tvalnz : cover (ante_irq_m && ex_tval != '0);
 endmodule

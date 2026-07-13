@@ -114,7 +114,7 @@ $var wire 64 n104 hart_id_i $end
 $var wire 44 n105 hgatp_ppn_o $end
 $var wire 1 n106 hu_o $end
 $scope module i_mstatus_mprv_sva $end
-$var wire 1 n107 ante_mretU $end
+$var wire 1 n107 ante_mret_u $end
 $var wire 1 n108 ante_sret $end
 $var wire 1 n109 clk_i $end
 $var wire 1 n110 debug_mode $end

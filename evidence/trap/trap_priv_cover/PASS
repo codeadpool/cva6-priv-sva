@@ -3,32 +3,32 @@ Elapsed process time [H:MM:SS (secs)]: 0:00:06 (6)
 engine_0 (smtbmc boolector) returned pass
 cover trace: engine_0/trace0.vcd
 cover trace: engine_0/trace0.yw
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_mtrapM_seen at csr_priv_sva.sv:191.7-191.43 step 2
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_trap6_seen at csr_priv_sva.sv:193.7-193.41 step 2
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_trapM_from_m at csr_priv_sva.sv:192.7-192.88 step 2
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_mtrap_m_seen at csr_priv_sva.sv:198.7-198.45 step 2
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_trap6_seen at csr_priv_sva.sv:200.7-200.41 step 2
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_trap_m_from_m at csr_priv_sva.sv:199.7-199.89 step 2
 cover trace: engine_0/trace1.vcd
 cover trace: engine_0/trace1.yw
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_mret_seen at csr_priv_sva.sv:190.7-190.39 step 2
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_mret_seen at csr_priv_sva.sv:197.7-197.39 step 2
 cover trace: engine_0/trace2.vcd
 cover trace: engine_0/trace2.yw
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_dret_seen at csr_priv_sva.sv:194.7-194.36 step 2
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_dret_seen at csr_priv_sva.sv:201.7-201.36 step 2
 cover trace: engine_0/trace3.vcd
 cover trace: engine_0/trace3.yw
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_sret_seen at csr_priv_sva.sv:201.9-201.41 step 2
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_sret_seen at csr_priv_sva.sv:208.9-208.41 step 2
 cover trace: engine_0/trace4.vcd
 cover trace: engine_0/trace4.yw
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_priv_u_seen at csr_priv_sva.sv:195.7-195.61 step 3
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_irq_no_deleg_to_m_seen at csr_priv_sva.sv:210.9-211.103 step 3
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.c_priv_u_seen at csr_priv_sva.sv:202.7-202.61 step 3
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_irq_no_deleg_to_m_seen at csr_priv_sva.sv:217.9-218.103 step 3
 cover trace: engine_0/trace5.vcd
 cover trace: engine_0/trace5.yw
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_no_deleg_to_m_seen at csr_priv_sva.sv:206.9-207.104 step 3
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_no_deleg_to_m_seen at csr_priv_sva.sv:213.9-214.104 step 3
 cover trace: engine_0/trace6.vcd
 cover trace: engine_0/trace6.yw
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_deleg_to_s_seen at csr_priv_sva.sv:204.9-205.103 step 4
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_strapS_seen at csr_priv_sva.sv:202.9-202.45 step 4
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_deleg_to_s_seen at csr_priv_sva.sv:211.9-212.103 step 4
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_strap_s_seen at csr_priv_sva.sv:209.9-209.47 step 4
 cover trace: engine_0/trace7.vcd
 cover trace: engine_0/trace7.yw
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_irq_deleg_to_s_seen at csr_priv_sva.sv:208.9-209.102 step 4
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_irq_deleg_to_s_seen at csr_priv_sva.sv:215.9-216.102 step 4
 cover trace: engine_0/trace8.vcd
 cover trace: engine_0/trace8.yw
-  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_priv_s_seen at csr_priv_sva.sv:203.9-203.63 step 4
+  reached cover statement csr_fv.\dut.i_csr_priv_sva.gen_scov.c_priv_s_seen at csr_priv_sva.sv:210.9-210.63 step 4

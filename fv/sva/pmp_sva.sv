@@ -1,4 +1,4 @@
-// PMP priority/permission default rules - checker for pmp.sv.
+// PMP priority/permission default rules, checker for pmp.sv.
 module pmp_sva #(
     parameter config_pkg::cva6_cfg_t CVA6Cfg = config_pkg::cva6_cfg_empty
 ) (
@@ -20,15 +20,19 @@ module pmp_sva #(
   end
 
   always_comb begin
+    // PMP-1: M-mode with no matching entry allows the access
     a_pmp1_m_default_allow : assert (!(all_off && priv_lvl_i == riscv::PRIV_LVL_M) || allow_i);
+    // PMP-2: S/U with no matching entry denies the access
     a_pmp2_su_default_deny :
     assert (!(all_off && (N > 0) && priv_lvl_i != riscv::PRIV_LVL_M) || !allow_i);
   end
 
   always_comb begin
+    // antecedent reachability, so the default-rule asserts are not vacuous
     c_m_allow : cover (all_off && priv_lvl_i == riscv::PRIV_LVL_M && allow_i);
     c_su_deny : cover (all_off && (N > 0) && priv_lvl_i != riscv::PRIV_LVL_M && !allow_i);
   end
 
-  // TODO: PMP-3 first-match priority, PMP-4 lock-applies-to-M, PMP-8 RWX subset (need internal match[])
+  // PMP-3 first-match priority, PMP-4 lock-applies-in-M, and PMP-8 RWX subset
+  // are proven by the reference-model equivalence in pmp_ref_sva.sv
 endmodule

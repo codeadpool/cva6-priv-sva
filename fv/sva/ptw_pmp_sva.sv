@@ -1,4 +1,4 @@
-// MMU<->PMP: page-walker honours PMP on each PTE fetch - checker for cva6_ptw.
+// MMU<->PMP: page-walker honours PMP on each PTE fetch, checker for cva6_ptw.
 module ptw_pmp_sva (
     input logic clk_i,
     input logic rst_ni,
@@ -17,17 +17,23 @@ module ptw_pmp_sva (
 
   always_ff @(posedge clk_i)
     if (rst_ni) begin
+      // VM-3: a PMP access exception never fills the TLB
       a_acc_exc_no_fill : assert (!acc_exc || !tlb_valid);
+      // VM-1: the access-error state raises ptw_access_exception
       a_acc_err_raises : assert (!in_access_err || acc_exc);
+      // VM-3: a PMP-denied PTE fetch never fills the TLB
       a_deny_no_fill : assert (allow_access || !tlb_valid);
     end
 
   always_ff @(posedge clk_i)
     if (rst_ni && past_valid)
-      a_acc_err_from_deny : assert (!in_access_err || !allow_access_q);
+      // VM-1: the access-error state is only reached after a PMP deny
+      a_acc_err_from_deny :
+      assert (!in_access_err || !allow_access_q);
 
   always_ff @(posedge clk_i)
     if (rst_ni) begin
+      // reachability, so the VM asserts are not vacuous
       c_acc_err_seen : cover (in_access_err);
       c_tlb_fill_seen : cover (tlb_valid);
     end

@@ -115,9 +115,9 @@ $var wire 44 n105 hgatp_ppn_o $end
 $var wire 1 n106 hu_o $end
 $scope module i_csr_priv_sva $end
 $var wire 1 n107 ante_mret $end
-$var wire 1 n108 ante_mtrapM $end
+$var wire 1 n108 ante_mtrap_m $end
 $var wire 1 n109 ante_sret $end
-$var wire 1 n110 ante_strapS $end
+$var wire 1 n110 ante_strap_s $end
 $var wire 1 n111 ante_trap6 $end
 $var wire 1 n112 clk_i $end
 $var wire 1 n113 debug_mode $end

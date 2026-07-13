@@ -26,7 +26,7 @@ and `csr_regfile` writes it into mtval/stval.
 Spec: "For other traps, mtval is set to zero" (Machine-Level ISA, mtval; stval
 identical); interrupts are "other traps". #898/#448 + PR #3226 covered only
 ecall/ebreak; interrupts and F5a survived.
-Witness: `mstatus_f5_sva.sv::a_irq_mtval_zero`, cover `c_irqM_tvalnz` reachable.
+Witness: `mstatus_f5_sva.sv::a_irq_mtval_zero`, cover `c_irq_m_tvalnz` reachable.
 
 ## F6: xRET below M does not clear mstatus.MPRV (RVH=0)
 

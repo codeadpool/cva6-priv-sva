@@ -1,4 +1,4 @@
-// PMP arbitration reference model - checker for pmp.sv (PMP-3/4/8, GAP-1).
+// PMP arbitration reference model, checker for pmp.sv (PMP-3/4/8, GAP-1).
 module pmp_ref_sva #(
     parameter config_pkg::cva6_cfg_t CVA6Cfg = config_pkg::cva6_cfg_empty
 ) (
@@ -27,7 +27,7 @@ module pmp_ref_sva #(
     );
   end
 
-  // applicable: participates in arbitration for the current mode
+  // applicable:; participates in arbitration for the current mode
   logic [N-1:0] applicable;
   always_comb
     for (int i = 0; i < N; i++)
@@ -46,17 +46,21 @@ module pmp_ref_sva #(
   end
 
   always_comb begin
-    // full output equivalence: PMP-3 + PMP8 in S/U, PMP-4 + PMP-8 in M
+    // PMP-3/4/8: DUT allow equals the first-applicable reference model.
+    // one equivalence covers priority, lock-applies-in-M, and the RWX subset.
     a_ref_equiv : assert (allow_i == ref_allow);
+    // GAP-1: in M-mode a non-matching access is always allowed (the invariant
+    // Smepmp MML would change)
     a_gap1_m_bypass : assert (!(priv_lvl_i == riscv::PRIV_LVL_M && !hit) || allow_i);
   end
 
   always_comb begin
+    // reachability of each arbitration outcome, so the equivalence is not vacuous
     c_su_allow : cover (priv_lvl_i != riscv::PRIV_LVL_M && hit && allow_i);
     c_su_perm_deny : cover (priv_lvl_i != riscv::PRIV_LVL_M && hit && !allow_i);
     c_m_locked_deny : cover (priv_lvl_i == riscv::PRIV_LVL_M && hit && !allow_i);
     c_m_no_lock_allow : cover (priv_lvl_i == riscv::PRIV_LVL_M && !hit && allow_i);
-    // first-match priority visible: entry1 would deny, entry0 wins
+    // first-match priority is visible: entry1 would deny, entry0 wins
     c_shadowed_entry :
     cover (applicable[0] && applicable[1]
            && ((access_type_i & conf_i[0].access_type) == access_type_i)
