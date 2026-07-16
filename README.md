@@ -10,7 +10,8 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 > PMP-CSR WARL, trap delegation/return, mstatus stacking, privilege invariants,
 > and the MMU-PMP interaction. Four probes fail by design, each a machine-checked
 > witness of a spec nonconformance. Two are previously unreported, reported by us,
-> and fixed upstream via pull requests: F5 (interrupt mtval, #3379, PR #3386) and
+> with fixes submitted upstream as pull requests (open, under review): F5
+> (interrupt mtval, #3379, PR #3386) and
 > F8 (unlegalized `dcsr.prv` lets `dret` set priv_lvl to an unimplemented
 > encoding, #3383, PR #3387). Two independently rediscover
 > known-open upstream issues: F6 (MPRV-on-xret, #3294) and F7 (PMP M-mode
