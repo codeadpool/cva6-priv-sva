@@ -16,6 +16,10 @@ jobs:
         with:
           version: '2026-04-07'
       - run: make versions
+      - name: no assumes (soundness gate)
+        run: |
+          if grep -rnw assume fv/; then echo "unexpected assume in fv/ (free inputs only)"; exit 1; fi
+          echo "no assumes in fv/"
       # The four expected-CEX probes fail bmc by design, so keep going and gate on
       # the explicit verdict check below rather than the aggregate exit code
       - run: make -k verify-all || true
@@ -41,3 +45,17 @@ jobs:
             pass "${p}_cover"
           done
           echo "all verdicts as expected"
+
+  # Mutation testing (~26 rebuilds), on demand only
+  mutation:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: YosysHQ/setup-oss-cad-suite@v3
+        with:
+          version: '2026-04-07'
+      - run: bash fv/validation/mutation_test.sh

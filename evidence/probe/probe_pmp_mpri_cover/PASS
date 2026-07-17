@@ -6,4 +6,7 @@ cover trace: engine_0/trace0.yw
   reached cover statement pmp_mpri_fv.\chk.c_m_first_unlocked at pmp_mpri_sva.sv:54.5-54.98
 cover trace: engine_0/trace1.vcd
 cover trace: engine_0/trace1.yw
+  reached cover statement pmp_mpri_fv.\chk.c_f7_witness at pmp_mpri_sva.sv:60.5-61.89
+cover trace: engine_0/trace2.vcd
+cover trace: engine_0/trace2.yw
   reached cover statement pmp_mpri_fv.\chk.c_overrule_shape at pmp_mpri_sva.sv:55.5-57.95

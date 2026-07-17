@@ -36,5 +36,8 @@ module priv_dret_sva #(
       // illegal dcsr.prv precondition is reachable on the golden RTL,
       // after the PR #3387 fix this becomes unreachable, which confirms the fix.
       c_dcsr_prv_illegal : cover (!prv_legal);
+      // witness signature: priv_lvl actually reaches 2'b10 (PRIV_LVL_HS), the
+      // exact unimplemented encoding. Pins the probe to this defect.
+      c_f8_witness : cover (!priv_legal && priv_lvl == riscv::PRIV_LVL_HS);
     end
 endmodule

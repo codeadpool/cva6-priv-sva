@@ -18,6 +18,19 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 > priority, #3177). Findings: `docs/FINDINGS.md`; full table:
 > `docs/PROPERTY_PLAN.md`.
 
+## Validation
+
+The suite is validated:
+
+- **Mutation testing.** 26 targeted RTL mutations, one per property's logic; all
+  are killed (property fails when the behavior it checks is broken).
+  Reproducible: `fv/validation/mutation_test.sh`.
+- **Probe witness signatures.** Each of the four expected-CEX probes covers its
+  exact violation state, so a probe that stops failing for the intended reason is
+  caught.
+- **No assumptions.** `fv/` contains no `assume`, so the proven properties hold
+  under unconstrained inputs (CI enforces this).
+
 ## Layout
 ```
 cva6/                  GOLDEN upstream CVA6 v5.3.0 @ 2ef1c1b (submodule, never edited)

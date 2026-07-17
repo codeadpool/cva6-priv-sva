@@ -14,3 +14,5 @@ __pycache__/
 *~
 .nvim/
 
+/cva6.mut/
+/cva6.golden/

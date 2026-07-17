@@ -42,4 +42,12 @@ module mstatus_f5_sva #(
 
   // antecedent reachability: an interrupt trap to M with nonzero ex.tval
   always_ff @(posedge clk_i) if (rst_ni) c_irq_m_tvalnz : cover (ante_irq_m && ex_tval != '0);
+
+  // witness signature: the exact violation state is reachable (registered
+  // interrupt-to-M antecedent with mtval actually nonzero). Pins the probe to
+  // this defect; if RTL changes so the assert fails for another reason,
+  // this cover goes unreachable and flags it.
+  always_ff @(posedge clk_i)
+    if (rst_ni && past_valid)
+      c_f5_witness : cover (ante_irq_m_q && mtval != '0);
 endmodule

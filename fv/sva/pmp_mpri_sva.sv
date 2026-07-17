@@ -55,5 +55,9 @@ module pmp_mpri_sva #(
     c_overrule_shape :
     cover (priv_lvl_i == riscv::PRIV_LVL_M && match[0] && !conf_i[0].locked && match[1]
            && conf_i[1].locked && ((access_type_i & conf_i[1].access_type) != access_type_i));
+    // witness signature: the exact violation: M-mode, lowest match unlocked,
+    // yet the access is denied; is reachable. Pins the probe to this defect.
+    c_f7_witness :
+    cover (priv_lvl_i == riscv::PRIV_LVL_M && hit_any && first_is_unlocked && !allow_i);
   end
 endmodule

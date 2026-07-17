@@ -46,4 +46,10 @@ module mstatus_mprv_sva #(
       c_mret_u_mprv1 : cover (ante_mret_u);
       c_sret_mprv1 : cover (ante_sret);
     end
+
+  // witness signature: the exact violation is reachable (registered mret-below-M
+  // antecedent with MPRV still set). Pins the probe to this defect.
+  always_ff @(posedge clk_i)
+    if (rst_ni && past_valid)
+      c_f6_witness : cover (ante_mret_u_q && mst_mprv);
 endmodule

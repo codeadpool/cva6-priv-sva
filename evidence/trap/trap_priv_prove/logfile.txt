@@ -1,212 +1,212 @@
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] Removing directory '/workspace/results/trap/trap_priv_prove'.
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/results/trap/trap_priv_prove/src/config_pkg.sv'.
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/trap/trap_priv_prove/src/cv64a6_imafdc_sv39_config_pkg.sv'.
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/results/trap/trap_priv_prove/src/riscv_pkg.sv'.
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/results/trap/trap_priv_prove/src/build_config_pkg.sv'.
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/trap/trap_priv_prove/src/cf_math_pkg.sv'.
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/include/ariane_pkg.sv' to '/workspace/results/trap/trap_priv_prove/src/ariane_pkg.sv'.
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/include/rvfi_types.svh' to '/workspace/results/trap/trap_priv_prove/src/rvfi_types.svh'.
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/csr_regfile.sv' to '/workspace/results/trap/trap_priv_prove/src/csr_regfile.sv'.
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../sva/csr_priv_sva.sv' to '/workspace/results/trap/trap_priv_prove/src/csr_priv_sva.sv'.
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../wrappers/csr_fv.sv' to '/workspace/results/trap/trap_priv_prove/src/csr_fv.sv'.
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../sva/csr_priv_bind.sv' to '/workspace/results/trap/trap_priv_prove/src/csr_priv_bind.sv'.
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] engine_0: smtbmc boolector
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: starting process "cd /workspace/results/trap/trap_priv_prove/src; yosys -ql ../model/design.log ../model/design.ys"
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'flush_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'halt_csr_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'csr_rdata_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'csr_exception_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'epc_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'eret_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'trap_vector_base_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'priv_lvl_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'v_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'fs_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vfs_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'fflags_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'frm_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'fprec_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vs_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'irq_ctrl_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'en_translation_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'en_g_translation_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'en_ld_st_translation_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'en_ld_st_g_translation_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'ld_st_priv_lvl_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'ld_st_v_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'sum_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vs_sum_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'mxr_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vmxr_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'satp_ppn_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'asid_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vsatp_ppn_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vs_asid_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'hgatp_ppn_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vmid_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'set_debug_pc_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'tvm_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'tw_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vtw_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'tsr_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'hu_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'debug_mode_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'single_step_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'icache_en_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'dcache_en_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'acc_cons_en_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'perf_addr_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'perf_data_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'perf_we_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'pmpcfg_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'pmpaddr_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'mcountinhibit_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'rvfi_csr_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'jvt_o' has no connection [-Wunconnected-output-port]
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ) dut (
-SBY  2:04:37 [/workspace/results/trap/trap_priv_prove] base: ^
-SBY  2:04:39 [/workspace/results/trap/trap_priv_prove] base: Top level design units:
-SBY  2:04:39 [/workspace/results/trap/trap_priv_prove] base: csr_fv
-SBY  2:04:39 [/workspace/results/trap/trap_priv_prove] base: Build succeeded: 0 errors, 51 warnings
-SBY  2:04:39 [/workspace/results/trap/trap_priv_prove] base: finished (returncode=0)
-SBY  2:04:39 [/workspace/results/trap/trap_priv_prove] prep: starting process "cd /workspace/results/trap/trap_priv_prove/model; yosys -ql design_prep.log design_prep.ys"
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] prep: finished (returncode=0)
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] smt2: starting process "cd /workspace/results/trap/trap_priv_prove/model; yosys -ql design_smt2.log design_smt2.ys"
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] smt2: finished (returncode=0)
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: starting process "cd /workspace/results/trap/trap_priv_prove; yosys-smtbmc -s boolector --presat --unroll --noprogress -t 8  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2"
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.induction: starting process "cd /workspace/results/trap/trap_priv_prove; yosys-smtbmc -s boolector --presat --unroll -i --noprogress -t 8  --append 0 --dump-vcd engine_0/trace_induct.vcd --dump-yw engine_0/trace_induct.yw --dump-vlogtb engine_0/trace_induct_tb.v --dump-smtc engine_0/trace_induct.smtc model/design_smt2.smt2"
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Solver: boolector
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.induction: ##   0:00:00  Solver: boolector
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.induction: ##   0:00:00  Trying induction in step 8..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 0..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 0..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.induction: ##   0:00:00  Trying induction in step 7..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 1..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 1..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 2..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 2..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.induction: ##   0:00:00  Trying induction in step 6..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 3..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 3..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 4..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 4..
-SBY  2:04:40 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 5..
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 5..
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] engine_0.induction: ##   0:00:00  Temporal induction successful.
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] engine_0.induction: ##   0:00:00  Status: passed
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] engine_0.induction: finished (returncode=0)
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] engine_0.induction: Status returned by engine for induction: pass
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 6..
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 6..
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 7..
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 7..
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:01  Status: passed
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: finished (returncode=0)
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: Status returned by engine for basecase: pass
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:04 (4)
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:05 (5)
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] summary: engine_0 (smtbmc boolector) returned pass for basecase
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] summary: engine_0 (smtbmc boolector) returned pass for induction
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] summary: engine_0 did not produce any traces
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] summary: successful proof by k-induction.
-SBY  2:04:41 [/workspace/results/trap/trap_priv_prove] DONE (PASS, rc=0)
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] Removing directory '/workspace/results/trap/trap_priv_prove'.
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/results/trap/trap_priv_prove/src/config_pkg.sv'.
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/trap/trap_priv_prove/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/results/trap/trap_priv_prove/src/riscv_pkg.sv'.
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/results/trap/trap_priv_prove/src/build_config_pkg.sv'.
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/trap/trap_priv_prove/src/cf_math_pkg.sv'.
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/include/ariane_pkg.sv' to '/workspace/results/trap/trap_priv_prove/src/ariane_pkg.sv'.
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/include/rvfi_types.svh' to '/workspace/results/trap/trap_priv_prove/src/rvfi_types.svh'.
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../../cva6/core/csr_regfile.sv' to '/workspace/results/trap/trap_priv_prove/src/csr_regfile.sv'.
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../sva/csr_priv_sva.sv' to '/workspace/results/trap/trap_priv_prove/src/csr_priv_sva.sv'.
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../wrappers/csr_fv.sv' to '/workspace/results/trap/trap_priv_prove/src/csr_fv.sv'.
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] Copy '/workspace/fv/checks/../sva/csr_priv_bind.sv' to '/workspace/results/trap/trap_priv_prove/src/csr_priv_bind.sv'.
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] engine_0: smtbmc boolector
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: starting process "cd /workspace/results/trap/trap_priv_prove/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'flush_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'halt_csr_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'csr_rdata_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'csr_exception_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'epc_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'eret_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'trap_vector_base_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'priv_lvl_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'v_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'fs_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vfs_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'fflags_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'frm_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'fprec_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vs_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'irq_ctrl_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'en_translation_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'en_g_translation_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'en_ld_st_translation_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'en_ld_st_g_translation_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'ld_st_priv_lvl_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'ld_st_v_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'sum_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vs_sum_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'mxr_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vmxr_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'satp_ppn_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'asid_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vsatp_ppn_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vs_asid_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'hgatp_ppn_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vmid_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'set_debug_pc_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'tvm_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'tw_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'vtw_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'tsr_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'hu_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'debug_mode_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'single_step_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'icache_en_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'dcache_en_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'acc_cons_en_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'perf_addr_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'perf_data_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'perf_we_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'pmpcfg_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'pmpaddr_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'mcountinhibit_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'rvfi_csr_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: csr_fv.sv:101:5: warning: output port 'jvt_o' has no connection [-Wunconnected-output-port]
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ) dut (
+SBY  0:30:19 [/workspace/results/trap/trap_priv_prove] base: ^
+SBY  0:30:21 [/workspace/results/trap/trap_priv_prove] base: Top level design units:
+SBY  0:30:21 [/workspace/results/trap/trap_priv_prove] base: csr_fv
+SBY  0:30:21 [/workspace/results/trap/trap_priv_prove] base: Build succeeded: 0 errors, 51 warnings
+SBY  0:30:21 [/workspace/results/trap/trap_priv_prove] base: finished (returncode=0)
+SBY  0:30:21 [/workspace/results/trap/trap_priv_prove] prep: starting process "cd /workspace/results/trap/trap_priv_prove/model; yosys -ql design_prep.log design_prep.ys"
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] prep: finished (returncode=0)
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] smt2: starting process "cd /workspace/results/trap/trap_priv_prove/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] smt2: finished (returncode=0)
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: starting process "cd /workspace/results/trap/trap_priv_prove; yosys-smtbmc -s boolector --presat --unroll --noprogress -t 8  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2"
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.induction: starting process "cd /workspace/results/trap/trap_priv_prove; yosys-smtbmc -s boolector --presat --unroll -i --noprogress -t 8  --append 0 --dump-vcd engine_0/trace_induct.vcd --dump-yw engine_0/trace_induct.yw --dump-vlogtb engine_0/trace_induct_tb.v --dump-smtc engine_0/trace_induct.smtc model/design_smt2.smt2"
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Solver: boolector
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.induction: ##   0:00:00  Solver: boolector
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.induction: ##   0:00:00  Trying induction in step 8..
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 0..
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 0..
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.induction: ##   0:00:00  Trying induction in step 7..
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 1..
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 1..
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 2..
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 2..
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.induction: ##   0:00:00  Trying induction in step 6..
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 3..
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 3..
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 4..
+SBY  0:30:22 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 4..
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 5..
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 5..
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.induction: ##   0:00:00  Temporal induction successful.
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.induction: ##   0:00:00  Status: passed
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.induction: finished (returncode=0)
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.induction: Status returned by engine for induction: pass
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 6..
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 6..
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 7..
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 7..
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: ##   0:00:01  Status: passed
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: finished (returncode=0)
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] engine_0.basecase: Status returned by engine for basecase: pass
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:04 (4)
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:05 (5)
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] summary: engine_0 (smtbmc boolector) returned pass for basecase
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] summary: engine_0 (smtbmc boolector) returned pass for induction
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] summary: engine_0 did not produce any traces
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] summary: successful proof by k-induction.
+SBY  0:30:23 [/workspace/results/trap/trap_priv_prove] DONE (PASS, rc=0)

@@ -3,7 +3,7 @@
 CVA6 v5.3.0 (`2ef1c1b`, `cv64a6_imafdc_sv39`) against the RISC-V privileged
 spec v1.13. Two unreported nonconformances (F5 and F8, both reported upstream with fixes
 submitted as pull requests, under review), two known
-upstream (F6, F7), and two design characterizations (F1, F2). Each has a witness
+upstream (F6, F7). Each has a witness
 under `evidence/`: the F5-F8 probes fail in bmc by design, the base properties
 pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
 
@@ -66,16 +66,3 @@ fixed in PR #3387 (which also closes #1984 and #1985).
 Witness: `priv_dret_sva.sv::a_priv_legal`. The CEX enters debug mode, writes
 dcsr prv=2'b10, executes dret, and `priv_lvl_q` reads back 2'b10; cover
 `c_dcsr_prv_illegal` reachable.
-
-## F1: Smepmp is not implemented
-
-No `mseccfg` CSR and no MML/MMWP/RLB; `pmp.sv`'s only M-mode rule is base PMP
-(`priv != M || locked`, `pmp.sv:55`). The suite verifies base PMP plus GAP-1: a
-non-locked entry is always bypassed in M-mode, the invariant Smepmp MML would
-break.
-
-## F2: NA4 is not selectable (spec-compliant at G=1)
-
-G=1 8-byte grain (`csr_regfile.sv:862`); the spec makes NA4 unselectable at
-G >= 1. WARL enforced: writing `A=NA4` reverts to the previous mode (`:2708-2710`),
-and `pmp_entry.sv` has no NA4 match arm. Verified by CSR-1 and PMP-7.
