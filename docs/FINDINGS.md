@@ -27,6 +27,8 @@ Spec: "For other traps, mtval is set to zero" (Machine-Level ISA, mtval; stval
 identical); interrupts are "other traps". #898/#448 + PR #3226 covered only
 ecall/ebreak; interrupts and F5a survived.
 Witness: `mstatus_f5_sva.sv::a_irq_mtval_zero`, cover `c_irq_m_tvalnz` reachable.
+Certified on the PR head (`3250ed48`, v5.3.0-185): the assert passes,
+`c_irq_m_tvalnz` still reaches, and `c_f5_witness` is unreachable.
 
 ## F6: xRET below M does not clear mstatus.MPRV (RVH=0)
 
@@ -62,7 +64,18 @@ as #1984/#1985 for other dcsr fields), not an escalation. Debug spec v1.0 makes
 prv WARL over the supported modes.
 Adjacent #1984/#1985 cover other dcsr fields, not prv or the post-dret
 corruption (checked 2026-07-05). Reported 2026-07-07 as openhwgroup/cva6 #3383,
-fixed in PR #3387 (which also closes #1984 and #1985).
+fixed in PR #3387.
 Witness: `priv_dret_sva.sv::a_priv_legal`. The CEX enters debug mode, writes
 dcsr prv=2'b10, executes dret, and `priv_lvl_q` reads back 2'b10; cover
 `c_dcsr_prv_illegal` reachable.
+Certified on the PR head (`8f74af4a`): the assert passes, `c_dret_in_debug` still
+reaches, and `c_dcsr_prv_illegal` / `c_f8_witness` are unreachable.
+
+**Sibling fields (PRIV-5).** The same write path left `v`, `cause` and the
+reserved fields raw. PR #3387 hardwires `v` to 0 when RVH=0, preserves
+hardwareowned `cause` (closing #1985), and added 2026-07-18 (`8f74af4a`)
+zeroes `zero1` (bit 14) and `zero2` (bits 27:18), completing #1984. The
+reserved-field half is a fix-certification, not an original finding: #1984
+predates this work and was filed by others. Probe
+`dcsr_reserved_sva.sv::a_dcsr_reserved_zero`: CEX on v5.3.0 at step 4, PASS on
+the PR head with `c_reserved_nonzero` unreachable.

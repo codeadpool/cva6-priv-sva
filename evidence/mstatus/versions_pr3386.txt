@@ -1,0 +1,9 @@
+── tools ──
+yosys:     Yosys 0.63 (git sha1 70a11c6bf, g++ 13.3.0-6ubuntu2~24.04.1 -fPIC -O3)
+sby:       usage: sby [options] [<jobname>.sby [tasknames] | <dirname>]
+z3:        Z3 version 4.8.12 - 64 bit
+
+── CVA6 ──
+path:      /workspace/cva6-fork
+commit:    3250ed4898ea87f40c6e1f5cae22d87f9086ce26
+describe:  v5.3.0-185-g3250ed48

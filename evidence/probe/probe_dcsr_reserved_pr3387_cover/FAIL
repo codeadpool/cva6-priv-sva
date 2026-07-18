@@ -1,0 +1,8 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:06 (6)
+Elapsed process time [H:MM:SS (secs)]: 0:00:07 (7)
+engine_0 (smtbmc boolector) returned FAIL
+cover trace: engine_0/trace0.vcd
+cover trace: engine_0/trace0.yw
+  reached cover statement csr_fv.\dut.i_dcsr_reserved_sva.c_debug_mode_seen at dcsr_reserved_sva.sv:26.7-26.46 step 3
+unreached cover statements:
+  csr_fv.\dut.i_dcsr_reserved_sva.c_reserved_nonzero at dcsr_reserved_sva.sv:30.7-30.51

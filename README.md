@@ -23,11 +23,18 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 The suite is validated:
 
 - **Mutation testing.** 26 targeted RTL mutations, one per property's logic; all
-  are killed (property fails when the behavior it checks is broken).
+  are killed (property fails when the behavior it checks is broken). Covers the
+  proven properties only: a probe already fails on golden, so any mutant against
+  it would count as trivially killed.
   Reproducible: `fv/validation/mutation_test.sh`.
-- **Probe witness signatures.** Each of the four expected-CEX probes covers its
+- **Probe witness signatures.** Each expected-CEX probe covers its
   exact violation state, so a probe that stops failing for the intended reason is
   caught.
+- **Fix certification.** Where we submitted a fix (F5, F8, PRIV-5), the same probe
+  is re-run against the PR head: the assert passes and only the defect-witness
+  cover goes unreachable. Both runs are archived under `evidence/`, each labelled
+  with the commit it was proven against. F6 and F7 are known upstream issues with
+  no fix of ours, so no "after" evidence exists or is claimed for them.
 - **No assumptions.** `fv/` contains no `assume`, so the proven properties hold
   under unconstrained inputs (CI enforces this).
 

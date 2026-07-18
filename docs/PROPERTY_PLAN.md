@@ -13,10 +13,11 @@ CEX (counterexample found). Nothing counts as proven without a logged sby run.
 | pmp_ref_sva | pmp | PMP-3,4,8, GAP-1 | PROVEN (bmc/prove/cover) | 2026-07-06 |
 | csr_pmp_sva | csr_regfile | CSR-1,3,4,6 / CSR-2,5 | PROVEN 2026-07-02 / PROVEN 2026-07-06 | 2026-07-06 |
 | csr_priv_sva | csr_regfile | MST-1..4, TRAP-1..3, PRIV-2 / TRAP-4,5,6, MST-5, PRIV-1 | PROVEN 2026-07-03 / PROVEN 2026-07-06 | 2026-07-06 |
-| mstatus_f5_sva | csr_regfile | MST-6 / F5 | CEX (expected, the finding) | 2026-07-02 |
+| mstatus_f5_sva | csr_regfile | MST-6 / F5 | CEX on v5.3.0; PASS on PR #3386 head 3250ed48 | 2026-07-18 |
 | mstatus_mprv_sva | csr_regfile | MST-7 / F6 | CEX (expected, upstream #3294/#1981) | 2026-07-06 |
 | pmp_mpri_sva | pmp | PMP-9 / F7 | CEX (expected, upstream #3177) | 2026-07-06 |
-| priv_dret_sva | csr_regfile | PRIV-4 / F8 | CEX (expected, F8; see FINDINGS) | 2026-07-06 |
+| priv_dret_sva | csr_regfile | PRIV-4 / F8 | CEX on v5.3.0; PASS on PR #3387 head 8f74af4a | 2026-07-18 |
+| dcsr_reserved_sva | csr_regfile | PRIV-5 | CEX on v5.3.0; PASS on PR #3387 head 8f74af4a | 2026-07-18 |
 | ptw_pmp_sva | cva6_ptw | VM-1,3 (VM-2 structural) | PROVEN (bmc/prove/cover) | 2026-07-06 |
 
 All checkers use immediate assertions only (yosys-slang lowers no concurrent
@@ -92,7 +93,7 @@ Layer 1 checks what the RTL implements plus one gap-characterisation property
 | MST-3 | mret: mie<-mpie, mpie<-1, mpp<-U, priv<-mpp | csr:2101-2123 | MST-ret | PROVEN 2026-07-03 |
 | MST-4 | sret: sie<-spie, spie<-1, spp<-0, priv<-spp | csr:2125-2143 | MST-ret | PROVEN 2026-07-03 |
 | MST-5 | mpp stays legal (WARL legalisation, csr:1382-1385); step property, dret excluded | csr:1382-1385 | MST-warl | PROVEN 2026-07-06 |
-| MST-6 | F5 probe: interrupt trap to M leaves mtval nonzero | csr:1919 | TRAP-tval | CEX (expected) 2026-07-02 |
+| MST-6 | F5 probe: interrupt trap to M leaves mtval nonzero | csr:1919 | TRAP-tval | CEX on v5.3.0; PASS on #3386 head 2026-07-18 |
 | MST-7 | mprv probe: xret below M must clear MPRV, RVH=0 build skips it | csr:2116-2122,2136-2142 | MST-ret | CEX 2026-07-06 (expected, #3294) |
 
 ### priv: privilege invariants
@@ -101,4 +102,5 @@ Layer 1 checks what the RTL implements plus one gap-characterisation property
 | PRIV-1 | priv_lvl stays in {M,S,U}; step property, dret excluded (see PRIV-4) | csr priv_lvl_q | PRIV | PROVEN 2026-07-06 |
 | PRIV-2 | after mret/sret, priv = saved xPP | csr:2108,2131 | MST-ret | PROVEN 2026-07-03 (conjunct of MST-3/4) |
 | PRIV-3 | sret traps under mstatus.TSR in S | decoder-level (out of csr harness scope) | PRIV-tsr | PLANNED (future decoder checker) |
-| PRIV-4 | F8 probe: priv_lvl legal after dret (dcsr.prv unlegalized) | csr:1056,2166 | PRIV | CEX 2026-07-06 (expected, FINDINGS F8) |
+| PRIV-4 | F8 probe: priv_lvl legal after dret (dcsr.prv unlegalized) | csr:1056,2166 | PRIV | CEX on v5.3.0; PASS on #3387 head 2026-07-18 |
+| PRIV-5 | DCSR reserved zero1/zero2 read 0; fix-certification for upstream #1984, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PASS on #3387 head 2026-07-18 |

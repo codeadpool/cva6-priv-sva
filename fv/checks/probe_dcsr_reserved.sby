@@ -1,0 +1,33 @@
+# PROBE EXPECTED TO FAIL in bmc on golden. DCSR reserved fields stored raw,
+# Certifies reserved-field fix: CEX on golden v5.3.0, PASS on the fork.
+[tasks]
+bmc
+cover
+
+[options]
+bmc:   mode bmc
+bmc:   depth 12
+cover: mode cover
+cover: depth 20
+
+[engines]
+bmc:   smtbmc boolector
+cover: smtbmc boolector
+
+[script]
+plugin -i slang
+read_slang --top csr_fv config_pkg.sv cv64a6_imafdc_sv39_config_pkg.sv riscv_pkg.sv build_config_pkg.sv cf_math_pkg.sv ariane_pkg.sv csr_regfile.sv dcsr_reserved_sva.sv csr_fv.sv dcsr_reserved_bind.sv
+prep -top csr_fv
+
+[files]
+../../cva6/core/include/config_pkg.sv
+../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv
+../../cva6/core/include/riscv_pkg.sv
+../../cva6/core/include/build_config_pkg.sv
+../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv
+../../cva6/core/include/ariane_pkg.sv
+../../cva6/core/include/rvfi_types.svh
+../../cva6/core/csr_regfile.sv
+../sva/dcsr_reserved_sva.sv
+../wrappers/csr_fv.sv
+../sva/dcsr_reserved_bind.sv
