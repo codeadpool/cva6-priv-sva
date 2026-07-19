@@ -3,6 +3,10 @@ Elapsed process time [H:MM:SS (secs)]: 0:00:11 (11)
 engine_0 (smtbmc boolector) returned FAIL
 cover trace: engine_0/trace0.vcd
 cover trace: engine_0/trace0.yw
-  reached cover statement csr_fv.\dut.i_mstatus_f5_sva.c_irq_m_tvalnz at mstatus_f5_sva.sv:44.42-44.95 step 2
+  reached cover statement csr_fv.\dut.i_mstatus_f5_sva.c_irq_m_tvalnz at mstatus_f5_sva.sv:45.42-45.95 step 2
+cover trace: engine_0/trace1.vcd
+cover trace: engine_0/trace1.yw
+  reached cover statement csr_fv.\dut.i_mstatus_f5_sva.c_irq_s_tvalnz at mstatus_f5_sva.sv:71.42-71.95 step 4
 unreached cover statements:
-  csr_fv.\dut.i_mstatus_f5_sva.c_f5_witness at mstatus_f5_sva.sv:52.7-52.58
+  csr_fv.\dut.i_mstatus_f5_sva.c_f5_witness at mstatus_f5_sva.sv:53.7-53.58
+  csr_fv.\dut.i_mstatus_f5_sva.c_f5s_witness at mstatus_f5_sva.sv:75.7-75.59

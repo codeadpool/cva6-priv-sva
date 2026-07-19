@@ -1,15 +1,19 @@
 [tasks]
 bmc
+prove
 cover
 
 [options]
 bmc:   mode bmc
 bmc:   depth 12
+prove: mode prove
+prove: depth 8
 cover: mode cover
 cover: depth 20
 
 [engines]
 bmc:   smtbmc boolector
+prove: smtbmc boolector
 cover: smtbmc boolector
 
 [script]

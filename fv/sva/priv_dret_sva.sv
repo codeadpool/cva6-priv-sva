@@ -27,6 +27,16 @@ module priv_dret_sva #(
   // unlegalized dcsr.prv and witness unimplemented-mode corruption itself.
   always_ff @(posedge clk_i) if (rst_ni) a_priv_legal : assert (priv_legal);
 
+  // Induction strengthening: dcsr.prv is itself WARLlegal. a_priv_legal alone
+  // constrains only priv_lvl, so the k-induction step may/can start from
+  // dcsr_q.prv = 2'b10 unreachable from reset once the write path clamps, but
+  // nothing stops it as a stepcase start state. on golden RTL this fails
+  // too (2nd witness of the same defect); on the fixed RTL it holds and
+  // doesn't close k-induction by itself, mstatus.mpp is next unconstrained
+  // which is why this check uses PDR>
+
+  always_ff @(posedge clk_i) if (rst_ni) a_dcsr_prv_legal : assert (prv_legal);
+
   always_ff @(posedge clk_i)
     if (rst_ni) begin
       // reachability of debug entry, dret, and dret-in-debug

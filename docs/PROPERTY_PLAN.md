@@ -1,8 +1,10 @@
 # Property Catalogue
 
 Status tags: PLANNED (designed, not written), DRAFT (written, unproven),
-PASS(bmc) (bounded + cover pass), PROVEN (bmc + induction + cover pass),
-CEX (counterexample found). Nothing counts as proven without a logged sby run.
+PASS(bmc) (bounded + cover pass), PROVEN (bmc + an unbounded proof + cover pass;
+the proof is k-induction, or PDR where k-induction needs an invariant it cannot
+discover), CEX (counterexample found). Nothing counts as proven without a logged
+sby run.
 
 ## Results (authoritative; supersedes per-row tags)
 
@@ -13,18 +15,23 @@ CEX (counterexample found). Nothing counts as proven without a logged sby run.
 | pmp_ref_sva | pmp | PMP-3,4,8, GAP-1 | PROVEN (bmc/prove/cover) | 2026-07-06 |
 | csr_pmp_sva | csr_regfile | CSR-1,3,4,6 / CSR-2,5 | PROVEN 2026-07-02 / PROVEN 2026-07-06 | 2026-07-06 |
 | csr_priv_sva | csr_regfile | MST-1..4, TRAP-1..3, PRIV-2 / TRAP-4,5,6, MST-5, PRIV-1 | PROVEN 2026-07-03 / PROVEN 2026-07-06 | 2026-07-06 |
-| mstatus_f5_sva | csr_regfile | MST-6 / F5 | CEX on v5.3.0; PASS on PR #3386 head 3250ed48 | 2026-07-18 |
+| mstatus_f5_sva | csr_regfile | MST-6,8 / F5 | CEX on v5.3.0; PROVEN (k-induction) on PR #3386 head 3250ed48 | 2026-07-19 |
 | mstatus_mprv_sva | csr_regfile | MST-7 / F6 | CEX (expected, upstream #3294/#1981) | 2026-07-06 |
 | pmp_mpri_sva | pmp | PMP-9 / F7 | CEX (expected, upstream #3177) | 2026-07-06 |
-| priv_dret_sva | csr_regfile | PRIV-4 / F8 | CEX on v5.3.0; PASS on PR #3387 head 8f74af4a | 2026-07-18 |
-| dcsr_reserved_sva | csr_regfile | PRIV-5 | CEX on v5.3.0; PASS on PR #3387 head 8f74af4a | 2026-07-18 |
+| priv_dret_sva | csr_regfile | PRIV-4,6 / F8 | CEX on v5.3.0; PROVEN (PDR) on PR #3387 head 8f74af4a | 2026-07-19 |
+| dcsr_reserved_sva | csr_regfile | PRIV-5 | CEX on v5.3.0; PROVEN (k-induction) on PR #3387 head 8f74af4a | 2026-07-19 |
 | ptw_pmp_sva | cva6_ptw | VM-1,3 (VM-2 structural) | PROVEN (bmc/prove/cover) | 2026-07-06 |
 
 All checkers use immediate assertions only (yosys-slang lowers no concurrent
 SVA); every asserted antecedent has a cover witness, so no PASS is vacuous.
 Counts are distinct properties; the x8 per-PMP-entry generate replication is
 not counted. Run per the README quickstart; probes (expected-CEX checkers)
-run bmc+cover only. Not yet authored: PRIV-3 (TSR is enforced in the
+run bmc+cover on golden, and additionally `prove` against the PR head wherever we
+submitted a fix. Engines: `smtbmc boolector` throughout, except `priv_dret` which
+uses `abc pdr`: fixed-depth k-induction cannot discover the `mstatus.mpp`
+invariant that PRIV-4 needs (mret loads priv_lvl from mpp, and the step case may
+start from an unreachable mpp), whereas PDR derives it automatically.
+Not yet authored: PRIV-3 (TSR is enforced in the
 decoder, outside the csr_regfile harness; future decoder-level checker).
 
 Each property cites its RTL basis (file:line) and a shorthand tag for its
@@ -93,8 +100,9 @@ Layer 1 checks what the RTL implements plus one gap-characterisation property
 | MST-3 | mret: mie<-mpie, mpie<-1, mpp<-U, priv<-mpp | csr:2101-2123 | MST-ret | PROVEN 2026-07-03 |
 | MST-4 | sret: sie<-spie, spie<-1, spp<-0, priv<-spp | csr:2125-2143 | MST-ret | PROVEN 2026-07-03 |
 | MST-5 | mpp stays legal (WARL legalisation, csr:1382-1385); step property, dret excluded | csr:1382-1385 | MST-warl | PROVEN 2026-07-06 |
-| MST-6 | F5 probe: interrupt trap to M leaves mtval nonzero | csr:1919 | TRAP-tval | CEX on v5.3.0; PASS on #3386 head 2026-07-18 |
+| MST-6 | F5 probe: interrupt trap to M leaves mtval nonzero | csr:1919 | TRAP-tval | CEX on v5.3.0; PROVEN (k-induction) on #3386 head 2026-07-19 |
 | MST-7 | mprv probe: xret below M must clear MPRV, RVH=0 build skips it | csr:2116-2122,2136-2142 | MST-ret | CEX 2026-07-06 (expected, #3294) |
+| MST-8 | F5 probe, S half: interrupt trap to S leaves stval nonzero. PR #3386 changes mtval/stval/vstval; this covers the stval site (vstval needs RVH=1, uncovered) | csr:1880 | TRAP-tval | CEX on v5.3.0; PROVEN (k-induction) on #3386 head 2026-07-19 |
 
 ### priv: privilege invariants
 | ID | Property | RTL | Spec | Status |
@@ -102,5 +110,6 @@ Layer 1 checks what the RTL implements plus one gap-characterisation property
 | PRIV-1 | priv_lvl stays in {M,S,U}; step property, dret excluded (see PRIV-4) | csr priv_lvl_q | PRIV | PROVEN 2026-07-06 |
 | PRIV-2 | after mret/sret, priv = saved xPP | csr:2108,2131 | MST-ret | PROVEN 2026-07-03 (conjunct of MST-3/4) |
 | PRIV-3 | sret traps under mstatus.TSR in S | decoder-level (out of csr harness scope) | PRIV-tsr | PLANNED (future decoder checker) |
-| PRIV-4 | F8 probe: priv_lvl legal after dret (dcsr.prv unlegalized) | csr:1056,2166 | PRIV | CEX on v5.3.0; PASS on #3387 head 2026-07-18 |
-| PRIV-5 | DCSR reserved zero1/zero2 read 0; fix-certification for upstream #1984, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PASS on #3387 head 2026-07-18 |
+| PRIV-4 | F8 probe: priv_lvl legal after dret (dcsr.prv unlegalized) | csr:1056,2166 | PRIV | CEX on v5.3.0; PROVEN (PDR) on #3387 head 2026-07-19 |
+| PRIV-5 | DCSR reserved zero1/zero2 read 0; fix-certification for upstream #1984, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (k-induction) on #3387 head 2026-07-19 |
+| PRIV-6 | dcsr.prv itself stays WARL-legal; added as PRIV-4 induction strengthening, but a real invariant in its own right | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (PDR) on #3387 head 2026-07-19 |

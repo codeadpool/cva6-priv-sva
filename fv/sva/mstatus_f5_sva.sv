@@ -8,6 +8,7 @@ module mstatus_f5_sva #(
     input logic                                sret_i,        // sret
     input logic                                debug_mode,    // debug_mode_q
     input logic             [CVA6Cfg.XLEN-1:0] mtval,         // mtval_q
+    input logic             [CVA6Cfg.XLEN-1:0] stval,         // stval_q
     input logic                                ex_valid,      // ex_i.valid
     input logic             [CVA6Cfg.XLEN-1:0] ex_cause,      // ex_i.cause
     input logic             [CVA6Cfg.XLEN-1:0] ex_tval        // ex_i.tval
@@ -50,4 +51,25 @@ module mstatus_f5_sva #(
   always_ff @(posedge clk_i)
     if (rst_ni && past_valid)
       c_f5_witness : cover (ante_irq_m_q && mtval != '0);
+
+  // S-mode half. PR #3386 corrects mtval, stval and vstval with same
+  // expression; check the stval site rather than infer it from mtval one,
+  // (vstval needs RVH=1 and is not covered by this harness.)
+  logic ante_irq_s;
+  assign ante_irq_s = trap_taken && is_irq && !mret_i && !sret_i && (trap_to_priv == riscv::PRIV_LVL_S);
+
+  logic ante_irq_s_q;
+  always_ff @(posedge clk_i)
+    if (!rst_ni) ante_irq_s_q <= 1'b0;
+    else ante_irq_s_q <= ante_irq_s;
+
+  always_ff @(posedge clk_i)
+    if (rst_ni && past_valid)
+      a_irq_stval_zero : assert (!CVA6Cfg.RVS || !ante_irq_s_q || (stval == '0));
+
+  always_ff @(posedge clk_i) if (rst_ni) c_irq_s_tvalnz : cover (ante_irq_s && ex_tval != '0);
+
+  always_ff @(posedge clk_i)
+    if (rst_ni && past_valid)
+      c_f5s_witness : cover (ante_irq_s_q && stval != '0);
 endmodule

@@ -31,10 +31,13 @@ The suite is validated:
   exact violation state, so a probe that stops failing for the intended reason is
   caught.
 - **Fix certification.** Where we submitted a fix (F5, F8, PRIV-5), the same probe
-  is re-run against the PR head: the assert passes and only the defect-witness
-  cover goes unreachable. Both runs are archived under `evidence/`, each labelled
-  with the commit it was proven against. F6 and F7 are known upstream issues with
-  no fix of ours, so no "after" evidence exists or is claimed for them.
+  is re-run against the PR head and proven there by induction (PDR for F8, where
+  fixed-depth k-induction cannot discover the `mstatus.mpp` invariant). Each
+  defect-witness cover is the exact negation of a proven assertion, so its
+  unreachability follows from the proof, not from a bounded search. Proven for
+  `cv64a6_imafdc_sv39` (RVH=0) only. Both runs are archived under `evidence/`,
+  each labelled with the commit it was proven against. F6 and F7 are known
+  upstream issues with no fix of ours, so no "after" evidence is claimed.
 - **No assumptions.** `fv/` contains no `assume`, so the proven properties hold
   under unconstrained inputs (CI enforces this).
 
