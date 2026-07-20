@@ -66,7 +66,7 @@ make versions                         # audit trail (tool + CVA6 versions)
 make verify-pmp                       # tier-1 PMP proofs (bmc + prove + cover)
 make verify-csr verify-trap verify-vm # PMP-CSR WARL + trap/return/deleg + MMU-PMP
 make verify-mstatus TASKS="bmc cover" # F5 + F6 witness probes: bmc FAIL is the finding
-make verify-probe   TASKS="bmc cover" # F7 + F8 witness probes
+make verify-probe   TASKS="bmc cover" # F7, F8 + PRIV-5 witness probes
 make results                          # status table
 ```
 

@@ -68,9 +68,10 @@ prv WARL over the supported modes.
 Adjacent #1984/#1985 cover other dcsr fields, not prv or the post-dret
 corruption (checked 2026-07-05). Reported 2026-07-07 as openhwgroup/cva6 #3383,
 fixed in PR #3387.
-Witness: `priv_dret_sva.sv::a_priv_legal`. The CEX enters debug mode, writes
-dcsr prv=2'b10, executes dret, and `priv_lvl_q` reads back 2'b10; cover
-`c_dcsr_prv_illegal` reachable.
+Witness: `priv_dret_sva.sv`. On golden the bmc counterexample fires first on
+`a_dcsr_prv_legal` (step 4, the raw dcsr.prv write). The post-`dret` corruption
+itself is the cover `c_f8_witness` (step 5): the trace enters debug mode, writes
+dcsr prv=2'b10, executes dret, and `priv_lvl_q` reads back 2'b10.
 Proven on the PR head (`8f74af4a`) by PDR, RVH=0 config; the probe also proves
 `dcsr.prv` itself stays WARL-legal (`a_dcsr_prv_legal`). `c_dret_in_debug` still
 reaches; `c_dcsr_prv_illegal` and `c_f8_witness` are the negations of the proven

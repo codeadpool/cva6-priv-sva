@@ -1,6 +1,8 @@
-Elapsed clock time [H:MM:SS (secs)]: 0:00:04 (4)
+Elapsed clock time [H:MM:SS (secs)]: 0:00:03 (3)
 Elapsed process time [H:MM:SS (secs)]: 0:00:04 (4)
 engine_0 (smtbmc boolector) returned FAIL for basecase
 counterexample trace [basecase]: engine_0/trace.vcd
 counterexample trace [basecase]: engine_0/trace.yw
-  failed assertion csr_fv.\dut.i_priv_dret_sva.a_dcsr_prv_legal at priv_dret_sva.sv:36.42-36.80 step 4
+  failed assertion csr_fv.\dut.i_priv_dret_sva.a_dcsr_prv_legal at priv_dret_sva.sv:38.42-38.80 step 4
+engine_1 (abc pdr) did not return a status
+engine_1 did not produce any traces

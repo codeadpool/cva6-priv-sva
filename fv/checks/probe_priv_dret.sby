@@ -14,6 +14,7 @@ cover: depth 20
 
 [engines]
 bmc:   smtbmc boolector
+prove: smtbmc boolector
 prove: abc pdr
 cover: smtbmc boolector
 

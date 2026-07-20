@@ -27,10 +27,14 @@ SVA); every asserted antecedent has a cover witness, so no PASS is vacuous.
 Counts are distinct properties; the x8 per-PMP-entry generate replication is
 not counted. Run per the README quickstart; probes (expected-CEX checkers)
 run bmc+cover on golden, and additionally `prove` against the PR head wherever we
-submitted a fix. Engines: `smtbmc boolector` throughout, except `priv_dret` which
-uses `abc pdr`: fixed-depth k-induction cannot discover the `mstatus.mpp`
-invariant that PRIV-4 needs (mret loads priv_lvl from mpp, and the step case may
-start from an unreachable mpp), whereas PDR derives it automatically.
+submitted a fix. Engines: `smtbmc boolector` throughout, except `priv_dret`,
+whose `prove` task runs `smtbmc boolector` and `abc pdr` in parallel and takes
+the first conclusive result. It needs both: on the fixed RTL, fixed-depth
+k-induction cannot discover the `mstatus.mpp` invariant PRIV-4 requires (mret
+loads priv_lvl from mpp, so the step case may start from an unreachable mpp)
+and PDR derives it automatically; on golden the property is false, where PDR
+would search indefinitely for a proof that does not exist and smtbmc returns
+the counterexample in seconds.
 Not yet authored: PRIV-3 (TSR is enforced in the
 decoder, outside the csr_regfile harness; future decoder-level checker).
 
