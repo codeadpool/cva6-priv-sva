@@ -1,0 +1,268 @@
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] Removing directory '/workspace/results/probe/probe_mpp_legal_rvh_pr3387_cover'.
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_mpp_legal_rvh_pr3387_cover/src/config_pkg.sv'.
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdch_sv39_config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_mpp_legal_rvh_pr3387_cover/src/cv64a6_imafdch_sv39_config_pkg.sv'.
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_mpp_legal_rvh_pr3387_cover/src/riscv_pkg.sv'.
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_mpp_legal_rvh_pr3387_cover/src/build_config_pkg.sv'.
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_mpp_legal_rvh_pr3387_cover/src/cf_math_pkg.sv'.
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] Copy '/workspace/fv/checks/../../cva6/core/include/ariane_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_mpp_legal_rvh_pr3387_cover/src/ariane_pkg.sv'.
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] Copy '/workspace/fv/checks/../../cva6/core/include/rvfi_types.svh' to '/workspace/fv/checks/../../results/probe/probe_mpp_legal_rvh_pr3387_cover/src/rvfi_types.svh'.
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] Copy '/workspace/fv/checks/../../cva6/core/csr_regfile.sv' to '/workspace/fv/checks/../../results/probe/probe_mpp_legal_rvh_pr3387_cover/src/csr_regfile.sv'.
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] Copy '/workspace/fv/checks/../sva/mpp_legal_sva.sv' to '/workspace/fv/checks/../../results/probe/probe_mpp_legal_rvh_pr3387_cover/src/mpp_legal_sva.sv'.
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] Copy '/workspace/fv/checks/../wrappers/csr_fv.sv' to '/workspace/fv/checks/../../results/probe/probe_mpp_legal_rvh_pr3387_cover/src/csr_fv.sv'.
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] Copy '/workspace/fv/checks/../sva/mpp_legal_bind.sv' to '/workspace/fv/checks/../../results/probe/probe_mpp_legal_rvh_pr3387_cover/src/mpp_legal_bind.sv'.
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: smtbmc boolector
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: starting process "cd ../../results/probe/probe_mpp_legal_rvh_pr3387_cover/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: input port 'vaddr_from_lsu_i' has no connection [-Wunconnected-input-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: input port 'orig_instr_i' has no connection [-Wunconnected-input-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: input port 'store_result_i' has no connection [-Wunconnected-input-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'flush_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'halt_csr_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'csr_rdata_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'csr_exception_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'epc_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'eret_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'trap_vector_base_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'priv_lvl_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'mbe_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'v_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'fs_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'vfs_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'fflags_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'frm_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'fprec_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'vs_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'irq_ctrl_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'en_translation_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'en_g_translation_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'en_ld_st_translation_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'en_ld_st_g_translation_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'ld_st_priv_lvl_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'ld_st_v_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'sum_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'vs_sum_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'mxr_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'vmxr_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'satp_ppn_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'asid_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'vsatp_ppn_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'vs_asid_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'hgatp_ppn_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'vmid_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'mcbie_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'scbie_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'hcbie_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'mcbcfe_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'scbcfe_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'hcbcfe_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'set_debug_pc_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'tvm_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'tw_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'vtw_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'tsr_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'hu_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'debug_mode_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'single_step_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'icache_en_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'dcache_en_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'acc_cons_en_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'perf_addr_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'perf_data_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'perf_we_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'pmpcfg_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'pmpaddr_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'mcountinhibit_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'rvfi_csr_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'jvt_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'debug_from_trigger_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv.sv:101:5: warning: output port 'break_from_trigger_o' has no connection [-Wunconnected-output-port]
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ) dut (
+SBY 20:17:52 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: ^
+SBY 20:17:54 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: Top level design units:
+SBY 20:17:54 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: csr_fv
+SBY 20:17:54 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: Build succeeded: 0 errors, 63 warnings
+SBY 20:17:54 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] base: finished (returncode=0)
+SBY 20:17:54 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] prep: starting process "cd ../../results/probe/probe_mpp_legal_rvh_pr3387_cover/model; yosys -ql design_prep.log design_prep.ys"
+SBY 20:17:55 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] prep: finished (returncode=0)
+SBY 20:17:55 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] smt2: starting process "cd ../../results/probe/probe_mpp_legal_rvh_pr3387_cover/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY 20:17:55 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] smt2: finished (returncode=0)
+SBY 20:17:55 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: starting process "cd ../../results/probe/probe_mpp_legal_rvh_pr3387_cover; yosys-smtbmc -s boolector --presat --unroll -c --noprogress -t 20  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2"
+SBY 20:17:55 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Solver: boolector
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Checking cover reachability in step 1..
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Checking cover reachability in step 2..
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Reached cover statement in step 3 at csr_fv: dut.i_mpp_legal_sva.c_mprv_seen
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace0.smtc
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace0.yw
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Reached cover statement in step 3 at csr_fv: dut.i_mpp_legal_sva.c_mpp_reserved
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace1.vcd
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace1_tb.v
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace1.smtc
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace1.yw
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Reached cover statement in step 3 at csr_fv: dut.i_mpp_legal_sva.c_mret_from_bad_mpp
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Reached cover statement in step 3 at csr_fv: dut.i_mpp_legal_sva.c_mret_seen
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace2.vcd
+SBY 20:17:56 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace2_tb.v
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace2.smtc
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace2.yw
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Checking cover reachability in step 3..
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Reached cover statement in step 3 at csr_fv: dut.i_mpp_legal_sva.c_ldst_reserved
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Reached cover statement in step 3 at csr_fv: dut.i_mpp_legal_sva.c_ldst_reserved_via_mprv
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Writing trace to VCD file: engine_0/trace3.vcd
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace3_tb.v
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace3.smtc
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace3.yw
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Checking cover reachability in step 3..
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Checking cover reachability in step 4..
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Reached cover statement in step 4 at csr_fv: dut.i_mpp_legal_sva.c_priv_reserved
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Writing trace to VCD file: engine_0/trace4.vcd
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace4_tb.v
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace4.smtc
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace4.yw
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: ##   0:00:02  Status: passed
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: finished (returncode=0)
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] engine_0: Status returned by engine: pass
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:05 (5)
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:06 (6)
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary: engine_0 (smtbmc boolector) returned pass
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary: cover trace: ../../results/probe/probe_mpp_legal_rvh_pr3387_cover/engine_0/trace0.vcd
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary:   reached cover statement csr_fv.\dut.i_mpp_legal_sva.c_mprv_seen at mpp_legal_sva.sv:123.7-123.36 step 3
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary: cover trace: ../../results/probe/probe_mpp_legal_rvh_pr3387_cover/engine_0/trace1.vcd
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary:   reached cover statement csr_fv.\dut.i_mpp_legal_sva.c_mpp_reserved at mpp_legal_sva.sv:125.7-125.43 step 3
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary: cover trace: ../../results/probe/probe_mpp_legal_rvh_pr3387_cover/engine_0/trace2.vcd
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary:   reached cover statement csr_fv.\dut.i_mpp_legal_sva.c_mret_from_bad_mpp at mpp_legal_sva.sv:127.7-127.58 step 3
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary:   reached cover statement csr_fv.\dut.i_mpp_legal_sva.c_mret_seen at mpp_legal_sva.sv:122.7-122.36 step 3
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary: cover trace: ../../results/probe/probe_mpp_legal_rvh_pr3387_cover/engine_0/trace3.vcd
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary:   reached cover statement csr_fv.\dut.i_mpp_legal_sva.c_ldst_reserved at mpp_legal_sva.sv:132.7-132.45 step 3
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary:   reached cover statement csr_fv.\dut.i_mpp_legal_sva.c_ldst_reserved_via_mprv at mpp_legal_sva.sv:133.7-133.64 step 3
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary: cover trace: ../../results/probe/probe_mpp_legal_rvh_pr3387_cover/engine_0/trace4.vcd
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] summary:   reached cover statement csr_fv.\dut.i_mpp_legal_sva.c_priv_reserved at mpp_legal_sva.sv:128.7-128.45 step 4
+SBY 20:17:57 [../../results/probe/probe_mpp_legal_rvh_pr3387_cover] DONE (PASS, rc=0)

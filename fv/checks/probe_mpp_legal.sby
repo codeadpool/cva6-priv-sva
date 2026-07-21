@@ -1,0 +1,39 @@
+# mstatus.mpp legality: RVH=0 baseline of the F9 differential. Run on the #3387
+# FORK, not golden. EXPECTED: prove pASS (abc pdr, unbounded), cover FAILS by design two sanity covers reach,
+# the five defect covers do not; the paired probe_mpp_legal_rvh.sby reaches all seven
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc:   mode bmc
+bmc:   depth 12
+prove: mode prove
+prove: depth 8
+cover: mode cover
+cover: depth 20
+
+[engines]
+bmc:   smtbmc boolector
+prove: smtbmc boolector
+prove: abc pdr
+cover: smtbmc boolector
+
+[script]
+plugin -i slang
+read_slang --top csr_fv config_pkg.sv cv64a6_imafdc_sv39_config_pkg.sv riscv_pkg.sv build_config_pkg.sv cf_math_pkg.sv ariane_pkg.sv csr_regfile.sv mpp_legal_sva.sv csr_fv.sv mpp_legal_bind.sv
+prep -top csr_fv
+
+[files]
+../../cva6/core/include/config_pkg.sv
+../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv
+../../cva6/core/include/riscv_pkg.sv
+../../cva6/core/include/build_config_pkg.sv
+../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv
+../../cva6/core/include/ariane_pkg.sv
+../../cva6/core/include/rvfi_types.svh
+../../cva6/core/csr_regfile.sv
+../sva/mpp_legal_sva.sv
+../wrappers/csr_fv.sv
+../sva/mpp_legal_bind.sv

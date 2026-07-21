@@ -1,0 +1,9 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:08 (8)
+Elapsed process time [H:MM:SS (secs)]: 0:00:14 (14)
+engine_0 (smtbmc boolector) returned pass for basecase
+engine_0 (smtbmc boolector) returned FAIL for induction
+counterexample trace [induction]: engine_0/trace_induct.vcd
+counterexample trace [induction]: engine_0/trace_induct.yw
+  failed assertion csr_fv.\dut.i_mpp_legal_sva.a_mpp_legal at mpp_legal_sva.sv:117.31-117.64
+engine_1 (abc pdr) returned PASS
+engine_1 did not produce any traces

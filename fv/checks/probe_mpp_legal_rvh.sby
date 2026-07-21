@@ -1,0 +1,42 @@
+# mstatus.mpp legality RVH=1 finding half of the F9 differential. similar to
+# probe_mpp_legal.sby except the config package (cv64a6_imafdch_sv39). Run on the
+# #3387 FORK. EXPECTED: bmc CEX at step 3 on a_mpp_legal (RVH=1 stops rejecting
+# 2'b10); cover reaches all seven, incl. c_mret_from_bad_mpp and
+# c_ldst_reserved_via_mprv. prove present only so the task set matches (gated to
+# FAIL). Detail incl. the ZKN cone of influence check: notes
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc:   mode bmc
+bmc:   depth 12
+prove: mode prove
+prove: depth 8
+cover: mode cover
+cover: depth 20
+
+[engines]
+bmc:   smtbmc boolector
+prove: smtbmc boolector
+prove: abc pdr
+cover: smtbmc boolector
+
+[script]
+plugin -i slang
+read_slang --top csr_fv config_pkg.sv cv64a6_imafdch_sv39_config_pkg.sv riscv_pkg.sv build_config_pkg.sv cf_math_pkg.sv ariane_pkg.sv csr_regfile.sv mpp_legal_sva.sv csr_fv.sv mpp_legal_bind.sv
+prep -top csr_fv
+
+[files]
+../../cva6/core/include/config_pkg.sv
+../../cva6/core/include/cv64a6_imafdch_sv39_config_pkg.sv
+../../cva6/core/include/riscv_pkg.sv
+../../cva6/core/include/build_config_pkg.sv
+../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv
+../../cva6/core/include/ariane_pkg.sv
+../../cva6/core/include/rvfi_types.svh
+../../cva6/core/csr_regfile.sv
+../sva/mpp_legal_sva.sv
+../wrappers/csr_fv.sv
+../sva/mpp_legal_bind.sv

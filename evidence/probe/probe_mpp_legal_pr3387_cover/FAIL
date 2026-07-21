@@ -1,0 +1,15 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:11 (11)
+Elapsed process time [H:MM:SS (secs)]: 0:00:12 (12)
+engine_0 (smtbmc boolector) returned FAIL
+cover trace: engine_0/trace0.vcd
+cover trace: engine_0/trace0.yw
+  reached cover statement csr_fv.\dut.i_mpp_legal_sva.c_mret_seen at mpp_legal_sva.sv:122.7-122.36 step 3
+cover trace: engine_0/trace1.vcd
+cover trace: engine_0/trace1.yw
+  reached cover statement csr_fv.\dut.i_mpp_legal_sva.c_mprv_seen at mpp_legal_sva.sv:123.7-123.36 step 3
+unreached cover statements:
+  csr_fv.\dut.i_mpp_legal_sva.c_ldst_reserved at mpp_legal_sva.sv:132.7-132.45
+  csr_fv.\dut.i_mpp_legal_sva.c_ldst_reserved_via_mprv at mpp_legal_sva.sv:133.7-133.64
+  csr_fv.\dut.i_mpp_legal_sva.c_mpp_reserved at mpp_legal_sva.sv:125.7-125.43
+  csr_fv.\dut.i_mpp_legal_sva.c_mret_from_bad_mpp at mpp_legal_sva.sv:127.7-127.58
+  csr_fv.\dut.i_mpp_legal_sva.c_priv_reserved at mpp_legal_sva.sv:128.7-128.45
