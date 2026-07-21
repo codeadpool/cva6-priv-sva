@@ -25,7 +25,7 @@ ln -s "$MUT" cva6
 
 declare -a M=(
     "M1~core/pmp/src/pmp.sv~s@ || conf_i\[i\].locked@@~pmp"
-    "M2~core/pmp/src/pmp.sv~s@if (priv_lvl_i == riscv::PRIV_LVL_M) allow_o = 1'b1;@allow_o = 1'b0;@~pmp"
+    "M2~core/pmp/src/pmp.sv~s@riscv::PRIV_LVL_M) allow_o = 1'b1;@riscv::PRIV_LVL_M) allow_o = 1'b0;@~pmp"
     "M3~core/pmp/src/pmp.sv~s@^\( *\)break;@\1// MUT-break@~pmp"
     "M4~core/pmp/src/pmp.sv~s@!= access_type_i) allow_o = 1'b0;@== access_type_i) allow_o = 1'b0;@~pmp"
     "M5~core/pmp/src/pmp_entry.sv~s@match_o = 0;@match_o = 1;@~pmp"
