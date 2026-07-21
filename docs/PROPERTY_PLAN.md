@@ -18,8 +18,9 @@ sby run.
 | mstatus_f5_sva | csr_regfile | MST-6,8 / F5 | CEX on v5.3.0; PROVEN (k-induction) on PR #3386 head 3250ed48 | 2026-07-19 |
 | mstatus_mprv_sva | csr_regfile | MST-7 / F6 | CEX (expected, upstream #3294/#1981) | 2026-07-06 |
 | pmp_mpri_sva | pmp | PMP-9 / F7 | CEX (expected, upstream #3177) | 2026-07-06 |
-| priv_dret_sva | csr_regfile | PRIV-4,6 / F8 | CEX on v5.3.0; PROVEN (PDR) on PR #3387 head 8f74af4a | 2026-07-19 |
-| dcsr_reserved_sva | csr_regfile | PRIV-5 | CEX on v5.3.0; PROVEN (k-induction) on PR #3387 head 8f74af4a | 2026-07-19 |
+| priv_dret_sva | csr_regfile | PRIV-4,6 / F8 | CEX on v5.3.0; PROVEN (PDR) on PR #3387 head 8f74af4a; also CEX at RVH=1 (the dcsr.prv defect is not RVH-gated) | 2026-07-19 |
+| dcsr_reserved_sva | csr_regfile | PRIV-5, PRIV-8 | CEX on v5.3.0; PROVEN (k-induction) on PR #3387 head 8f74af4a | 2026-07-21 |
+| mpp_legal_sva | csr_regfile | PRIV-7 / F9 | RVH=1: CEX (v5.3.0 & #3387 head, step 3). RVH=0: CEX on v5.3.0 (via F8/#3383), PROVEN (PDR) on #3387 head | 2026-07-20 |
 | ptw_pmp_sva | cva6_ptw | VM-1,3 (VM-2 structural) | PROVEN (bmc/prove/cover) | 2026-07-06 |
 
 All checkers use immediate assertions only (yosys-slang lowers no concurrent
@@ -27,19 +28,19 @@ SVA); every asserted antecedent has a cover witness, so no PASS is vacuous.
 Counts are distinct properties; the x8 per-PMP-entry generate replication is
 not counted. Run per the README quickstart; probes (expected-CEX checkers)
 run bmc+cover on golden, and additionally `prove` against the PR head wherever we
-submitted a fix. Engines: `smtbmc boolector` throughout, except `priv_dret`,
-whose `prove` task runs `smtbmc boolector` and `abc pdr` in parallel and takes
-the first conclusive result. It needs both: on the fixed RTL, fixed-depth
-k-induction cannot discover the `mstatus.mpp` invariant PRIV-4 requires (mret
-loads priv_lvl from mpp, so the step case may start from an unreachable mpp)
-and PDR derives it automatically; on golden the property is false, where PDR
-would search indefinitely for a proof that does not exist and smtbmc returns
-the counterexample in seconds.
+submitted a fix. Engines: `smtbmc boolector` throughout, except `priv_dret` and
+`mpp_legal`, whose `prove` task runs `smtbmc boolector` and `abc pdr` in parallel
+and takes the first conclusive result. Both need PDR for the same reason: a
+`mstatus.mpp` legality invariant is not k-inductive at a fixed depth (mret loads
+priv_lvl from mpp, so the induction step can start from an unreachable mpp),
+and PDR derives the strengthening automatically; where the property is false PDR
+would search indefinitely for a proof that does not exist, so listing both
+engines lets smtbmc return the counterexample in seconds instead.
 Not yet authored: PRIV-3 (TSR is enforced in the
 decoder, outside the csr_regfile harness; future decoder-level checker).
 
 Each property cites its RTL basis (file:line) and a shorthand tag for its
-privileged-spec basis. Smepmp is absent from CVA6 (FINDINGS.md F1), so
+privileged-spec basis. Smepmp is absent from CVA6 (no `mseccfg` CSR), so
 Layer 1 checks what the RTL implements plus one gap-characterisation property
 (GAP-1).
 
@@ -117,3 +118,5 @@ Layer 1 checks what the RTL implements plus one gap-characterisation property
 | PRIV-4 | F8 probe: priv_lvl legal after dret (dcsr.prv unlegalized) | csr:1056,2166 | PRIV | CEX on v5.3.0; PROVEN (PDR) on #3387 head 2026-07-19 |
 | PRIV-5 | DCSR reserved zero1/zero2 read 0; fix-certification for upstream #1984, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (k-induction) on #3387 head 2026-07-19 |
 | PRIV-6 | dcsr.prv itself stays WARL-legal; added as PRIV-4 induction strengthening, but a real invariant in its own right | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (PDR) on #3387 head 2026-07-19 |
+| PRIV-7 | F9 probe: mstatus.mpp rejects the reserved encoding 2'b10; guard csr:1382 is `!RVH`-gated but 2'b10 is reserved in every config | csr:1382 | PRIV-warl | RVH=1: CEX (v5.3.0 & #3387 head). RVH=0: CEX on v5.3.0 via F8, PROVEN (PDR) on #3387 head 2026-07-20 |
+| PRIV-8 | dcsr.cause preserved across a software dcsr write (hardware-written only); fix-certification for upstream #1985, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (k-induction) on #3387 head 2026-07-21 |

@@ -1,11 +1,12 @@
 # Findings
 
-CVA6 v5.3.0 (`2ef1c1b`, `cv64a6_imafdc_sv39`) against the RISC-V privileged
-spec v1.13. Two unreported nonconformances (F5 and F8, both reported upstream with fixes
-submitted as pull requests, under review), two known
-upstream (F6, F7). Each has a witness
-under `evidence/`: the F5-F8 probes fail in bmc by design, the base properties
-pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
+CVA6 v5.3.0 (`2ef1c1b`) against the RISC-V privileged spec v1.13, on
+`cv64a6_imafdc_sv39` (RVH=0) except F9, which needs `cv64a6_imafdch_sv39`
+(RVH=1). Five findings: three our own F5 and F8 (reported upstream, fixes
+submitted as pull requests under review) and F9 (RVH=1 only, being written up,
+not yet filed) and two that rediscover known open upstream issues (F6, F7).
+Each has a witness under `evidence/`: the finding probes fail in bmc by design,
+the base properties pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
 
 ## F5: interrupt traps leave the instruction encoding in mtval/stval
 
@@ -81,7 +82,49 @@ assertions and are therefore unreachable.
 reserved fields raw. PR #3387 hardwires `v` to 0 when RVH=0, preserves
 hardwareowned `cause` (closing #1985), and added 2026-07-18 (`8f74af4a`)
 zeroes `zero1` (bit 14) and `zero2` (bits 27:18), completing #1984. The
-reserved-field half is a fix-certification, not an original finding: #1984
-predates this work and was filed by others. Probe
-`dcsr_reserved_sva.sv::a_dcsr_reserved_zero`: CEX on v5.3.0 at step 4; proven by
-k-induction on the PR head, so `c_reserved_nonzero` is unreachable.
+reserved-field half is a fix-certification, not an original finding: #1984 and
+#1985 predate this work and were filed by others. Probe `dcsr_reserved_sva.sv`
+certifies both halves: `a_dcsr_reserved_zero` (reserved bits, #1984) and
+`a_dcsr_cause_preserved` (a software dcsr write cannot change `cause`, #1985).
+Both CEX on v5.3.0 at step 4 and are proven by k-induction on the PR head, so
+`c_reserved_nonzero` and `c_cause_changed` are unreachable there; the antecedent
+cover `c_dcsr_sw_write` still reaches.
+
+## F9: mstatus.MPP retains the reserved encoding 2'b10 when the hypervisor extension is enabled (RVH=1)
+
+`csr_regfile.sv:1382` legalizes `mstatus.mpp` against 2'b10 only when RVH=0: the
+term is `!CVA6Cfg.RVH & mstatus_d.mpp == PRIV_LVL_HS`. But 2'b10 is not a
+privilege mode in any configuration: HS is S-mode (2'b01) with V=0, and CVA6
+uses `PRIV_LVL_HS` only as a CSR access level (`riscv_pkg.sv:33`), never as a
+mode the hart runs at. With RVH=1 the guard is switched off, and a plain M-mode
+`csrw mstatus` leaves `mpp = 2'b10`.
+
+This is the RVH=1 half of #1988 / #2274, which reported the same reserved value
+on CV32A65X (no hypervisor) and were closed by PR #2035, the PR that introduced
+this `!CVA6Cfg.RVH` condition. The fix legalized the configuration that was
+reported; the encoding is reserved in the other one too. So this is an incomplete
+fix, not a new defect, and it does not affect the default `cv64a6_imafdc_sv39`
+(RVH=0). Writing `mstatus` requires M-mode, so it is not a privilege escalation;
+it is a WARL/robustness gap that places the hart in an undefined privilege
+encoding.
+
+Once set, 2'b10 propagates: `mret` copies it into `priv_lvl` unclamped (`:2108`),
+and with `mstatus.mprv` it becomes the load/store privilege with no `mret` at all
+(`:2074`, `:2088`). The MMU's user/supervisor page check is an equality against S
+and U (`cva6_mmu.sv:371-372` fetch, `:523-524` load/store), so 2'b10 matches
+neither and that one check is skipped: a hart at 2'b10 may read both user and
+supervisor pages. Stated no more strongly than that: the PTE R/W/X and dirty
+checks do not depend on privilege and still fire (`cva6_mmu.sv:586`), and PMP is
+unaffected: it treats any non-M privilege as subject to the rules (`pmp.sv:55`)
+and fails safe. The similar guard in the CSR_SSTATUS write case (`:1172`) is not a
+second site: `SMODE_STATUS_WRITE_MASK` (0x000C6122) excludes the MPP field (bits
+12:11), so an sstatus write cannot alter MPP and that guard is already a no-op.
+
+Witness: `mpp_legal_sva.sv::a_mpp_legal`, run as a differential the same
+assertion on the same RTL at both RVH settings. On the #3387 branch it proves
+unbounded (PDR) at RVH=0 and fails (bmc, step 3) at RVH=1; the RVH=1
+counterexample keeps `priv_lvl` legal throughout, which is what separates it from
+F8 (#3383). On unpatched v5.3.0 the assertion also fails at RVH=0, but by F8's
+`dcsr.prv` → trap-stack route (`:1906`), three steps later and with `priv_lvl`
+corrupted first a different mechanism, not this one. Being written up as an
+incomplete-fix follow-up to #1988 / #2274; not yet filed upstream.
