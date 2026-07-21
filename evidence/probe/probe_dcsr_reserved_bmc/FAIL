@@ -1,6 +1,7 @@
-Elapsed clock time [H:MM:SS (secs)]: 0:00:03 (3)
+Elapsed clock time [H:MM:SS (secs)]: 0:00:04 (4)
 Elapsed process time [H:MM:SS (secs)]: 0:00:04 (4)
 engine_0 (smtbmc boolector) returned FAIL
 counterexample trace: engine_0/trace.vcd
 counterexample trace: engine_0/trace.yw
-  failed assertion csr_fv.\dut.i_dcsr_reserved_sva.a_dcsr_reserved_zero at dcsr_reserved_sva.sv:21.42-21.88 step 4
+  failed assertion csr_fv.\dut.i_dcsr_reserved_sva.a_dcsr_cause_preserved at dcsr_reserved_sva.sv:49.7-49.86 step 4
+  failed assertion csr_fv.\dut.i_dcsr_reserved_sva.a_dcsr_reserved_zero at dcsr_reserved_sva.sv:25.42-25.88 step 4
