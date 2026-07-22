@@ -20,8 +20,8 @@ module dcsr_reserved_sva #(
   always_ff @(posedge clk_i) if (rst_ni) a_dcsr_reserved_zero : assert (reserved_zero);
 
   // #1985: a software dcsr write cannot change cause (hardware written only).
-  // Gating on debug_mode isolates it from the debug entry cause-write, which
-  // runs only when !debug_mode_q.
+  // Guarded by debug_mode, which isolates it from the debug-entry cause-write
+  // (that runs only when !debug_mode_q).
   logic       past_valid;
   logic [2:0] cause_q1;
   logic       sw_wr_indebug_q;

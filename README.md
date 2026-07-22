@@ -32,13 +32,14 @@ The suite is validated:
 - **Probe witness signatures.** Each expected-CEX probe covers its
   exact violation state, so a probe that stops failing for the intended reason is
   caught.
-- **Fix certification.** Where we submitted a fix (F5, F8, and the DCSR reserved
-  and cause fields, PRIV-5/PRIV-8), the same probe is re-run against the PR head
-  and proven there by induction (PDR for F8, where fixed-depth k-induction cannot
-  discover the `mstatus.mpp` invariant). Each
+- **Fix certification.** Where we submitted a fix (F5, F8, the DCSR reserved and
+  cause fields PRIV-5/PRIV-8, and the RVH=1 dcsr.v clamps PRIV-9), the same probe
+  is re-run against the PR head and proven there by induction (PDR for F8, where
+  fixed-depth k-induction cannot discover the `mstatus.mpp` invariant). Each
   defect-witness cover is the exact negation of a proven assertion, so its
-  unreachability follows from the proof, not from a bounded search. Proven for
-  `cv64a6_imafdc_sv39` (RVH=0) only. Both runs are archived under `evidence/`,
+  unreachability follows from the proof, not from a bounded search. Proven at
+  `cv64a6_imafdc_sv39` (RVH=0), except the dcsr.v clamps (PRIV-9), proven at
+  `cv64a6_imafdch_sv39` (RVH=1). Both runs are archived under `evidence/`,
   each labelled with the commit it was proven against. F6 and F7 are known
   upstream issues with no fix of ours, so no "after" evidence is claimed.
 - **No assumptions.** `fv/` contains no `assume`, so the proven properties hold

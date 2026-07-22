@@ -1,0 +1,41 @@
+# dcsr.v M+V=1 at RVH=1: #3387 dcsr.v clamp cert. Run on golden (CEX baseline)
+# and on the #3387 FORK with both clamps (proof). EXPECTED golden: bmc/prove FAIL,
+# cover reaches all four. EXPECTED fork: bmc/prove PASS; antecedents c_wr_indebug
+# and c_dret_seen reach, defect covers c_wr_illegal/c_dret_illegal do not.
+# RVH=1 only.
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc:   mode bmc
+bmc:   depth 12
+prove: mode prove
+prove: depth 8
+cover: mode cover
+cover: depth 20
+
+[engines]
+bmc:   smtbmc boolector
+prove: smtbmc boolector
+prove: abc pdr
+cover: smtbmc boolector
+
+[script]
+plugin -i slang
+read_slang --top csr_fv config_pkg.sv cv64a6_imafdch_sv39_config_pkg.sv riscv_pkg.sv build_config_pkg.sv cf_math_pkg.sv ariane_pkg.sv csr_regfile.sv dcsr_vlegal_sva.sv csr_fv.sv dcsr_vlegal_bind.sv
+prep -top csr_fv
+
+[files]
+../../cva6/core/include/config_pkg.sv
+../../cva6/core/include/cv64a6_imafdch_sv39_config_pkg.sv
+../../cva6/core/include/riscv_pkg.sv
+../../cva6/core/include/build_config_pkg.sv
+../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv
+../../cva6/core/include/ariane_pkg.sv
+../../cva6/core/include/rvfi_types.svh
+../../cva6/core/csr_regfile.sv
+../sva/dcsr_vlegal_sva.sv
+../wrappers/csr_fv.sv
+../sva/dcsr_vlegal_bind.sv
