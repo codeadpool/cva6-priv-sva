@@ -3,7 +3,11 @@ yosys:     Yosys 0.63 (git sha1 70a11c6bf, g++ 13.3.0-6ubuntu2~24.04.1 -fPIC -O3
 sby:       usage: sby [options] [<jobname>.sby [tasknames] | <dirname>]
 z3:        Z3 version 4.8.12 - 64 bit
 
-── CVA6 ──
-path:      /workspace/cva6-fork
-commit:    8f74af4a01939e7e6f78913e466099ae9d479966
-describe:  v5.3.0-186-g8f74af4a
+── CVA6 (PR #3387 fix/dcsr-warl-legalize) ──
+path:      cva6-fork
+head:      58e79cffd4230e0b08a637b1dc7018b20c9f3108  (v5.3.0-187-g58e79cff)
+worktree:  clean
+note:      priv_dret (prv) + dcsr_reserved (reserved, cause) certified at ancestor
+           8f74af4a; dcsr_vlegal (dcsr.v write/dret clamps, RVH=1) at this head.
+           58e79cff = 8f74af4a + the two dcsr.v clamp lines (RTL-orthogonal to the
+           earlier three), so those proofs hold at this head too.

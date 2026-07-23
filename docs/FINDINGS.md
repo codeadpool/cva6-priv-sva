@@ -99,11 +99,12 @@ uses `PRIV_LVL_HS` only as a CSR access level (`riscv_pkg.sv:33`), never as a
 mode the hart runs at. With RVH=1 the guard is switched off, and a plain M-mode
 `csrw mstatus` leaves `mpp = 2'b10`.
 
-This is the RVH=1 half of #1988 / #2274, which reported the same reserved value
-on CV32A65X (no hypervisor) and were closed by PR #2035, the PR that introduced
-this `!CVA6Cfg.RVH` condition. The fix legalized the configuration that was
-reported; the encoding is reserved in the other one too. So this is an incomplete
-fix, not a new defect, and it does not affect the default `cv64a6_imafdc_sv39`
+This is the RVH=1 case left open by the fixes for #1988 and #2274 (both on
+CV32A65X, no hypervisor). PR #2035 first rejected `2'b10` only when
+`!CVA6Cfg.RVH`; PR #2285 (fixing #2274) generalized MPP legalization to the
+unsupported S and U encodings but kept the same RVH-dependent treatment of
+`2'b10`. The encoding is reserved in the RVH=1 configuration too. So this is an
+incomplete fix, not a new defect, and it does not affect the default `cv64a6_imafdc_sv39`
 (RVH=0). Writing `mstatus` requires M-mode, so it is not a privilege escalation;
 it is a WARL/robustness gap that places the hart in an undefined privilege
 encoding.
