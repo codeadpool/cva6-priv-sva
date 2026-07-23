@@ -3,8 +3,8 @@
 CVA6 v5.3.0 (`2ef1c1b`) against the RISC-V privileged spec v1.13, on
 `cv64a6_imafdc_sv39` (RVH=0) except F9, which needs `cv64a6_imafdch_sv39`
 (RVH=1). Five findings: three our own F5 and F8 (reported upstream, fixes
-submitted as pull requests under review) and F9 (RVH=1 only, being written up,
-not yet filed) and two that rediscover known open upstream issues (F6, F7).
+submitted as pull requests under review) and F9 (RVH=1 only, reported as #3411)
+and two that rediscover known open upstream issues (F6, F7).
 Each has a witness under `evidence/`: the finding probes fail in bmc by design,
 the base properties pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
 
@@ -111,13 +111,14 @@ encoding.
 
 Once set, 2'b10 propagates: `mret` copies it into `priv_lvl` unclamped (`:2108`),
 and with `mstatus.mprv` it becomes the load/store privilege with no `mret` at all
-(`:2074`, `:2088`). The MMU's user/supervisor page check is an equality against S
-and U (`cva6_mmu.sv:371-372` fetch, `:523-524` load/store), so 2'b10 matches
-neither and that one check is skipped: a hart at 2'b10 may read both user and
-supervisor pages. Stated no more strongly than that: the PTE R/W/X and dirty
-checks do not depend on privilege and still fire (`cva6_mmu.sv:586`), and PMP is
-unaffected: it treats any non-M privilege as subject to the rules (`pmp.sv:55`)
-and fails safe. The similar guard in the CSR_SSTATUS write case (`:1172`) is not a
+(`:2074`, `:2088`). The MMU's first-stage U-bit ownership checks compare the
+effective privilege against S and U explicitly (`cva6_mmu.sv:371-372` fetch,
+`:523-524` load/store). 2'b10 matches neither branch, so that mode-dependent
+predicate is false for either U=0 or U=1. This finding demonstrates bypass of that
+predicate only; it does not claim that independent PTE validity, access-type, or
+PMP checks are bypassed. The store path still applies its W/D checks
+(`cva6_mmu.sv:586`), and where PMP is enabled, PMP treats 2'b10 as non-M and does
+not confer the M-mode bypass (`pmp.sv:55`). The similar guard in the CSR_SSTATUS write case (`:1172`) is not a
 second site: `SMODE_STATUS_WRITE_MASK` (0x000C6122) excludes the MPP field (bits
 12:11), so an sstatus write cannot alter MPP and that guard is already a no-op.
 
@@ -127,5 +128,5 @@ unbounded (PDR) at RVH=0 and fails (bmc, step 3) at RVH=1; the RVH=1
 counterexample keeps `priv_lvl` legal throughout, which is what separates it from
 F8 (#3383). On unpatched v5.3.0 the assertion also fails at RVH=0, but by F8's
 `dcsr.prv` → trap-stack route (`:1906`), three steps later and with `priv_lvl`
-corrupted first a different mechanism, not this one. Being written up as an
-incomplete-fix follow-up to #1988 / #2274; not yet filed upstream.
+corrupted first a different mechanism, not this one. Reported 2026-07-23 as
+openhwgroup/cva6 #3411, an incomplete-fix follow-up to #1988 / #2274.
