@@ -15,7 +15,7 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 > PR #3387), both with fixes open upstream; and F9 (`mstatus.MPP` retains the
 > reserved encoding 2'b10 when the hypervisor extension is enabled an
 > incomplete fix of the RVH=0 only #1988/#2274, affecting RVH=1 builds only, not
-> the default config; reported as #3411). Two independently rediscover
+> the default config; reported as #3411, fixed in PR #3414). Two independently rediscover
 > known-open upstream issues: F6 (MPRV-on-xret, #3294) and F7 (PMP M-mode
 > priority, #3177). Findings: `docs/FINDINGS.md`; full table:
 > `docs/PROPERTY_PLAN.md`.

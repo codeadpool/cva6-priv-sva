@@ -20,7 +20,7 @@ sby run.
 | pmp_mpri_sva | pmp | PMP-9 / F7 | CEX (expected, upstream #3177) | 2026-07-06 |
 | priv_dret_sva | csr_regfile | PRIV-4,6 / F8 | CEX on v5.3.0; PROVEN (PDR) on PR #3387 head 8f74af4a; also CEX at RVH=1 (the dcsr.prv defect is not RVH-gated) | 2026-07-19 |
 | dcsr_reserved_sva | csr_regfile | PRIV-5, PRIV-8 | CEX on v5.3.0; PROVEN (k-induction) on PR #3387 head 8f74af4a | 2026-07-21 |
-| mpp_legal_sva | csr_regfile | PRIV-7 / F9 | RVH=1: CEX (v5.3.0 & #3387 head, step 3). RVH=0: CEX on v5.3.0 (via F8/#3383), PROVEN (PDR) on #3387 head | 2026-07-20 |
+| mpp_legal_sva | csr_regfile | PRIV-7 / F9 | RVH=1: CEX (v5.3.0 & #3387 head, step 3), PROVEN (PDR) on #3387 + PR #3414. RVH=0: CEX on v5.3.0 (via F8/#3383), PROVEN (PDR) on #3387 head | 2026-07-24 |
 | dcsr_vlegal_sva | csr_regfile | PRIV-9 / #3387 RVH=1 | RVH=1: CEX on golden; PROVEN (k-induction) on #3387 head with the write+dret v-clamps | 2026-07-22 |
 | ptw_pmp_sva | cva6_ptw | VM-1,3 (VM-2 structural) | PROVEN (bmc/prove/cover) | 2026-07-06 |
 
@@ -119,6 +119,6 @@ Layer 1 checks what the RTL implements plus one gap-characterisation property
 | PRIV-4 | F8 probe: priv_lvl legal after dret (dcsr.prv unlegalized) | csr:1056,2166 | PRIV | CEX on v5.3.0; PROVEN (PDR) on #3387 head 2026-07-19 |
 | PRIV-5 | DCSR reserved zero1/zero2 read 0; fix-certification for upstream #1984, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (k-induction) on #3387 head 2026-07-19 |
 | PRIV-6 | dcsr.prv itself stays WARL-legal; added as PRIV-4 induction strengthening, but a real invariant in its own right | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (PDR) on #3387 head 2026-07-19 |
-| PRIV-7 | F9 probe: mstatus.mpp rejects the reserved encoding 2'b10; guard csr:1382 is `!RVH`-gated but 2'b10 is reserved in every config | csr:1382 | PRIV-warl | RVH=1: CEX (v5.3.0 & #3387 head). RVH=0: CEX on v5.3.0 via F8, PROVEN (PDR) on #3387 head 2026-07-20 |
+| PRIV-7 | F9 probe: mstatus.mpp rejects the reserved encoding 2'b10; guard csr:1382 is `!RVH`-gated but 2'b10 is reserved in every config | csr:1382 | PRIV-warl | RVH=1: CEX (v5.3.0 & #3387 head), PROVEN (PDR) on #3387 + PR #3414. RVH=0: CEX on v5.3.0 via F8, PROVEN (PDR) on #3387 head 2026-07-24 |
 | PRIV-8 | dcsr.cause preserved across a software dcsr write (hardware-written only); fix-certification for upstream #1985, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (k-induction) on #3387 head 2026-07-21 |
 | PRIV-9 | dcsr.v never pairs with prv=M (M+V=1) at RVH=1: an in-debug dcsr write cannot store {M,v=1} (write clamp), and dret never resumes M with V=1 (dret clamp). Global invariant left to #3313 (mret+mpv). Fix-cert for the #3387 RVH=1 clamps | csr:1179,2390 | PRIV-warl | CEX on golden RVH=1; PROVEN (k-induction) on #3387 head 2026-07-22 |

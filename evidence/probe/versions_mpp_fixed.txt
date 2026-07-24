@@ -1,0 +1,16 @@
+── tools ──
+yosys:     Yosys 0.63 (git sha1 70a11c6bf, g++ 13.3.0-6ubuntu2~24.04.1 -fPIC -O3)
+sby:       usage: sby [options] [<jobname>.sby [tasknames] | <dirname>]
+z3:        Z3 version 4.8.12 - 64 bit
+
+── CVA6 (F9 fix certification: certify/mpp-rvh-on-3387) ──
+path:      cva6-fork
+head:      e6566eca  (58e79cff + cherry-picked mstatus.MPP guard fix)
+worktree:  clean
+note:      certifies mpp_legal_sva at cv64a6_imafdch_sv39 (RVH=1):
+           bmc PASS, prove PASS (engine abc pdr, unbounded), cover 2/7
+           (c_mret_seen + c_mprv_seen reach; the five defect covers are
+           unreachable, being negations of the proven a_mpp_legal).
+           Branch = #3387 (dcsr.prv/dret WARL-legalization, which closes the
+           dret -> priv_lvl -> trap-to-M stack route into mpp) + the one-line
+           mstatus.MPP guard fix submitted as fix/mpp-rvh-legalize.

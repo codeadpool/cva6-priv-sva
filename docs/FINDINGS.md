@@ -2,9 +2,9 @@
 
 CVA6 v5.3.0 (`2ef1c1b`) against the RISC-V privileged spec v1.13, on
 `cv64a6_imafdc_sv39` (RVH=0) except F9, which needs `cv64a6_imafdch_sv39`
-(RVH=1). Five findings: three our own F5 and F8 (reported upstream, fixes
-submitted as pull requests under review) and F9 (RVH=1 only, reported as #3411)
-and two that rediscover known open upstream issues (F6, F7).
+(RVH=1). Five findings: three our own F5, F8, and F9 (reported upstream, fixes
+submitted as pull requests under review) and two that rediscover known open
+upstream issues (F6, F7).
 Each has a witness under `evidence/`: the finding probes fail in bmc by design,
 the base properties pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
 
@@ -129,4 +129,8 @@ counterexample keeps `priv_lvl` legal throughout, which is what separates it fro
 F8 (#3383). On unpatched v5.3.0 the assertion also fails at RVH=0, but by F8's
 `dcsr.prv` → trap-stack route (`:1906`), three steps later and with `priv_lvl`
 corrupted first a different mechanism, not this one. Reported 2026-07-23 as
-openhwgroup/cva6 #3411, an incomplete-fix follow-up to #1988 / #2274.
+openhwgroup/cva6 #3411, an incomplete-fix follow-up to #1988 / #2274; fixed in
+PR #3414. The guard generalization (drop `!CVA6Cfg.RVH` from the `PRIV_LVL_HS`
+arm) is certified at RVH=1 with #3387 also applied: `a_mpp_legal` proves unbounded
+(PDR), `bmc` passes, and the five defect covers become unreachable
+(`evidence/probe/probe_mpp_legal_rvh_fixed_*`).
