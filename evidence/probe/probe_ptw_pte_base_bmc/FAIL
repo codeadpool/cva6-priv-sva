@@ -1,0 +1,7 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
+engine_0 (smtbmc boolector) returned FAIL
+counterexample trace: engine_0/trace.vcd
+counterexample trace: engine_0/trace.yw
+  failed assertion ptw_fv_master.\dut.i_ptw_pte_sva.a_nonleaf_adu_faults at ptw_pte_sva.sv:23.7-23.64 step 4
+  failed assertion ptw_fv_master.\dut.i_ptw_pte_sva.a_nonleaf_adu_no_walk at ptw_pte_sva.sv:25.7-25.72 step 4

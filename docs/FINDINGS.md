@@ -2,9 +2,9 @@
 
 CVA6 v5.3.0 (`2ef1c1b`) against the RISC-V privileged spec v1.13, on
 `cv64a6_imafdc_sv39` (RVH=0) except F9, which needs `cv64a6_imafdch_sv39`
-(RVH=1). Five findings: three our own F5, F8, and F9 (reported upstream, fixes
-submitted as pull requests under review) and two that rediscover known open
-upstream issues (F6, F7).
+(RVH=1). Six findings: four our own F5, F8, F9, and F10 (reported upstream,
+fixes submitted as pull requests under review) and two that rediscover known
+open upstream issues (F6, F7).
 Each has a witness under `evidence/`: the finding probes fail in bmc by design,
 the base properties pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
 
@@ -134,3 +134,45 @@ PR #3414. The guard generalization (drop `!CVA6Cfg.RVH` from the `PRIV_LVL_HS`
 arm) is certified at RVH=1 with #3387 also applied: `a_mpp_legal` proves unbounded
 (PDR), `bmc` passes, and the five defect covers become unreachable
 (`evidence/probe/probe_mpp_legal_rvh_fixed_*`).
+
+## F10: non-leaf PTEs with reserved A/D/U are accepted when RVH=0
+
+`cva6_ptw.sv:543` gates the reserved-bit check on the hypervisor extension:
+`if (CVA6Cfg.RVH && (pte.a || pte.d || pte.u))`. Noticed while reviewing the
+non-leaf path and confirmed with VM-4. The descent branch (`:507`) has already
+incremented the level and set `state_d = WAIT_GRANT`, so with RVH=0 the check
+never runs and the walker follows a malformed pointer PTE to the next level.
+This affects every paged-MMU configuration with RVH=0, including the default
+`cv64a6_imafdc_sv39`; only `cv64a6_imafdch_sv39` and `cv64a6_imafdch_sv39_wb`
+set RVH=1, and no `verif/regress` script exercises either. Configurations
+without an MMU (`cv32a60x`, `cv32a65x`) are unaffected. Still present on
+upstream master `88e810c7` at `:580`.
+
+Spec: D/A/U are reserved for future standard use in non-leaf PTEs, and step 3 of
+the translation algorithm raises a page fault when reserved bits are set: the
+rule is not conditional on the H extension. sail-riscv 0.12 (`65ddde80`) applies
+the same check with no H-extension condition, as a disjunct of `pte_is_invalid`
+(`model/sys/vmem_pte.sail:99`). On master the adjacent invalid-PTE test already
+faults on a reserved non-leaf bit for Svnapot's `pte.n` (`:430`), so the rule is
+accepted upstream; only A/D/U were left behind the gate. `vm_nonleaf_pte.S` does
+not cover this: its LEVEL1 pointer PTE carries only `PTE_V`, and its U/A/D cases
+are LEVEL0 leaf entries where R=W=X=0 already faults.
+
+Witness: `ptw_pte_sva.sv::a_nonleaf_adu_faults` and `a_nonleaf_adu_no_walk`.
+Both CEX at step 4, on the pinned golden submodule (v5.3.0) and on upstream
+master (`88e810c7`); the violating cycle is `PTE_LOOKUP` with rvalid, no flush,
+PMP allowing, a well-formed non-leaf PTE with A/D/U set, and
+`state_d = WAIT_GRANT`.
+
+The fix (drop the `CVA6Cfg.RVH &&` term, move the guard inward onto the stage
+restore) is certified against the same base: `88e810c7` unpatched fails bmc and
+prove, `88e810c7` plus the two-line hunk proves by k-induction, and the two runs
+differ by that hunk alone. Unreachability of the violation follows from that
+unbounded proof, not from any bounded cover result. The antecedent cover
+`c_nonleaf_adu_seen` still reaches after the fix, and it excludes the last
+page-table level via `pte_can_descend`: a non-leaf PTE there already faults through the
+`ptw_lvl_q[0] == CVA6Cfg.PtLevels - 1` branch for an unrelated reason: so what stays reachable is the affected descent
+path. VM-1/3 still prove at the patched head
+(`evidence/probe/probe_ptw_pte_base_*`, `probe_ptw_pte_fix_*`,
+`evidence/vm/vm_fix_prove`). Certification uses `ptw_fv_master.sv`, a wrapper
+twin carrying the post-v5.3.0 MMU types.

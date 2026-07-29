@@ -1,0 +1,53 @@
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Removing directory '/workspace/results/probe/probe_ptw_pte_bmc'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/config_pkg.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/riscv_pkg.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/build_config_pkg.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/lzc.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/cf_math_pkg.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/ariane_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/ariane_pkg.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp_entry.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/pmp_entry.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/pmp.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../../cva6/core/cva6_mmu/cva6_ptw.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/cva6_ptw.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../sva/ptw_pte_sva.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/ptw_pte_sva.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../wrappers/ptw_fv.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/ptw_fv.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] Copy '/workspace/fv/checks/../sva/ptw_pte_bind.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_bmc/src/ptw_pte_bind.sv'.
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] engine_0: smtbmc boolector
+SBY 14:25:19 [../../results/probe/probe_ptw_pte_bmc] base: starting process "cd ../../results/probe/probe_ptw_pte_bmc/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] base: Top level design units:
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] base: ptw_fv
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] base: Build succeeded: 0 errors, 0 warnings
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] base: finished (returncode=0)
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] prep: starting process "cd ../../results/probe/probe_ptw_pte_bmc/model; yosys -ql design_prep.log design_prep.ys"
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] prep: finished (returncode=0)
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] smt2: starting process "cd ../../results/probe/probe_ptw_pte_bmc/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] smt2: finished (returncode=0)
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: starting process "cd ../../results/probe/probe_ptw_pte_bmc; yosys-smtbmc -s boolector --presat --unroll --noprogress -t 15  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2"
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Solver: boolector
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Checking assumptions in step 0..
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Checking assertions in step 0..
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Checking assumptions in step 1..
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Checking assertions in step 1..
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Checking assumptions in step 2..
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Checking assertions in step 2..
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Checking assumptions in step 3..
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Checking assertions in step 3..
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Checking assumptions in step 4..
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Checking assertions in step 4..
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  BMC failed!
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Assert failed in ptw_fv: dut.i_ptw_pte_sva.a_nonleaf_adu_faults
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Assert failed in ptw_fv: dut.i_ptw_pte_sva.a_nonleaf_adu_no_walk
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace.vcd
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace_tb.v
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace.smtc
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace.yw
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: ##   0:00:00  Status: failed
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: finished (returncode=1)
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] engine_0: Status returned by engine: FAIL
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] summary: engine_0 (smtbmc boolector) returned FAIL
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] summary: counterexample trace: ../../results/probe/probe_ptw_pte_bmc/engine_0/trace.vcd
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] summary:   failed assertion ptw_fv.\dut.i_ptw_pte_sva.a_nonleaf_adu_faults at ptw_pte_sva.sv:23.7-23.64 step 4
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] summary:   failed assertion ptw_fv.\dut.i_ptw_pte_sva.a_nonleaf_adu_no_walk at ptw_pte_sva.sv:25.7-25.72 step 4
+SBY 14:25:20 [../../results/probe/probe_ptw_pte_bmc] DONE (FAIL, rc=2)

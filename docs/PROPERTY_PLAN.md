@@ -23,6 +23,7 @@ sby run.
 | mpp_legal_sva | csr_regfile | PRIV-7 / F9 | RVH=1: CEX (v5.3.0 & #3387 head, step 3), PROVEN (PDR) on #3387 + PR #3414. RVH=0: CEX on v5.3.0 (via F8/#3383), PROVEN (PDR) on #3387 head | 2026-07-24 |
 | dcsr_vlegal_sva | csr_regfile | PRIV-9 / #3387 RVH=1 | RVH=1: CEX on golden; PROVEN (k-induction) on #3387 head with the write+dret v-clamps | 2026-07-22 |
 | ptw_pmp_sva | cva6_ptw | VM-1,3 (VM-2 structural) | PROVEN (bmc/prove/cover) | 2026-07-06 |
+| ptw_pte_sva | cva6_ptw | VM-4 / F10 | CEX on v5.3.0 and on upstream/master 88e810c7 (bmc+prove); PROVEN (k-induction) on 88e810c7 + patch | 2026-07-29 |
 
 All checkers use immediate assertions only (yosys-slang lowers no concurrent
 SVA); every asserted antecedent has a reachable cover witness.
@@ -72,12 +73,19 @@ Layer 1 checks what the RTL implements plus one gap-characterisation property
 | CSR-5 | entry below a locked TOR not updatable | csr:1639-1642,1737 | PMP-lock | PROVEN 2026-07-06 |
 | CSR-6 | pmpcfg reserved bits read 0 | csr:1778 | PMP-warl | PROVEN 2026-07-02 |
 
-### vm: MMU-PMP interaction (cva6_ptw.sv)
+### vm: MMU-PMP interaction and PTE legality (cva6_ptw.sv)
+
+Scope note: VM-1/2/3 (`VM-pmp`) establish only that the walker honours PMP on
+each PTE fetch. They say nothing about whether the walker validates PTE
+*contents*; that is `VM-pte`, opened by VM-4. A green `vm` category is not
+evidence of PTE-encoding conformance.
+
 | ID | Property | RTL | Spec | Status |
 |---|---|---|---|---|
 | VM-1 | PMP-denied PTE fetch => access exception | ptw:561-566,580-582 | VM-pmp | PROVEN 2026-07-06 |
 | VM-2 | PTE-fetch PMP check is S-mode READ always | ptw:237-239 | VM-pmp | STRUCTURAL (hardwired constants at the i_pmp_ptw instantiation) |
 | VM-3 | PMP-denied PTE fetch => no TLB update | ptw:562 | VM-pmp | PROVEN 2026-07-06 |
+| VM-4 | non-leaf PTE with A/D/U set => page fault | ptw:507-543 | VM-pte | CEX on v5.3.0 (F10); PROVEN on patched head |
 
 ### gap: characterise the Smepmp absence
 | ID | Property | RTL | Status |

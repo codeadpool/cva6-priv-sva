@@ -1,0 +1,17 @@
+── tools ──
+oss-cad-suite: 2026-04-07  (pinned in Dockerfile + ci.yml; supplies yosys,
+               yosys-slang, sby and boolector, which do not all self-report)
+yosys:         Yosys 0.63 (git sha1 70a11c6bf)
+boolector:     3.2.4       (every task in the .sby selects smtbmc boolector)
+
+── CVA6 (F10 baseline: upstream/master, unpatched) ──
+path:      cva6-fork
+head:      88e810c7cb5357ad69b87b9c7480023049fdbe9c  (v5.3.0-192-g88e810c7c)
+verified:  src/cva6_ptw.sv in each run hashes to
+           c115c4831d536df78e1ae7651385b898e0445c3eacaee7bb220a660bd3068fdf,
+           equal to this commit's blob.
+note:      the controlled "before" for F10, and the parent commit of the fix.
+           probe_ptw_pte_base_*: bmc FAIL (both asserts, step 4), prove FAIL in
+           basecase, cover PASS. Harness = prhead_ptw_pte.sby + ptw_fv_master.sv.
+           Pairs with versions_f10_fix.txt; the two differ by one hunk in
+           cva6_ptw.sv and nothing else. Detail: docs/FINDINGS.md F10.
