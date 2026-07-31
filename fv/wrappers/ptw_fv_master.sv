@@ -1,4 +1,4 @@
-// formal top for cva6_ptw at upstream master 88e810c7 and its one-hunk
+// formal top for cva6_ptw at upstream master e4184b66 and its one-hunk
 // descendant, common harness for the F10 before/ after comparison.
 // Same as ptw_fv.sv except the reproduced types, which are localparam type
 // inside modules and so cannot be imported, they must track the revision.

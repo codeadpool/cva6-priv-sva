@@ -6,7 +6,7 @@ boolector:     3.2.4       (every task in the .sby selects smtbmc boolector)
 
 ── CVA6 (F10 baseline: upstream/master, unpatched) ──
 path:      cva6-fork
-head:      88e810c7cb5357ad69b87b9c7480023049fdbe9c  (v5.3.0-192-g88e810c7c)
+head:      e4184b665b7c777224688e8973167c8c5842762a  (v5.3.0-193-ge4184b665)
 verified:  src/cva6_ptw.sv in each run hashes to
            c115c4831d536df78e1ae7651385b898e0445c3eacaee7bb220a660bd3068fdf,
            equal to this commit's blob.

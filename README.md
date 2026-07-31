@@ -5,7 +5,7 @@ Open-source formal verification (SystemVerilog Assertions, proven with
 trap delegation, `mret`/`sret`, mstatus stacking, and the MMU↔PMP interaction
 as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule).
 
-> Status (2026-07-20): base properties proven (bmc + induction + cover, every
+> Status (2026-07-31): base properties proven (bmc + induction + cover, every
 > antecedent cover-witnessed) across PMP incl. a multi-entry reference model,
 > PMP-CSR WARL, trap delegation/return, mstatus stacking, privilege invariants,
 > and the MMU-PMP interaction. A set of witness probes fail by design, each a
@@ -13,9 +13,9 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 > are our own: F5 (interrupt mtval/stval, #3379, PR #3386) and F8 (unlegalized
 > `dcsr.prv` lets `dret` set priv_lvl to an unimplemented encoding, #3383,
 > PR #3387), both with fixes open upstream; and F9 (`mstatus.MPP` retains the
-> reserved encoding 2'b10 when the hypervisor extension is enabled an
-> incomplete fix of the RVH=0 only #1988/#2274, affecting RVH=1 builds only, not
-> the default config; reported as #3411, fixed in PR #3414); and F10 (the page-table walker follows a
+> reserved encoding 2'b10 when the hypervisor extension is enabled: an
+> incomplete fix of the RVH=0-only #1988/#2274 affecting RVH=1 builds only, not
+> the default config; reported as #3411, fix open as PR #3414); and F10 (the page-table walker follows a
 > non-leaf PTE carrying reserved A/D/U bits instead of raising a page fault, in
 > every paged-MMU configuration with RVH=0 including the default one; reported as
 > #3420, fix certified by induction). Two independently rediscover
@@ -35,8 +35,8 @@ The suite is validated:
 - **Probe witness signatures.** Each expected-CEX probe covers its
   exact violation state, so a probe that stops failing for the intended reason is
   caught.
-- **Fix certification.** Where we submitted a fix (F5, F8, the DCSR reserved and
-  cause fields PRIV-5/PRIV-8, and the RVH=1 dcsr.v clamps PRIV-9), the same probe
+- **Fix certification.** Where we submitted a fix (F5, F8, F9, F10, the DCSR
+  reserved and cause fields PRIV-5/PRIV-8, and the RVH=1 dcsr.v clamps PRIV-9), the same probe
   is re-run against the PR head and proven there by induction (PDR for F8, where
   fixed-depth k-induction cannot discover the `mstatus.mpp` invariant). Each
   defect-witness cover is the exact negation of a proven assertion, so its

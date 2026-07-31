@@ -23,7 +23,7 @@ sby run.
 | mpp_legal_sva | csr_regfile | PRIV-7 / F9 | RVH=1: CEX (v5.3.0 & #3387 head, step 3), PROVEN (PDR) on #3387 + PR #3414. RVH=0: CEX on v5.3.0 (via F8/#3383), PROVEN (PDR) on #3387 head | 2026-07-24 |
 | dcsr_vlegal_sva | csr_regfile | PRIV-9 / #3387 RVH=1 | RVH=1: CEX on golden; PROVEN (k-induction) on #3387 head with the write+dret v-clamps | 2026-07-22 |
 | ptw_pmp_sva | cva6_ptw | VM-1,3 (VM-2 structural) | PROVEN (bmc/prove/cover) | 2026-07-06 |
-| ptw_pte_sva | cva6_ptw | VM-4 / F10 | CEX on v5.3.0 and on upstream/master 88e810c7 (bmc+prove); PROVEN (k-induction) on 88e810c7 + patch | 2026-07-29 |
+| ptw_pte_sva | cva6_ptw | VM-4 / F10 | CEX on v5.3.0 and on upstream/master e4184b66 (bmc+prove); PROVEN (k-induction) on e4184b66 + patch | 2026-07-31 |
 
 All checkers use immediate assertions only (yosys-slang lowers no concurrent
 SVA); every asserted antecedent has a reachable cover witness.

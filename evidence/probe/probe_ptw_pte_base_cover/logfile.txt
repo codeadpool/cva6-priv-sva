@@ -1,45 +1,45 @@
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Removing directory '/workspace/results/probe/probe_ptw_pte_base_cover'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/config_pkg.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/cv64a6_imafdc_sv39_config_pkg.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/riscv_pkg.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/build_config_pkg.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/lzc.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/cf_math_pkg.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/include/ariane_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/ariane_pkg.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp_entry.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/pmp_entry.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/pmp.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/cva6_mmu/cva6_ptw.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/cva6_ptw.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../sva/ptw_pte_sva.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/ptw_pte_sva.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../wrappers/ptw_fv_master.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/ptw_fv_master.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../sva/ptw_pte_bind_master.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/ptw_pte_bind_master.sv'.
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] engine_0: smtbmc boolector
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] base: starting process "cd ../../results/probe/probe_ptw_pte_base_cover/src; yosys -ql ../model/design.log ../model/design.ys"
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] base: Top level design units:
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] base: ptw_fv_master
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] base: Build succeeded: 0 errors, 0 warnings
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] base: finished (returncode=0)
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] prep: starting process "cd ../../results/probe/probe_ptw_pte_base_cover/model; yosys -ql design_prep.log design_prep.ys"
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] prep: finished (returncode=0)
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] smt2: starting process "cd ../../results/probe/probe_ptw_pte_base_cover/model; yosys -ql design_smt2.log design_smt2.ys"
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] smt2: finished (returncode=0)
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] engine_0: starting process "cd ../../results/probe/probe_ptw_pte_base_cover; yosys-smtbmc -s boolector --presat --unroll -c --noprogress -t 20  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2"
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Solver: boolector
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Checking cover reachability in step 1..
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Checking cover reachability in step 2..
-SBY 14:27:48 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Checking cover reachability in step 4..
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Reached cover statement in step 4 at ptw_fv_master: dut.i_ptw_pte_sva.c_nonleaf_adu_seen
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace0_tb.v
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace0.smtc
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace0.yw
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Status: passed
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] engine_0: finished (returncode=0)
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] engine_0: Status returned by engine: pass
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] summary: engine_0 (smtbmc boolector) returned pass
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] summary: cover trace: ../../results/probe/probe_ptw_pte_base_cover/engine_0/trace0.vcd
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] summary:   reached cover statement ptw_fv_master.\dut.i_ptw_pte_sva.c_nonleaf_adu_seen at ptw_pte_sva.sv:32.7-33.27 step 4
-SBY 14:27:49 [../../results/probe/probe_ptw_pte_base_cover] DONE (PASS, rc=0)
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Removing directory '/workspace/results/probe/probe_ptw_pte_base_cover'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/config_pkg.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/riscv_pkg.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/build_config_pkg.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/lzc.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/cf_math_pkg.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/include/ariane_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/ariane_pkg.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp_entry.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/pmp_entry.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/pmp.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../../cva6/core/cva6_mmu/cva6_ptw.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/cva6_ptw.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../sva/ptw_pte_sva.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/ptw_pte_sva.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../wrappers/ptw_fv_master.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/ptw_fv_master.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] Copy '/workspace/fv/checks/../sva/ptw_pte_bind_master.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_pte_base_cover/src/ptw_pte_bind_master.sv'.
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] engine_0: smtbmc boolector
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] base: starting process "cd ../../results/probe/probe_ptw_pte_base_cover/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] base: Top level design units:
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] base: ptw_fv_master
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] base: Build succeeded: 0 errors, 0 warnings
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] base: finished (returncode=0)
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] prep: starting process "cd ../../results/probe/probe_ptw_pte_base_cover/model; yosys -ql design_prep.log design_prep.ys"
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] prep: finished (returncode=0)
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] smt2: starting process "cd ../../results/probe/probe_ptw_pte_base_cover/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] smt2: finished (returncode=0)
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] engine_0: starting process "cd ../../results/probe/probe_ptw_pte_base_cover; yosys-smtbmc -s boolector --presat --unroll -c --noprogress -t 20  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2"
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Solver: boolector
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Checking cover reachability in step 1..
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Checking cover reachability in step 2..
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
+SBY  2:14:16 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Checking cover reachability in step 4..
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Reached cover statement in step 4 at ptw_fv_master: dut.i_ptw_pte_sva.c_nonleaf_adu_seen
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace0.smtc
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace0.yw
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] engine_0: ##   0:00:00  Status: passed
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] engine_0: finished (returncode=0)
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] engine_0: Status returned by engine: pass
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] summary: engine_0 (smtbmc boolector) returned pass
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] summary: cover trace: ../../results/probe/probe_ptw_pte_base_cover/engine_0/trace0.vcd
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] summary:   reached cover statement ptw_fv_master.\dut.i_ptw_pte_sva.c_nonleaf_adu_seen at ptw_pte_sva.sv:32.7-33.27 step 4
+SBY  2:14:17 [../../results/probe/probe_ptw_pte_base_cover] DONE (PASS, rc=0)

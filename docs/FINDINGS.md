@@ -2,9 +2,9 @@
 
 CVA6 v5.3.0 (`2ef1c1b`) against the RISC-V privileged spec v1.13, on
 `cv64a6_imafdc_sv39` (RVH=0) except F9, which needs `cv64a6_imafdch_sv39`
-(RVH=1). Six findings: four our own F5, F8, F9, and F10 (reported upstream,
-fixes submitted as pull requests under review) and two that rediscover known
-open upstream issues (F6, F7).
+(RVH=1). Six findings: four of our own F5, F8, F9 and F10 reported
+upstream, and two that rediscover known open upstream issues (F6, F7). Fixes
+for F5, F8 and F9 are open as pull requests.
 Each has a witness under `evidence/`: the finding probes fail in bmc by design,
 the base properties pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
 
@@ -148,7 +148,7 @@ This affects every paged-MMU configuration with RVH=0, including the default
 `cv64a6_imafdc_sv39`; only `cv64a6_imafdch_sv39` and `cv64a6_imafdch_sv39_wb`
 set RVH=1, and no `verif/regress` script exercises either. Configurations
 without an MMU (`cv32a60x`, `cv32a65x`) are unaffected. Still present on
-upstream master `88e810c7` at `:580`.
+upstream master `e4184b66` at `:580`.
 
 Spec: D/A/U are reserved for future standard use in non-leaf PTEs, and step 3 of
 the translation algorithm raises a page fault when reserved bits are set: the
@@ -162,19 +162,22 @@ are LEVEL0 leaf entries where R=W=X=0 already faults.
 
 Witness: `ptw_pte_sva.sv::a_nonleaf_adu_faults` and `a_nonleaf_adu_no_walk`.
 Both CEX at step 4, on the pinned golden submodule (v5.3.0) and on upstream
-master (`88e810c7`); the violating cycle is `PTE_LOOKUP` with rvalid, no flush,
+master (`e4184b66`); the violating cycle is `PTE_LOOKUP` with rvalid, no flush,
 PMP allowing, a well-formed non-leaf PTE with A/D/U set, and
 `state_d = WAIT_GRANT`.
 
 The fix (drop the `CVA6Cfg.RVH &&` term, move the guard inward onto the stage
-restore) is certified against the same base: `88e810c7` unpatched fails bmc and
-prove, `88e810c7` plus the two-line hunk proves by k-induction, and the two runs
+restore) is certified against the same base: `e4184b66` unpatched fails bmc and
+prove, `e4184b66` plus the two-line hunk proves by k-induction, and the two runs
 differ by that hunk alone. Unreachability of the violation follows from that
 unbounded proof, not from any bounded cover result. The antecedent cover
-`c_nonleaf_adu_seen` still reaches after the fix, and it excludes the last
-page-table level via `pte_can_descend`: a non-leaf PTE there already faults through the
-`ptw_lvl_q[0] == CVA6Cfg.PtLevels - 1` branch for an unrelated reason: so what stays reachable is the affected descent
-path. VM-1/3 still prove at the patched head
+`c_nonleaf_adu_seen` still reaches after the fix. It excludes the last
+page-table level via `pte_can_descend`, where a non-leaf PTE already faults
+through the `ptw_lvl_q[0] == CVA6Cfg.PtLevels - 1` branch for an unrelated
+reason, so what stays reachable is the affected descent path. VM-1/3 still prove at the patched head
 (`evidence/probe/probe_ptw_pte_base_*`, `probe_ptw_pte_fix_*`,
 `evidence/vm/vm_fix_prove`). Certification uses `ptw_fv_master.sv`, a wrapper
-twin carrying the post-v5.3.0 MMU types.
+twin carrying the post-v5.3.0 MMU types. The issue was filed against
+`88e810c7`; certification was rerun on `e4184b66` after #3418 reworked the
+configuration packages. `cva6_ptw.sv` is byte-identical across the two, so the
+recorded file hashes are unchanged.

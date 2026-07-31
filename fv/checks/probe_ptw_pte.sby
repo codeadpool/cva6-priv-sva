@@ -1,5 +1,5 @@
 # PROBE: EXPECTED TO FAIL in bmc. the non-leaf A/D/U check is gated on RVH
-# (cva6_ptw.sv:543), so an RVH=0 build walks past a reserved encoding. F10..
+# (cva6_ptw.sv:543), so an RVH=0 build walks past a reserved encoding. F10.
 [tasks]
 bmc
 prove

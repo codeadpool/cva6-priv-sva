@@ -6,11 +6,11 @@ boolector:     3.2.4       (every task in the .sby selects smtbmc boolector)
 
 ── CVA6 (F10 fix certification: fix/ptw-nonleaf-adu) ──
 path:      cva6-fork
-head:      d9fcb2258baea159353daec0926a7b81a6485fb9  (v5.3.0-193-gd9fcb2258)
+head:      0e808edf7fe374b1eaaa3c2aea01b1308b9aa08f  (v5.3.0-194-g0e808edf7)
 verified:  src/cva6_ptw.sv in each run hashes to
            8c926fa7075d3ada173e926761591c07356d63110af388c85ebc425867da3b43,
            equal to this commit's blob.
-note:      = 88e810c7 + one hunk in cva6_ptw.sv:580-582. Fork-only SHA; not
+note:      = e4184b66 + one hunk in cva6_ptw.sv:580-582. Fork-only SHA; not
            resolvable in openhwgroup/cva6.
            probe_ptw_pte_fix_*: bmc PASS, prove PASS by k-induction, cover PASS.
            vm_fix_prove: VM-1/3 still prove by k-induction, so no regression.
