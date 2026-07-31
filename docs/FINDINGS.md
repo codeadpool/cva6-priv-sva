@@ -137,6 +137,8 @@ arm) is certified at RVH=1 with #3387 also applied: `a_mpp_legal` proves unbound
 
 ## F10: non-leaf PTEs with reserved A/D/U are accepted when RVH=0
 
+Reported 2026-07-29 as openhwgroup/cva6 #3420.
+
 `cva6_ptw.sv:543` gates the reserved-bit check on the hypervisor extension:
 `if (CVA6Cfg.RVH && (pte.a || pte.d || pte.u))`. Noticed while reviewing the
 non-leaf path and confirmed with VM-4. The descent branch (`:507`) has already

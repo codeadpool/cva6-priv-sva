@@ -17,8 +17,8 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 > incomplete fix of the RVH=0 only #1988/#2274, affecting RVH=1 builds only, not
 > the default config; reported as #3411, fixed in PR #3414); and F10 (the page-table walker follows a
 > non-leaf PTE carrying reserved A/D/U bits instead of raising a page fault, in
-> every paged-MMU configuration with RVH=0 including the default one; fix
-> certified by induction). Two independently rediscover
+> every paged-MMU configuration with RVH=0 including the default one; reported as
+> #3420, fix certified by induction). Two independently rediscover
 > known-open upstream issues: F6 (MPRV-on-xret, #3294) and F7 (PMP M-mode
 > priority, #3177). Findings: `docs/FINDINGS.md`; full table:
 > `docs/PROPERTY_PLAN.md`.
