@@ -4,7 +4,7 @@ CVA6 v5.3.0 (`2ef1c1b`) against the RISC-V privileged spec v1.13, on
 `cv64a6_imafdc_sv39` (RVH=0) except F9, which needs `cv64a6_imafdch_sv39`
 (RVH=1). Six findings: four of our own F5, F8, F9 and F10 reported
 upstream, and two that rediscover known open upstream issues (F6, F7). Fixes
-for F5, F8 and F9 are open as pull requests.
+for all four are open as pull requests.
 Each has a witness under `evidence/`: the finding probes fail in bmc by design,
 the base properties pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
 
@@ -137,7 +137,7 @@ arm) is certified at RVH=1 with #3387 also applied: `a_mpp_legal` proves unbound
 
 ## F10: non-leaf PTEs with reserved A/D/U are accepted when RVH=0
 
-Reported 2026-07-29 as openhwgroup/cva6 #3420.
+Reported 2026-07-29 as openhwgroup/cva6 #3420, fix submitted as PR #3422.
 
 `cva6_ptw.sv:543` gates the reserved-bit check on the hypervisor extension:
 `if (CVA6Cfg.RVH && (pte.a || pte.d || pte.u))`. Noticed while reviewing the

@@ -18,7 +18,7 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 > the default config; reported as #3411, fix open as PR #3414); and F10 (the page-table walker follows a
 > non-leaf PTE carrying reserved A/D/U bits instead of raising a page fault, in
 > every paged-MMU configuration with RVH=0 including the default one; reported as
-> #3420, fix certified by induction). Two independently rediscover
+> #3420, fix open as PR #3422, certified by induction). Two independently rediscover
 > known-open upstream issues: F6 (MPRV-on-xret, #3294) and F7 (PMP M-mode
 > priority, #3177). Findings: `docs/FINDINGS.md`; full table:
 > `docs/PROPERTY_PLAN.md`.
