@@ -1,0 +1,6 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
+engine_0 (smtbmc boolector) returned pass
+cover trace: engine_0/trace0.vcd
+cover trace: engine_0/trace0.yw
+  reached cover statement ptw_fv_master.\dut.i_ptw_pmp_req_sva.c_wait_grant_denied at ptw_pmp_req_sva.sv:27.7-28.26 step 3

@@ -5,11 +5,11 @@ Open-source formal verification (SystemVerilog Assertions, proven with
 trap delegation, `mret`/`sret`, mstatus stacking, and the MMU↔PMP interaction
 as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule).
 
-> Status (2026-07-31): base properties proven (bmc + induction + cover, every
+> Status (2026-08-03): base properties proven (bmc + induction + cover, every
 > antecedent cover-witnessed) across PMP incl. a multi-entry reference model,
 > PMP-CSR WARL, trap delegation/return, mstatus stacking, privilege invariants,
 > and the MMU-PMP interaction. A set of witness probes fail by design, each a
-> machine-checked counterexample to a spec nonconformance. Six findings. Four
+> machine-checked counterexample to a spec nonconformance. Seven findings. Five
 > are our own: F5 (interrupt mtval/stval, #3379, PR #3386) and F8 (unlegalized
 > `dcsr.prv` lets `dret` set priv_lvl to an unimplemented encoding, #3383,
 > PR #3387), both with fixes open upstream; and F9 (`mstatus.MPP` retains the
@@ -18,7 +18,9 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 > the default config; reported as #3411, fix open as PR #3414); and F10 (the page-table walker follows a
 > non-leaf PTE carrying reserved A/D/U bits instead of raising a page fault, in
 > every paged-MMU configuration with RVH=0 including the default one; reported as
-> #3420, fix open as PR #3422, certified by induction). Two independently rediscover
+> #3420, fix open as PR #3422, certified by induction); and F11 (the walker puts a
+> PMP-denied PTE address on the memory interface before enforcing the denial: the
+> access fault is still raised, but the physical read is not prevented). Two independently rediscover
 > known-open upstream issues: F6 (MPRV-on-xret, #3294) and F7 (PMP M-mode
 > priority, #3177). Findings: `docs/FINDINGS.md`; full table:
 > `docs/PROPERTY_PLAN.md`.
@@ -73,7 +75,7 @@ make versions                         # audit trail (tool + CVA6 versions)
 make verify-pmp                       # tier-1 PMP proofs (bmc + prove + cover)
 make verify-csr verify-trap verify-vm # PMP-CSR WARL + trap/return/deleg + MMU-PMP
 make verify-mstatus TASKS="bmc cover" # F5 + F6 witness probes: bmc FAIL is the finding
-make verify-probe   TASKS="bmc cover" # F7, F8, F9, F10 + PRIV-5 witness probes
+make verify-probe   TASKS="bmc cover" # F7-F11 + PRIV-5 witness probes
 make results                          # status table
 ```
 

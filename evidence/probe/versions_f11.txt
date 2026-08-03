@@ -1,0 +1,22 @@
+── tools ──
+oss-cad-suite: 2026-04-07  (pinned in Dockerfile + ci.yml; supplies yosys,
+               yosys-slang, sby and boolector, which do not all self-report)
+yosys:         Yosys 0.63 (git sha1 70a11c6bf)
+boolector:     3.2.4       (every task in the .sby selects smtbmc boolector)
+
+── CVA6 (F11 witness: no fix of ours, so no "after" run) ──
+golden:    cva6 submodule v5.3.0 (2ef1c1b1)
+           src/cva6_ptw.sv hashes to
+           0fabad6fbcd9b24956168802b19fd81848bba02f1a531ebca6cdc85d1e701ef1
+           probe_ptw_req_*: bmc FAIL (step 3), prove FAIL in basecase, cover PASS.
+           Harness = probe_ptw_req.sby + ptw_fv.sv.
+master:    e4184b665b7c777224688e8973167c8c5842762a  (v5.3.0-193-ge4184b665)
+           src/cva6_ptw.sv hashes to
+           c115c4831d536df78e1ae7651385b898e0445c3eacaee7bb220a660bd3068fdf
+           probe_ptw_req_master_*: same three verdicts.
+           Harness = prhead_ptw_req.sby + ptw_fv_master.sv.
+note:      both counterexamples are a walk from reset, IDLE -> WAIT_GRANT, with
+           flush_i=0 and a denying PMP configuration (all eight entries enabled,
+           none granting read): the denial is not a flush artefact. The traces
+           show data_req asserted; they do not show a grant or a response.
+           Detail: docs/FINDINGS.md F11.

@@ -1,0 +1,51 @@
+# fork-only. same checker and bind as probe_ptw_req.sby, but the ptw_fv_master
+# wrapper twin, which reproduces the post-v5.3.0 MMU types.
+
+# For Reviewers:
+# to reproduce, from the repo root, with cva6-fork checked out at the revision
+# you want (F11 used upstream/master e4184b66):
+#   mv cva6 cva6.golden && ln -s cva6-fork cva6
+#   cd fv/checks
+#   sby -f -d ../../results/probe/probe_ptw_req_master_bmc   prhead_ptw_req.sby bmc
+#   sby -f -d ../../results/probe/probe_ptw_req_master_prove prhead_ptw_req.sby prove
+#   sby -f -d ../../results/probe/probe_ptw_req_master_cover prhead_ptw_req.sby cover
+#   cd ../.. && rm -f cva6 && mv cva6.golden cva6
+# the swap is needed because the [files] paths below are relative to the golden
+# submodule location.
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc:   mode bmc
+bmc:   depth 15
+prove: mode prove
+prove: depth 15
+cover: mode cover
+cover: depth 20
+
+[engines]
+bmc:   smtbmc boolector
+prove: smtbmc boolector
+cover: smtbmc boolector
+
+[script]
+plugin -i slang
+read_slang --top ptw_fv_master config_pkg.sv cv64a6_imafdc_sv39_config_pkg.sv riscv_pkg.sv build_config_pkg.sv lzc.sv cf_math_pkg.sv ariane_pkg.sv pmp_entry.sv pmp.sv cva6_ptw.sv ptw_pmp_req_sva.sv ptw_fv_master.sv ptw_pmp_req_bind.sv
+prep -top ptw_fv_master
+
+[files]
+../../cva6/core/include/config_pkg.sv
+../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv
+../../cva6/core/include/riscv_pkg.sv
+../../cva6/core/include/build_config_pkg.sv
+../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv
+../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv
+../../cva6/core/include/ariane_pkg.sv
+../../cva6/core/pmp/src/pmp_entry.sv
+../../cva6/core/pmp/src/pmp.sv
+../../cva6/core/cva6_mmu/cva6_ptw.sv
+../sva/ptw_pmp_req_sva.sv
+../wrappers/ptw_fv_master.sv
+../sva/ptw_pmp_req_bind.sv

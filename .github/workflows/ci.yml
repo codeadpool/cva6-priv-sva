@@ -20,7 +20,7 @@ jobs:
         run: |
           if grep -rnw assume fv/; then echo "unexpected assume in fv/ (free inputs only)"; exit 1; fi
           echo "no assumes in fv/"
-      # The ten expected-CEX probes fail bmc by design, so keep going and gate on
+      # The eleven expected-CEX probes fail bmc by design, so keep going and gate on
       # the explicit verdict check below rather than the aggregate exit code
       - run: make -k verify-all || true
       - run: make results || true
@@ -43,7 +43,8 @@ jobs:
                    probe/probe_pmp_mpri probe/probe_priv_dret \
                    probe/probe_dcsr_reserved probe/probe_priv_dret_rvh \
                    probe/probe_mpp_legal probe/probe_mpp_legal_rvh \
-                   probe/probe_dcsr_vlegal_rvh probe/probe_ptw_pte; do
+                   probe/probe_dcsr_vlegal_rvh probe/probe_ptw_pte \
+                   probe/probe_ptw_req; do
             fail "${p}_bmc"
             pass "${p}_cover"
           done
@@ -52,7 +53,8 @@ jobs:
           for p in mstatus/mstatus_f5 probe/probe_priv_dret probe/probe_priv_dret_rvh \
                    probe/probe_dcsr_reserved \
                    probe/probe_mpp_legal probe/probe_mpp_legal_rvh \
-                   probe/probe_dcsr_vlegal_rvh probe/probe_ptw_pte; do
+                   probe/probe_dcsr_vlegal_rvh probe/probe_ptw_pte \
+                   probe/probe_ptw_req; do
             fail "${p}_prove"
           done
           echo "all verdicts as expected"

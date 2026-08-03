@@ -2,9 +2,9 @@
 
 CVA6 v5.3.0 (`2ef1c1b`) against the RISC-V privileged spec v1.13, on
 `cv64a6_imafdc_sv39` (RVH=0) except F9, which needs `cv64a6_imafdch_sv39`
-(RVH=1). Six findings: four of our own F5, F8, F9 and F10 reported
-upstream, and two that rediscover known open upstream issues (F6, F7). Fixes
-for all four are open as pull requests.
+(RVH=1). Seven findings: five of our own (F5, F8, F9, F10, F11) and two that
+rediscover known open upstream issues (F6, F7). Fixes for F5, F8, F9 and F10
+are open as pull requests.
 Each has a witness under `evidence/`: the finding probes fail in bmc by design,
 the base properties pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
 
@@ -181,3 +181,45 @@ twin carrying the post-v5.3.0 MMU types. The issue was filed against
 `88e810c7`; certification was rerun on `e4184b66` after #3418 reworked the
 configuration packages. `cva6_ptw.sv` is byte-identical across the two, so the
 recorded file hashes are unchanged.
+
+## F11: the page walker issues a PMP-denied PTE read before enforcing the denial
+
+`cva6_ptw.sv:381-390` drives `req_port_o.data_req = 1'b1` unconditionally in
+`WAIT_GRANT`. `allow_access` is the PMP verdict for `ptw_pptr_q`, the same
+address the request carries (`:151-152` drive the request address from it,
+`:235` feeds it to `i_pmp_ptw`), and it has exactly one use in the module:
+`:561`, inside `PTE_LOOKUP`, guarded by `data_rvalid_q`. By the structure of the
+state machine the verdict is therefore enforced only after the request has been
+presented and a response can have been received. Unchanged on upstream master
+`e4184b66` (`:401-411`, `:598`).
+
+The architectural outcome is already proven correct here: VM-1 shows the access
+exception is raised, VM-3 shows the TLB is not filled. What is not enforced is
+that the denied physical read never occurs.
+
+Spec: PMP applies to implicit page-table accesses, whose effective privilege is
+S. sail-riscv 0.12 (`65ddde80`) structures this as check-then-read: `read_pte`
+calls `mem_read_priv(Load(PageTableEntry), ..., Supervisor, ...)`
+(`model/sys/vmem.sail:59`), which reaches `checked_mem_read`, where a
+`phys_access_check` failure returns `Err` and the `read_ram`/`mmio_read` is
+never evaluated (`model/sys/mem.sail:219-229`). CVA6 is read-then-check.
+
+Witness: `ptw_pmp_req_sva.sv::a_no_req_when_denied`, CEX at step 3 on the pinned
+golden submodule (v5.3.0) and on upstream master (`e4184b66`). Both traces are a
+walk from reset, `IDLE` then `WAIT_GRANT`, with `flush_i` low and a denying PMP
+configuration: `req_port_o.data_req` is high while `allow_access` is low. The
+trace shows the request being presented; it does not show a grant or a response,
+which the property deliberately does not constrain. The cover `c_wait_grant_denied` reaches on
+both. Evidence: `evidence/probe/probe_ptw_req_*` (golden),
+`probe_ptw_req_master_*` (master), manifest `versions_f11.txt`.
+
+No fix is submitted, and the reason is revision-specific. On master, suppressing
+the request means leaving `WAIT_GRANT` without a grant, but `KILL_REQ` is the
+only state that clears `kill_req_q` (`:414`) and it exits through `WAIT_RVALID`,
+which waits for a response a suppressed request never produces; the flush block
+(`:637-646`) also declines to override `state_d` while `state_q == WAIT_GRANT`,
+so an early exit to `PROPAGATE_ACCESS_ERROR` would raise a fault on a flushed
+walk. Neither `KILL_REQ` nor `kill_req_q` exists in v5.3.0, whose flush block
+does override `WAIT_GRANT` (`:607`). Gating the request is therefore a change to
+the flush/kill protocol on master, not a local patch, so this is reported as a
+finding with its counterexample rather than as a pull request.

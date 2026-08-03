@@ -1,0 +1,58 @@
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Removing directory '/workspace/results/probe/probe_ptw_req_prove'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/config_pkg.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/riscv_pkg.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/build_config_pkg.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/lzc.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/cf_math_pkg.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../../cva6/core/include/ariane_pkg.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/ariane_pkg.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp_entry.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/pmp_entry.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/pmp.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../../cva6/core/cva6_mmu/cva6_ptw.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/cva6_ptw.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../sva/ptw_pmp_req_sva.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/ptw_pmp_req_sva.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../wrappers/ptw_fv.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/ptw_fv.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] Copy '/workspace/fv/checks/../sva/ptw_pmp_req_bind.sv' to '/workspace/results/probe/probe_ptw_req_prove/src/ptw_pmp_req_bind.sv'.
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] engine_0: smtbmc boolector
+SBY  1:25:45 [/workspace/results/probe/probe_ptw_req_prove] base: starting process "cd /workspace/results/probe/probe_ptw_req_prove/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] base: Top level design units:
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] base: ptw_fv
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] base: Build succeeded: 0 errors, 0 warnings
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] base: finished (returncode=0)
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] prep: starting process "cd /workspace/results/probe/probe_ptw_req_prove/model; yosys -ql design_prep.log design_prep.ys"
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] prep: finished (returncode=0)
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] smt2: starting process "cd /workspace/results/probe/probe_ptw_req_prove/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] smt2: finished (returncode=0)
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: starting process "cd /workspace/results/probe/probe_ptw_req_prove; yosys-smtbmc -s boolector --presat --unroll --noprogress -t 15  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2"
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.induction: starting process "cd /workspace/results/probe/probe_ptw_req_prove; yosys-smtbmc -s boolector --presat --unroll -i --noprogress -t 15  --append 0 --dump-vcd engine_0/trace_induct.vcd --dump-yw engine_0/trace_induct.yw --dump-vlogtb engine_0/trace_induct_tb.v --dump-smtc engine_0/trace_induct.smtc model/design_smt2.smt2"
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.induction: ##   0:00:00  Solver: boolector
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Solver: boolector
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.induction: ##   0:00:00  Trying induction in step 15..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 0..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 0..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.induction: ##   0:00:00  Trying induction in step 14..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 1..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 1..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 2..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 2..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.induction: ##   0:00:00  Trying induction in step 13..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 3..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 3..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  BMC failed!
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Assert failed in ptw_fv: dut.i_ptw_pmp_req_sva.a_no_req_when_denied
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Writing trace to VCD file: engine_0/trace.vcd
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.induction: ##   0:00:00  Trying induction in step 12..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.induction: ##   0:00:00  Trying induction in step 11..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace_tb.v
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Writing trace to constraints file: engine_0/trace.smtc
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace.yw
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: ##   0:00:00  Status: failed
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.induction: ##   0:00:00  Trying induction in step 10..
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: finished (returncode=1)
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.basecase: Status returned by engine for basecase: FAIL
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] engine_0.induction: terminating process
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] summary: engine_0 (smtbmc boolector) returned FAIL for basecase
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] summary: counterexample trace [basecase]: /workspace/results/probe/probe_ptw_req_prove/engine_0/trace.vcd
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] summary:   failed assertion ptw_fv.\dut.i_ptw_pmp_req_sva.a_no_req_when_denied at ptw_pmp_req_sva.sv:19.7-20.40 step 3
+SBY  1:25:46 [/workspace/results/probe/probe_ptw_req_prove] DONE (FAIL, rc=2)

@@ -24,6 +24,7 @@ sby run.
 | dcsr_vlegal_sva | csr_regfile | PRIV-9 / #3387 RVH=1 | RVH=1: CEX on golden; PROVEN (k-induction) on #3387 head with the write+dret v-clamps | 2026-07-22 |
 | ptw_pmp_sva | cva6_ptw | VM-1,3 (VM-2 structural) | PROVEN (bmc/prove/cover) | 2026-07-06 |
 | ptw_pte_sva | cva6_ptw | VM-4 / F10 | CEX on v5.3.0 and on upstream/master e4184b66 (bmc+prove); PROVEN (k-induction) on e4184b66 + PR #3422 | 2026-07-31 |
+| ptw_pmp_req_sva | cva6_ptw | VM-5 / F11 | CEX on v5.3.0 and on upstream/master e4184b66 (bmc+prove); no fix submitted | 2026-08-01 |
 
 All checkers use immediate assertions only (yosys-slang lowers no concurrent
 SVA); every asserted antecedent has a reachable cover witness.
@@ -76,9 +77,11 @@ Layer 1 checks what the RTL implements plus one gap-characterisation property
 ### vm: MMU-PMP interaction and PTE legality (cva6_ptw.sv)
 
 Scope note: VM-1/2/3 (`VM-pmp`) establish only that the walker honours PMP on
-each PTE fetch. They say nothing about whether the walker validates PTE
-*contents*; that is `VM-pte`, opened by VM-4. A green `vm` category is not
-evidence of PTE-encoding conformance.
+each PTE fetch *architecturally*: the exception is raised and the TLB is not
+filled. They say nothing about whether the denied read is prevented from
+reaching the memory interface (`VM-req`, opened by VM-5), nor about whether the
+walker validates PTE *contents* (`VM-pte`, opened by VM-4). A green `vm`
+category is not evidence of either.
 
 | ID | Property | RTL | Spec | Status |
 |---|---|---|---|---|
@@ -86,6 +89,8 @@ evidence of PTE-encoding conformance.
 | VM-2 | PTE-fetch PMP check is S-mode READ always | ptw:237-239 | VM-pmp | STRUCTURAL (hardwired constants at the i_pmp_ptw instantiation) |
 | VM-3 | PMP-denied PTE fetch => no TLB update | ptw:562 | VM-pmp | PROVEN 2026-07-06 |
 | VM-4 | non-leaf PTE with A/D/U set => page fault | ptw:507-543 | VM-pte | CEX on v5.3.0 (F10); PROVEN on patched head |
+| VM-5 | PMP-denied PTE address is never requested | ptw:381-390 | VM-req | CEX on v5.3.0 and e4184b66 (F11) |
+| VM-6 | PTW implicit reads are PMA-checked | ptw (no PMA port) | VM-req | STRUCTURAL: `cva6_ptw` has no non-idempotent/PMA input; the guard exists only in `load_unit.sv`, `cva6_icache.sv`, `wt_dcache_wbuffer.sv` |
 
 ### gap: characterise the Smepmp absence
 | ID | Property | RTL | Status |

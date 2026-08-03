@@ -1,0 +1,49 @@
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Removing directory '/workspace/results/probe/probe_ptw_req_master_bmc'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/config_pkg.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/riscv_pkg.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/build_config_pkg.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/lzc.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/cf_math_pkg.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../../cva6/core/include/ariane_pkg.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/ariane_pkg.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp_entry.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/pmp_entry.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/pmp.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../../cva6/core/cva6_mmu/cva6_ptw.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/cva6_ptw.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../sva/ptw_pmp_req_sva.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/ptw_pmp_req_sva.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../wrappers/ptw_fv_master.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/ptw_fv_master.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] Copy '/workspace/fv/checks/../sva/ptw_pmp_req_bind.sv' to '/workspace/fv/checks/../../results/probe/probe_ptw_req_master_bmc/src/ptw_pmp_req_bind.sv'.
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] engine_0: smtbmc boolector
+SBY  1:43:09 [../../results/probe/probe_ptw_req_master_bmc] base: starting process "cd ../../results/probe/probe_ptw_req_master_bmc/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] base: Top level design units:
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] base: ptw_fv_master
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] base: Build succeeded: 0 errors, 0 warnings
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] base: finished (returncode=0)
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] prep: starting process "cd ../../results/probe/probe_ptw_req_master_bmc/model; yosys -ql design_prep.log design_prep.ys"
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] prep: finished (returncode=0)
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] smt2: starting process "cd ../../results/probe/probe_ptw_req_master_bmc/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] smt2: finished (returncode=0)
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: starting process "cd ../../results/probe/probe_ptw_req_master_bmc; yosys-smtbmc -s boolector --presat --unroll --noprogress -t 15  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2"
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Solver: boolector
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Checking assumptions in step 0..
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Checking assertions in step 0..
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Checking assumptions in step 1..
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Checking assertions in step 1..
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Checking assumptions in step 2..
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Checking assertions in step 2..
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Checking assumptions in step 3..
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Checking assertions in step 3..
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  BMC failed!
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Assert failed in ptw_fv_master: dut.i_ptw_pmp_req_sva.a_no_req_when_denied
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace.vcd
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace_tb.v
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace.smtc
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace.yw
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: ##   0:00:00  Status: failed
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: finished (returncode=1)
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] engine_0: Status returned by engine: FAIL
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] summary: engine_0 (smtbmc boolector) returned FAIL
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] summary: counterexample trace: ../../results/probe/probe_ptw_req_master_bmc/engine_0/trace.vcd
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] summary:   failed assertion ptw_fv_master.\dut.i_ptw_pmp_req_sva.a_no_req_when_denied at ptw_pmp_req_sva.sv:19.7-20.40 step 3
+SBY  1:43:10 [../../results/probe/probe_ptw_req_master_bmc] DONE (FAIL, rc=2)
