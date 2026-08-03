@@ -184,6 +184,9 @@ recorded file hashes are unchanged.
 
 ## F11: the page walker issues a PMP-denied PTE read before enforcing the denial
 
+Reported 2026-08-03 as openhwgroup/cva6 #3430. No fix submitted: see the end of
+this section.
+
 `cva6_ptw.sv:381-390` drives `req_port_o.data_req = 1'b1` unconditionally in
 `WAIT_GRANT`. `allow_access` is the PMP verdict for `ptw_pptr_q`, the same
 address the request carries (`:151-152` drive the request address from it,

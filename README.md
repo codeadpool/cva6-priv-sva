@@ -20,7 +20,8 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 > every paged-MMU configuration with RVH=0 including the default one; reported as
 > #3420, fix open as PR #3422, certified by induction); and F11 (the walker puts a
 > PMP-denied PTE address on the memory interface before enforcing the denial: the
-> access fault is still raised, but the physical read is not prevented). Two independently rediscover
+> access fault is still raised, but the physical read is not prevented; reported
+> as #3430, no fix submitted). Two independently rediscover
 > known-open upstream issues: F6 (MPRV-on-xret, #3294) and F7 (PMP M-mode
 > priority, #3177). Findings: `docs/FINDINGS.md`; full table:
 > `docs/PROPERTY_PLAN.md`.
