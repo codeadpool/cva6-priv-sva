@@ -20,9 +20,9 @@ module pmp_sva #(
   end
 
   always_comb begin
-    // PMP-1: M-mode with no matching entry allows the access
+    // PMP-1: M-mode with all entries OFF allows the access
     a_pmp1_m_default_allow : assert (!(all_off && priv_lvl_i == riscv::PRIV_LVL_M) || allow_i);
-    // PMP-2: S/U with no matching entry denies the access
+    // PMP-2: S/U with all entries OFF denies the access
     a_pmp2_su_default_deny :
     assert (!(all_off && (N > 0) && priv_lvl_i != riscv::PRIV_LVL_M) || !allow_i);
   end
@@ -33,6 +33,6 @@ module pmp_sva #(
     c_su_deny : cover (all_off && (N > 0) && priv_lvl_i != riscv::PRIV_LVL_M && !allow_i);
   end
 
-  // PMP-3 first-match priority, PMP-4 lock-applies-in-M, and PMP-8 RWX subset
-  // are proven by the reference-model equivalence in pmp_ref_sva.sv
+  // PMP-3 (S/U), PMP-4, and PMP-8 are covered by pmp_ref_sva.
+  // PMP-9 separately checks M-mode priority (expected CEX #3177).
 endmodule

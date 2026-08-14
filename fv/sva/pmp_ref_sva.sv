@@ -11,7 +11,7 @@ module pmp_ref_sva #(
 );
   localparam int unsigned N = CVA6Cfg.NrPMPEntries;
 
-  // own matchers (same trusted pmp_entry as the DUT)
+  // reuses the same pmp_entry RTL as the DUT; checks arbitration, not matching
   logic [N-1:0] match;
   for (genvar i = 0; i < N; i++) begin : gen_ref_match
     logic [CVA6Cfg.PLEN-3:0] prev;
@@ -27,7 +27,7 @@ module pmp_ref_sva #(
     );
   end
 
-  // applicable:; participates in arbitration for the current mode
+  // entries CVA6 considers during arbitration in the current privilege mode
   logic [N-1:0] applicable;
   always_comb
     for (int i = 0; i < N; i++)
@@ -46,18 +46,19 @@ module pmp_ref_sva #(
   end
 
   always_comb begin
-    // PMP-3/4/8: DUT allow equals the first-applicable reference model.
-    // one equivalence covers priority, lock-applies-in-M, and the RWX subset.
-    a_ref_equiv : assert (allow_i == ref_allow);
-    // GAP-1: in M-mode a non-matching access is always allowed (the invariant
-    // Smepmp MML would change)
+    // PMP-3/8: CVA6's non-M partition. This is the spec rule for S/U;
+    // 2'b10 is intentionally included as implementation characterisation.
+    a_non_m_equiv : assert (priv_lvl_i == riscv::PRIV_LVL_M || allow_i == ref_allow);
+    // M-mode implementation characterisation; PMP-9 checks spec priority
+    a_m_impl_equiv : assert (priv_lvl_i != riscv::PRIV_LVL_M || allow_i == ref_allow);
+    // GAP-1: without Smepmp MML, M-mode allows when no locked entry matches
     a_gap1_m_bypass : assert (!(priv_lvl_i == riscv::PRIV_LVL_M && !hit) || allow_i);
   end
 
   always_comb begin
     // reachability of each arbitration outcome, so the equivalence is not vacuous
-    c_su_allow : cover (priv_lvl_i != riscv::PRIV_LVL_M && hit && allow_i);
-    c_su_perm_deny : cover (priv_lvl_i != riscv::PRIV_LVL_M && hit && !allow_i);
+    c_non_m_allow : cover (priv_lvl_i != riscv::PRIV_LVL_M && hit && allow_i);
+    c_non_m_perm_deny : cover (priv_lvl_i != riscv::PRIV_LVL_M && hit && !allow_i);
     c_m_locked_deny : cover (priv_lvl_i == riscv::PRIV_LVL_M && hit && !allow_i);
     c_m_no_lock_allow : cover (priv_lvl_i == riscv::PRIV_LVL_M && !hit && allow_i);
     // first-match priority is visible: entry1 would deny, entry0 wins

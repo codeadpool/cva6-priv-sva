@@ -38,20 +38,21 @@ proven assertions and therefore unreachable. The third site the patch changes,
 
 The MPRV clear on mret/sret is nested under `if (CVA6Cfg.RVH)`
 (`csr_regfile.sv:2116-2122`, `:2136-2142`), so RVH=0 builds never clear it.
-Reachable because RVU=1 makes MPRV writable (`:1378-1381`). Spec: "An MRET or
-SRET instruction that changes the privilege mode to a mode less privileged than
-M also sets MPRV=0" (Machine-Level ISA, mstatus).
+Reachable because RVU=1 makes MPRV writable (`:1378-1381`). Spec (Machine ISA
+v1.13, §2.1.1.6.1, "Privilege and Global Interrupt-Enable Stack in mstatus
+register"): if `xPP` contains `y` and `y≠M`, `xRET` sets `MPRV=0`.
 Known upstream (#3294, #1981). Probe `mstatus_mprv_sva.sv` (expected bmc CEX) =
 machine-checked corroboration.
 
 ## F7: M-mode PMP lock filter applied before priority
 
-Spec (v1.13 3.7.1): the lowest-numbered matching entry decides, then its L bit
-governs M-mode enforcement. `pmp.sv:55` skips non-locked entries before priority
-selection, so in M-mode a later locked entry overrules a lower-numbered unlocked
-match. The spec allows this, CVA6 denies it.
-Known upstream (#3177). Probe `pmp_mpri_sva.sv` (expected bmc CEX against a
-spec-priority reference model).
+Spec (Machine ISA v1.13, §2.1.7.1.3, "Priority and Matching Logic"): the
+lowest-numbered address-matching entry is selected before L is evaluated. At
+`pmp.sv:55`, CVA6 instead filters L=0 entries before selection, allowing a later
+locked entry to override an earlier unlocked match. In M-mode the spec allows
+this access; CVA6 can deny it.
+Known upstream (#3177). Probe `pmp_mpri_sva.sv` has an expected bmc CEX for this
+ordering rule.
 
 ## F8: dcsr.prv is not WARL-legalized; dret sets priv_lvl to an unimplemented encoding
 

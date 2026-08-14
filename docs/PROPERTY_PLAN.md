@@ -54,15 +54,27 @@ Layer 1 checks what the RTL implements plus one gap-characterisation property
 ### pmp: combinational PMP check (pmp.sv + pmp_entry.sv + lzc)
 | ID | Property | RTL | Spec | Status |
 |---|---|---|---|---|
-| PMP-1 | M-mode + no matching entry => allow | pmp.sv:63-69 | PMP-priv | PROVEN 2026-06-30 |
-| PMP-2 | S/U + NrPMP>0 + no match => deny | pmp.sv:67-69 | PMP-priv | PROVEN 2026-06-30 |
-| PMP-3 | first (lowest-index) match decides | pmp.sv:52-62 | PMP-prio | PROVEN 2026-07-06 (pmp_ref) |
-| PMP-4 | locked entry enforced even in M-mode | pmp.sv:55 | PMP-lock | PROVEN 2026-07-06 (pmp_ref) |
-| PMP-5 | TOR match <=> prev <= addr < this | pmp_entry.sv:48-66 | PMP-tor | PROVEN 2026-06-30 |
+| PMP-1 | M-mode + all A fields OFF => allow | pmp.sv:63-69; pmp_entry.sv:107-108 | PMP-priv | PROVEN 2026-06-30 (pmp_sva) |
+| PMP-2 | S/U + NrPMP>0 + all A fields OFF => deny | pmp.sv:63-69; pmp_entry.sv:107-108 | PMP-priv | PROVEN 2026-06-30 (pmp_sva) |
+| PMP-3 | S/U: lowest-index entry matching `addr_i` determines the result | pmp.sv:52-62 | PMP-prio-su | PROVEN 2026-07-06 (pmp_ref) |
+| PMP-4 | M-mode: if the lowest-index address match has L=1, enforce its RWX | pmp.sv:52-59 | PMP-lock | PROVEN 2026-07-06 (pmp_ref) |
+| PMP-5 | RTL: TOR match iff `(prev<<2) <= addr_i < (this<<2)`, using raw `pmpaddr` | pmp_entry.sv:48-66 | RTL-tor | PROVEN 2026-06-30 |
 | PMP-6 | NAPOT match <=> (addr & mask) == base | pmp_entry.sv:67-106 | PMP-napot | PROVEN 2026-06-30 |
 | PMP-7 | OFF and stored NA4 never match | pmp_entry.sv:107-118 | PMP-na4 | PROVEN 2026-06-30 |
-| PMP-8 | allow => access type within matched RWX | pmp.sv:56-62 | PMP-rwx | PROVEN 2026-07-06 (pmp_ref) |
-| PMP-9 | F7 probe: M-mode spec priority (lowest match decides, locked or not) | pmp.sv:55 | PMP-prio | CEX 2026-07-06 (expected, #3177) |
+| PMP-8 | S/U, or M with lowest match L=1: allow implies the requested RWX bit is set | pmp.sv:52-59 | PMP-rwx | PROVEN 2026-07-06 (pmp_ref) |
+| PMP-9 | M-mode: choose the lowest address match before evaluating L | pmp.sv:52-59 | PMP-prio-m | CEX 2026-07-06 (expected, #3177) |
+
+Scope: RISC-V Machine ISA v1.13, §§2.1.7.1.1-2.1.7.1.3
+([20260120 ratified edition](https://docs.riscv.org/reference/isa/v20260120/priv/machine.html)).
+
+- PMP-3 covers S/U; PMP-9 checks M-mode ordering and has expected CEX #3177.
+- PMP-5 characterises CVA6's raw TOR bounds, not the G=1 masked spec bounds.
+- `pmp_ref_sva` and `pmp_mpri_sva` reuse `pmp_entry`, so they check arbitration
+  given matching. Mutation split: M1/M3/M4 -> `pmp_ref`; M5/M16/M18 ->
+  `pmp_entry`.
+- `pmp.sv` has no size input; these properties cover `addr_i`, not every byte of
+  a memory operation.
+- PMP-1/2 check all-OFF; `pmp_ref_sva` also covers the general no-match defaults.
 
 ### csr: PMP CSR WARL (csr_regfile.sv)
 | ID | Property | RTL | Spec | Status |
@@ -95,7 +107,7 @@ category is not evidence of either.
 ### gap: characterise the Smepmp absence
 | ID | Property | RTL | Status |
 |---|---|---|---|
-| GAP-1 | non-locked entry always bypassed in M-mode (the invariant MML would break) | pmp.sv:55 | PROVEN 2026-07-06 (pmp_ref) |
+| GAP-1 | M-mode + no locked address match => allow (Smepmp MML absent) | pmp.sv:52-65 | PROVEN 2026-07-06 (pmp_ref) |
 
 ---
 
