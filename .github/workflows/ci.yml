@@ -20,7 +20,7 @@ jobs:
         run: |
           if grep -rnw assume fv/; then echo "unexpected assume in fv/ (free inputs only)"; exit 1; fi
           echo "no assumes in fv/"
-      # The eleven expected-CEX probes fail bmc by design, so keep going and gate on
+      # The twelve expected-CEX probes fail bmc by design, so keep going and gate on
       # the explicit verdict check below rather than the aggregate exit code
       - run: make -k verify-all || true
       - run: make results || true
@@ -44,7 +44,7 @@ jobs:
                    probe/probe_dcsr_reserved probe/probe_priv_dret_rvh \
                    probe/probe_mpp_legal probe/probe_mpp_legal_rvh \
                    probe/probe_dcsr_vlegal_rvh probe/probe_ptw_pte \
-                   probe/probe_ptw_req; do
+                   probe/probe_ptw_req probe/probe_pmp_entry_arch; do
             fail "${p}_bmc"
             pass "${p}_cover"
           done
@@ -54,10 +54,68 @@ jobs:
                    probe/probe_dcsr_reserved \
                    probe/probe_mpp_legal probe/probe_mpp_legal_rvh \
                    probe/probe_dcsr_vlegal_rvh probe/probe_ptw_pte \
-                   probe/probe_ptw_req; do
+                   probe/probe_ptw_req probe/probe_pmp_entry_arch; do
             fail "${p}_prove"
           done
           echo "all verdicts as expected"
+
+  # The 2x2s: our proven properties on corrected CVA6,
+  # Verdicts must invert. Failure means the experiment no longer reproduces.
+  # See evidence/2x2/README.md.
+  verdict-inversion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: YosysHQ/setup-oss-cad-suite@v3
+        with:
+          version: '2026-04-07'
+      - name: "TOR grain bit (#3342): PMP-5 must break, PMP-10 must hold"
+        run: |
+          set -e
+          git -C cva6 apply ../evidence/2x2/pmp_tor_grain.patch
+          cd fv/checks
+          sby -f -d ../../results/inv/pmp_entry_masked_bmc  pmp_entry.sby            bmc   || true
+          sby -f -d ../../results/inv/arch_masked_prove     probe_pmp_entry_arch.sby prove || true
+          cd ../..
+          test -f results/inv/pmp_entry_masked_bmc/FAIL || { echo "PMP-5 did NOT break on the corrected matcher"; exit 1; }
+          test -f results/inv/arch_masked_prove/PASS     || { echo "PMP-10 did NOT hold on the corrected matcher"; exit 1; }
+          grep -q 'failed assertion.*a_tor_exact at' results/inv/pmp_entry_masked_bmc/logfile.txt
+          git -C cva6 checkout core/pmp/src/pmp_entry.sv
+          echo "grain-bit inversion reproduced"
+      - name: "M-mode priority (#3177): PMP-4 must break, PMP-9 must hold"
+        run: |
+          set -e
+          git -C cva6 apply ../evidence/2x2/pmp_3177_priority.patch
+          cd fv/checks
+          sby -f -d ../../results/inv/pmp_ref_fixed_bmc   pmp_ref.sby        bmc || true
+          sby -f -d ../../results/inv/pmp_mpri_fixed_bmc  probe_pmp_mpri.sby bmc || true
+          cd ../..
+          test -f results/inv/pmp_ref_fixed_bmc/FAIL  || { echo "PMP-4 did NOT break on the corrected arbiter"; exit 1; }
+          test -f results/inv/pmp_mpri_fixed_bmc/PASS || { echo "PMP-9 did NOT hold on the corrected arbiter"; exit 1; }
+          grep -q 'failed assertion.*a_m_impl_equiv' results/inv/pmp_ref_fixed_bmc/logfile.txt
+          git -C cva6 checkout core/pmp/src/pmp.sv
+          echo "priority-order inversion reproduced"
+      - name: "upstream PR (#3490): PMP-5 AND PMP-10 must both break"
+        run: |
+          set -e
+          git -C cva6 apply ../evidence/2x2/pmp_tor_grain_both_pr3490.patch
+          cd fv/checks
+          sby -f -d ../../results/inv/pmp5_on_3490_bmc pmp_entry.sby            bmc || true
+          sby -f -d ../../results/inv/arch_on_3490_bmc probe_pmp_entry_arch.sby bmc || true
+          cd ../..
+          test -f results/inv/pmp5_on_3490_bmc/FAIL || { echo "PMP-5 did NOT break on PR #3490"; exit 1; }
+          test -f results/inv/arch_on_3490_bmc/FAIL || { echo "PMP-10 did NOT break on PR #3490"; exit 1; }
+          grep -q 'failed assertion.*a_tor_exact at'      results/inv/pmp5_on_3490_bmc/logfile.txt
+          grep -q 'failed assertion.*a_tor_exact_arch at' results/inv/arch_on_3490_bmc/logfile.txt
+          git -C cva6 checkout core/pmp/src/pmp_entry.sv
+          echo "both TOR oracles reject the upstream fix, as predicted"
+      - name: submodule restored
+        run: |
+          git -C cva6 diff --quiet || { echo "cva6 submodule left dirty"; exit 1; }
+          echo "cva6 clean"
 
   # Mutation testing (~26 rebuilds), on demand only
   mutation:

@@ -63,12 +63,16 @@ Layer 1 checks what the RTL implements plus one gap-characterisation property
 | PMP-7 | OFF and stored NA4 never match | pmp_entry.sv:107-118 | PMP-na4 | PROVEN 2026-06-30 |
 | PMP-8 | S/U, or M with lowest match L=1: allow implies the requested RWX bit is set | pmp.sv:52-59 | PMP-rwx | PROVEN 2026-07-06 (pmp_ref) |
 | PMP-9 | M-mode: choose the lowest address match before evaluating L | pmp.sv:52-59 | PMP-prio-m | CEX 2026-07-06 (expected, #3177) |
+| PMP-10 | TOR match excludes the G=1 grain bit of the entry's own `pmpaddr` | pmp_entry.sv:48-66 | PMP-tor | CEX 2026-08-17 (expected, #3342) |
 
 Scope: RISC-V Machine ISA v1.13, §§2.1.7.1.1-2.1.7.1.3
 ([20260120 ratified edition](https://docs.riscv.org/reference/isa/v20260120/priv/machine.html)).
 
 - PMP-3 covers S/U; PMP-9 checks M-mode ordering and has expected CEX #3177.
 - PMP-5 characterises CVA6's raw TOR bounds, not the G=1 masked spec bounds.
+- PMP-10 encodes the spec-derived `G=1` range. On the golden RTL it disagrees with PMP-5 as expected, and its counterexample corroborates #3342. The two properties are not exhaustive: an implementation that masks both TOR bounds fails both.
+- These properties are RTL-version-specific. `evidence/2x2/` demonstrates this directly: PMP-5 and PMP-4 pass on the defective RTL and fail on the corrected RTL. See `evidence/2x2/README.md` before interpreting those results.
+- **Pre-merge prediction:** PR #3490 (head `661e447b`, currently open and unmerged) fixes #3342 by masking the grain bit on both TOR bounds. PMP-5 masks neither bound, while PMP-10 masks only the upper bound. Both therefore fail against #3490’s RTL and will fail on upstream master if that change merges. Confirmed by running both properties against that PR's `pmp_entry.sv` verbatim; the file is byte-identical between v5.3.0 and the PR's base, so the result carries.
 - `pmp_ref_sva` and `pmp_mpri_sva` reuse `pmp_entry`, so they check arbitration
   given matching. Mutation split: M1/M3/M4 -> `pmp_ref`; M5/M16/M18 ->
   `pmp_entry`.

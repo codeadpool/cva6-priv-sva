@@ -1,0 +1,9 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:00 (0)
+Elapsed process time [H:MM:SS (secs)]: 0:00:00 (0)
+engine_0 (smtbmc boolector) returned pass
+cover trace: engine_0/trace0.vcd
+cover trace: engine_0/trace0.yw
+  reached cover statement pmp_entry_arch_fv.\chk.c_grain_bit_set at pmp_entry_arch_sva.sv:34.5-34.80
+cover trace: engine_0/trace1.vcd
+cover trace: engine_0/trace1.yw
+  reached cover statement pmp_entry_arch_fv.\chk.c_tor_match_arch at pmp_entry_arch_sva.sv:33.5-33.74

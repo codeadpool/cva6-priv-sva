@@ -1,0 +1,24 @@
+diff --git a/core/pmp/src/pmp.sv b/core/pmp/src/pmp.sv
+index f3498711e..c22563168 100644
+--- a/core/pmp/src/pmp.sv
++++ b/core/pmp/src/pmp.sv
+@@ -50,14 +50,11 @@ module pmp #(
+ 
+       allow_o = 1'b0;
+       for (i = 0; i < CVA6Cfg.NrPMPEntries; i++) begin
+-        // either we are in S or U mode or the config is locked in which
+-        // case it also applies in M mode
+-        if (priv_lvl_i != riscv::PRIV_LVL_M || conf_i[i].locked) begin
+-          if (match[i]) begin
+-            if ((access_type_i & conf_i[i].access_type) != access_type_i) allow_o = 1'b0;
+-            else allow_o = 1'b1;
+-            break;
+-          end
++        // lowest-numbered matching entry decides; L bit then governs whether RWX is enforced in
++        // M mode
++        if (match[i]) begin
++          allow_o = ((access_type_i & conf_i[i].access_type) == access_type_i) || (priv_lvl_i == riscv::PRIV_LVL_M && !conf_i[i].locked);
++          break;
+         end
+       end
+       if (i == CVA6Cfg.NrPMPEntries) begin  // no PMP entry matched the address

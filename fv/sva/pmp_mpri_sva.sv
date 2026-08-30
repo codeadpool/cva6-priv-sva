@@ -1,7 +1,8 @@
-// F7 (PMP-9) probe. Priv spec v1.13 3.7.1: th lowest-numbered matching PMP
-// entry decides, and its lock bit then governs M-mode enforcement. CVA6 filters
-// non-locked entries before selecting the match, so a later locked entry can
-// overrule an earlier unlocked one. Expected CEX, corroborates upstream #3177.
+// F7 (PMP-9) probe. Machine ISA v1.13 2.1.7.1.3: the lowest-numbered matching
+// PMP entry decides, and its lock bit then governs M-mode enforcement. CVA6
+// filters non-locked entries before selecting the match, so a later locked
+// entry can overrule an earlier unlocked one. Expected CEX, corroborates
+// upstream #3177.
 module pmp_mpri_sva #(
     parameter config_pkg::cva6_cfg_t CVA6Cfg = config_pkg::cva6_cfg_empty
 ) (

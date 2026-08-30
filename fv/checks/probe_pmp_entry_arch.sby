@@ -1,0 +1,40 @@
+# PROBE, EXPECTED TO FAIL in bmc on golden v5.3.0. architectural TOR bound vs
+# pmp_entry: RTL matches on the raw pmpaddr, Machine ISA v1.13 2.1.7.1.1
+# excludes the G=1 grain bit from the entry's own bound. Holds only against a
+# matcher that masks that bound and leaves the predecessor raw: a matcher that
+# masks both, as upstream PR #3490 does, fails it too.
+# Pairs with pmp_entry.sby (PMP-5, tagged
+# RTL-tor), which is the other way round. see evidence/2x2/README.md.
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc:   mode bmc
+bmc:   depth 2
+prove: mode prove
+prove: depth 2
+cover: mode cover
+cover: depth 3
+
+[engines]
+bmc:   smtbmc boolector
+prove: abc pdr
+cover: smtbmc boolector
+
+[script]
+plugin -i slang
+read_slang --top pmp_entry_arch_fv config_pkg.sv cv64a6_imafdc_sv39_config_pkg.sv riscv_pkg.sv build_config_pkg.sv lzc.sv cf_math_pkg.sv pmp_entry.sv pmp_entry_arch_sva.sv pmp_entry_arch_fv.sv
+prep -top pmp_entry_arch_fv
+
+[files]
+../../cva6/core/include/config_pkg.sv
+../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv
+../../cva6/core/include/riscv_pkg.sv
+../../cva6/core/include/build_config_pkg.sv
+../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv
+../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv
+../../cva6/core/pmp/src/pmp_entry.sv
+../sva/pmp_entry_arch_sva.sv
+../wrappers/pmp_entry_arch_fv.sv
