@@ -39,23 +39,25 @@ For `G=1`, Machine ISA v1.13 §2.1.7.1.1 states:
 CVA6 masks bit 0 only when reading `pmpaddr` (`csr_regfile.sv:866-868`) but
 stores it raw (`csr_regfile.sv:1738`), so the bit reaches the matcher.
 
+That sentence is indexed to `pmpaddr_i`, and it applies wherever `pmpaddr_i`
+participates in TOR matching: including as the **lower** bound of entry `i+1`.
+This was asked and answered in
+[riscv-isa-manual #884](https://github.com/riscv/riscv-isa-manual/issues/884)
+(opened 2022-08-23, closed 2025-12-09): *"it is true for both i and i+1."*
+
 We test two corrections:
 
-- `pmp_tor_grain.patch` masks only the entry's own TOR bound. The specification
-  states this case directly.
+- `pmp_tor_grain.patch` masks the entry's **own** bound only: an **incomplete**
+  fix, useful here because it separates the two halves of the rule.
 - `pmp_tor_grain_both_pr3490.patch` is the RTL from upstream PR #3490 and masks
-  both TOR bounds. The grain sentence is indexed to `pmpaddr_i`; whether it also
-  governs that address when it serves as the next entry's lower bound is left
-  open, so masking both is the other defensible reading. The "irrespective of
-  `pmpcfg[i-1]`" clause does not decide between them, since neither correction
-  consults `pmpcfg[i-1]`.
+  **both** bounds. This is the architectural behaviour.
 
 | Property | Golden v5.3.0 | Own bound only | Both bounds (#3490) |
 |---|---:|---:|---:|
 | `pmp_entry_sva::a_tor_exact` — **PMP-5** | **PASS** | **FAIL** | **FAIL** |
 | `pmp_entry_sva::a_tor_lo_inclusive` — **PMP-5** | **PASS** | **FAIL** | — |
 | `pmp_entry_sva::a_tor_hi_exclusive` — **PMP-5** | **PASS** | **PASS** (proven with `abc pdr`) | — |
-| `pmp_entry_arch_sva::a_tor_exact_arch` — spec-derived, **PMP-10** | **FAIL** | **PASS** | **FAIL** |
+| `pmp_entry_arch_sva::a_tor_exact_arch` — spec-derived, **PMP-10** | **FAIL** | **FAIL** | **PASS** |
 
 ### What the table shows
 
@@ -64,11 +66,9 @@ We test two corrections:
   that removes the grain bit from matching makes it fail. Isolation runs show
   exactly which properties invert: two reject the correction, while
   `a_tor_hi_exclusive` is proven to survive it.
-- **PMP-10 encodes one specification interpretation.** It accepts the
-  own-bound correction but rejects PR #3490 because the property and the PR
-  resolve the predecessor-bound ambiguity differently. A spec-derived oracle
-  is not automatically design-independent when the specification leaves a
-  choice unresolved.
+- **PMP-10 is written from the specification and tracks it.** It rejects golden
+  and the incomplete fix, and accepts #3490. Same DUT, same harness, opposite
+  verdicts to PMP-5: the only difference is where the range came from.
 
 ## Patches
 
@@ -102,8 +102,8 @@ git -C cva6 apply ../evidence/2x2/pmp_tor_grain.patch
 cd fv/checks
 sby -f -d ../../results/inv/pmp_entry_masked_bmc pmp_entry.sby bmc
 # Expected: FAIL
-sby -f -d ../../results/inv/arch_masked_prove probe_pmp_entry_arch.sby prove
-# Expected: PASS
+sby -f -d ../../results/inv/arch_masked_bmc probe_pmp_entry_arch.sby bmc
+# Expected: FAIL  (this patch masks one bound of two, so PMP-10 rejects it too)
 cd ../..
 git -C cva6 checkout core/pmp/src/pmp_entry.sv
 ```

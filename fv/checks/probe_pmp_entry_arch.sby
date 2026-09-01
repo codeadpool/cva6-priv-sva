@@ -1,10 +1,9 @@
-# PROBE, EXPECTED TO FAIL in bmc on golden v5.3.0. architectural TOR bound vs
+# PROBE, EXPECTED TO FAIL in bmc on golden v5.3.0. architectural TOR range vs
 # pmp_entry: RTL matches on the raw pmpaddr, Machine ISA v1.13 2.1.7.1.1
-# excludes the G=1 grain bit from the entry's own bound. Holds only against a
-# matcher that masks that bound and leaves the predecessor raw: a matcher that
-# masks both, as upstream PR #3490 does, fails it too.
-# Pairs with pmp_entry.sby (PMP-5, tagged
-# RTL-tor), which is the other way round. see evidence/2x2/README.md.
+# excludes the G=1 grain bit from both bounds (riscv-isa-manual #884). Holds
+# only against a matcher that masks both, as upstream PR #3490 does.
+# pairs with pmp_entry.sby (PMP-5, tagged RTL-tor), which is the other way
+# round. See evidence/2x2/README.md.
 [tasks]
 bmc
 prove

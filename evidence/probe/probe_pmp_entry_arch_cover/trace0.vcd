@@ -12,7 +12,7 @@ $var wire 2 n4 conf_addr_mode_i $end
 $var wire 54 n5 conf_addr_prev_i $end
 $var wire 1 n6 match_o $end
 $var wire 56 n7 tor_hi_arch $end
-$var wire 56 n8 tor_lo $end
+$var wire 56 n8 tor_lo_arch $end
 $upscope $end
 $var wire 1 n9 clk $end
 $var wire 54 n10 conf_addr_i $end
