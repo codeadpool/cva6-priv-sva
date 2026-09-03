@@ -1,29 +1,29 @@
-== M1 [pmp] -> KILLED [pmp_ref_bmc]
-== M2 [pmp] -> KILLED [pmp_match_bmc,pmp_ref_bmc]
-== M3 [pmp] -> KILLED [pmp_ref_bmc]
-== M4 [pmp] -> KILLED [pmp_ref_bmc]
-== M5 [pmp] -> KILLED [pmp_entry_bmc]
-== M6 [csr] -> KILLED [csr_warl_bmc]
-== M7 [csr] -> KILLED [csr_warl_bmc]
-== M8 [csr] -> KILLED [csr_warl_bmc]
-== M9 [trap] -> KILLED [trap_priv_bmc]
-== M10 [trap] -> KILLED [trap_priv_bmc]
-== M11 [trap] -> KILLED [trap_priv_bmc]
-== M12 [trap] -> KILLED [trap_priv_bmc]
-== M13 [trap] -> KILLED [trap_priv_bmc]
-== M14 [trap] -> KILLED [trap_priv_bmc]
-== M15 [vm] -> KILLED [vm_bmc]
-== M16 [pmp] -> KILLED [pmp_entry_bmc]
-== M17 [pmp] -> KILLED [pmp_match_bmc,pmp_ref_bmc]
-== M18 [pmp] -> KILLED [pmp_entry_bmc]
-== M19 [csr] -> KILLED [csr_warl_bmc]
-== M20 [csr] -> KILLED [csr_warl_bmc]
-== M21 [csr] -> KILLED [csr_warl_bmc]
-== M22 [trap] -> KILLED [trap_priv_bmc]
-== M23 [trap] -> KILLED [trap_priv_bmc]
-== M24 [trap] -> KILLED [trap_priv_bmc]
-== M25 [trap] -> KILLED [trap_priv_bmc]
-== M26 [trap] -> KILLED [trap_priv_bmc]
+== M1 [pmp] -> KILLED [pmp_ref_bmc] (a_m_impl_equiv)
+== M2 [pmp] -> KILLED [pmp_match_bmc,pmp_ref_bmc] (a_gap1_m_bypass,a_m_impl_equiv,a_pmp1_m_default_allow)
+== M3 [pmp] -> KILLED [pmp_ref_bmc] (a_m_impl_equiv)
+== M4 [pmp] -> KILLED [pmp_ref_bmc] (a_m_impl_equiv)
+== M5 [pmp] -> KILLED [pmp_entry_bmc] (a_na4_never_match)
+== M6 [csr] -> KILLED [csr_warl_bmc] (a_never_na4)
+== M7 [csr] -> KILLED [csr_warl_bmc] (a_never_r0w1)
+== M8 [csr] -> KILLED [csr_warl_bmc] (a_reserved_zero)
+== M9 [trap] -> KILLED [trap_priv_bmc] (a_mret)
+== M10 [trap] -> KILLED [trap_priv_bmc] (a_irq_deleg_to_s)
+== M11 [trap] -> KILLED [trap_priv_bmc] (a_mtrap_stack)
+== M12 [trap] -> KILLED [trap_priv_bmc] (a_strap_stack)
+== M13 [trap] -> KILLED [trap_priv_bmc] (a_sret)
+== M14 [trap] -> KILLED [trap_priv_bmc] (a_mpp_legal_step)
+== M15 [vm] -> KILLED [vm_bmc] (a_deny_no_fill)
+== M16 [pmp] -> KILLED [pmp_entry_bmc] (a_napot_exact)
+== M17 [pmp] -> KILLED [pmp_match_bmc,pmp_ref_bmc] (a_non_m_equiv,a_pmp2_su_default_deny)
+== M18 [pmp] -> KILLED [pmp_entry_bmc] (a_tor_exact,a_tor_hi_exclusive)
+== M19 [csr] -> KILLED [csr_warl_bmc] (a_pmpaddr_g_bit)
+== M20 [csr] -> KILLED [csr_warl_bmc] (a_locked_cfg_stable)
+== M21 [csr] -> KILLED [csr_warl_bmc] (a_tor_shield_below)
+== M22 [trap] -> KILLED [trap_priv_bmc] (a_trap_priv_target)
+== M23 [trap] -> KILLED [trap_priv_bmc] (a_mtrap_capture)
+== M24 [trap] -> KILLED [trap_priv_bmc] (a_trap_monotonic)
+== M25 [trap] -> KILLED [trap_priv_bmc] (a_trap_monotonic)
+== M26 [trap] -> KILLED [trap_priv_bmc] (a_irq_deleg_to_s)
 ----
 mutants: 26  survivors: 0
 PASS: all mutants killed

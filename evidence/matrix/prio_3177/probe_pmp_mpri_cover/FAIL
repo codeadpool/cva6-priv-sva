@@ -1,0 +1,11 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:02 (2)
+Elapsed process time [H:MM:SS (secs)]: 0:00:02 (2)
+engine_0 (smtbmc boolector) returned FAIL
+cover trace: engine_0/trace0.vcd
+cover trace: engine_0/trace0.yw
+  reached cover statement pmp_mpri_fv.\chk.c_m_first_unlocked at pmp_mpri_sva.sv:55.5-55.98
+cover trace: engine_0/trace1.vcd
+cover trace: engine_0/trace1.yw
+  reached cover statement pmp_mpri_fv.\chk.c_overrule_shape at pmp_mpri_sva.sv:56.5-58.95
+unreached cover statements:
+  pmp_mpri_fv.\chk.c_f7_witness at pmp_mpri_sva.sv:61.5-62.89

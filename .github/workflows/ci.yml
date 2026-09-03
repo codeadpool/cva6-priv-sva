@@ -72,7 +72,7 @@ jobs:
       - uses: YosysHQ/setup-oss-cad-suite@v3
         with:
           version: '2026-04-07'
-      - name: "TOR grain bit (#3342), upper bound only: both oracles must break"
+      - name: "TOR grain bit (#3342), incomplete own-bound fix: both oracles must break"
         run: |
           set -e
           git -C cva6 apply ../evidence/2x2/pmp_tor_grain.patch

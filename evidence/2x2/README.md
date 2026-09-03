@@ -7,8 +7,12 @@ The rest of `evidence/` reports verdicts about CVA6. This directory reports
 verdicts about **the verification suite** by running each property against RTL
 variants that differ from the pin by a single named correction.
 
+`evidence/matrix/` is the full sweep behind these two cases: every proven checker
+against every correction, including the pairs where nothing inverts.
+
 Every experiment starts from the pinned golden submodule: CVA6 v5.3.0
-(`2ef1c1b1`). Each patched column adds only the named patch.
+(`2ef1c1b1`). Each patched column adds only the named patch. "Golden" here means
+the pinned reference revision, not a correct one: both defects below are in it.
 
 ## 1. M-mode priority (#3177)
 
@@ -27,8 +31,10 @@ required by Machine ISA v1.13 §2.1.7.1.3:
 
 `pmp_ref_sva` filters out unlocked entries before selecting the lowest match,
 mirroring `pmp.sv:55`. That is the implementation behavior prohibited by the
-ISA. As a result, PMP-4 certifies the defect and rejects its correction, while
-PMP-9 does the opposite.
+ISA. So PMP-4 agrees with the pinned RTL and disagrees with the corrected
+arbiter; PMP-9, which encodes the ISA rule, gives the opposite verdicts. PMP-4
+is an implementation characterisation, not a conformance oracle. It was
+catalogued in architecture-facing terms until `916b426` retagged it.
 
 ## 2. TOR grain bit (#3342)
 
@@ -42,17 +48,20 @@ stores it raw (`csr_regfile.sv:1738`), so the bit reaches the matcher.
 That sentence is indexed to `pmpaddr_i`, and it applies wherever `pmpaddr_i`
 participates in TOR matching: including as the **lower** bound of entry `i+1`.
 This was asked and answered in
-[riscv-isa-manual #884](https://github.com/riscv/riscv-isa-manual/issues/884)
-(opened 2022-08-23, closed 2025-12-09): *"it is true for both i and i+1."*
+[riscv-isa-manual #884](https://github.com/riscv/riscv-isa-manual/issues/884#issuecomment-3631302703)
+(opened 2022-08-23, closed 2025-12-09 by the comment linked here): *"It doesn't
+say which PMP register's matching logic that statement applies to: i.e. it is
+true for both i and i+1."*
 
 We test two corrections:
 
 - `pmp_tor_grain.patch` masks the entry's **own** bound only: an **incomplete**
   fix, useful here because it separates the two halves of the rule.
 - `pmp_tor_grain_both_pr3490.patch` is the RTL from upstream PR #3490 and masks
-  **both** bounds. This is the architectural behaviour.
+  **both** bounds. This is the architectural behaviour. The PR is an open
+  candidate correction, not an accepted fix: unmerged at head `661e447b`.
 
-| Property | Golden v5.3.0 | Own bound only | Both bounds (#3490) |
+| Property | Golden v5.3.0 | Incomplete (own bound) | Both bounds (#3490) |
 |---|---:|---:|---:|
 | `pmp_entry_sva::a_tor_exact` — **PMP-5** | **PASS** | **FAIL** | **FAIL** |
 | `pmp_entry_sva::a_tor_lo_inclusive` — **PMP-5** | **PASS** | **FAIL** | — |

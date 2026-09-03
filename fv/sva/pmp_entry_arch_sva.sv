@@ -20,15 +20,16 @@ module pmp_entry_arch_sva #(
   assign tor_hi_arch = ({2'b00, conf_addr_i[CVA6Cfg.PLEN-3:1], 1'b0} << 2);
 
   always_comb begin
-    // PMP-5 restated over the architectural range
+    // PMP-10 over the architectural range
     a_tor_exact_arch :
     assert (!(conf_addr_mode_i == riscv::TOR) ||
         (match_o == ((addr_i >= tor_lo_arch) && (addr_i < tor_hi_arch))));
   end
 
   always_comb begin
-    // antecedent reachability, and that the deciding input is reachable
+    // antecedent reachability, and that both deciding inputs are reachable
     c_tor_match_arch : cover (conf_addr_mode_i == riscv::TOR && match_o);
     c_grain_bit_set : cover (conf_addr_mode_i == riscv::TOR && conf_addr_i[0]);
+    c_grain_bit_prev_set : cover (conf_addr_mode_i == riscv::TOR && conf_addr_prev_i[0]);
   end
 endmodule

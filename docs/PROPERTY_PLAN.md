@@ -63,7 +63,7 @@ Layer 1 checks what the RTL implements plus one gap-characterisation property
 | PMP-7 | OFF and stored NA4 never match | pmp_entry.sv:107-118 | PMP-na4 | PROVEN 2026-06-30 |
 | PMP-8 | S/U, or M with lowest match L=1: allow implies the requested RWX bit is set | pmp.sv:52-59 | PMP-rwx | PROVEN 2026-07-06 (pmp_ref) |
 | PMP-9 | M-mode: choose the lowest address match before evaluating L | pmp.sv:52-59 | PMP-prio-m | CEX 2026-07-06 (expected, #3177) |
-| PMP-10 | TOR match excludes the G=1 grain bit from **both** bounds | pmp_entry.sv:48-66 | PMP-tor | CEX 2026-08-17 (expected, #3342) |
+| PMP-10 | TOR match excludes the G=1 grain bit from **both** bounds | pmp_entry.sv:48-66 | PMP-tor | CEX 2026-09-01 (expected, #3342) |
 
 Scope: RISC-V Machine ISA v1.13, §§2.1.7.1.1-2.1.7.1.3
 ([20260120 ratified edition](https://docs.riscv.org/reference/isa/v20260120/priv/machine.html)).
@@ -77,8 +77,24 @@ Scope: RISC-V Machine ISA v1.13, §§2.1.7.1.1-2.1.7.1.3
 - These properties are RTL-version-specific. `evidence/2x2/` demonstrates this directly: PMP-5 and PMP-4 pass on the defective RTL and fail on the corrected RTL. See `evidence/2x2/README.md` before interpreting those results.
 - Prediction, recorded before the merge. PR #3490 (head 661e447b, open and unmerged when recorded) fixes #3342 by masking both TOR bounds. PMP-5 masks neither bound, so it fails against the PR RTL and will also fail on upstream master when the change lands; PMP-10 holds. This was confirmed by running both properties against the PR’s pmp_entry.sv verbatim. That file is byte-identical between v5.3.0 and the PR’s base commit, so the result carries directly.
 - `pmp_ref_sva` and `pmp_mpri_sva` reuse `pmp_entry`, so they check arbitration
-  given matching. Mutation split: M1/M3/M4 -> `pmp_ref`; M5/M16/M18 ->
-  `pmp_entry`.
+  given matching. Mutation split, by assertion: M1/M2/M3/M4 -> `a_m_impl_equiv`;
+  M5 -> `a_na4_never_match`; M16 -> `a_napot_exact`; M18 -> `a_tor_exact` and
+  `a_tor_hi_exclusive`. Full log in `evidence/mutation/`.
+
+### Oracle history
+
+PMP-4 and PMP-5 were initially catalogued in architecture-facing terms, then reclassified as RTL characterisations. That reclassification is part of the record, not the verdict.
+
+|                              | PMP-4                                                                                                                                | PMP-5                                                                         |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
+| First catalogued (`2116d85`) | “locked entry enforced even in M-mode,” tagged `PMP-lock`                                                                            | “TOR match <=> prev <= addr < this,” tagged `PMP-tor`                         |
+| What it executes             | Equivalence against a reference model that removes unlocked entries before selecting the lowest-indexed match, mirroring `pmp.sv:55` | TOR matching against the raw stored `pmpaddr` bounds, including the grain bit |
+| Mutants killed               | M1, M2, M3, M4 (`a_m_impl_equiv`)                                                                                                    | M18 (`a_tor_exact`)                                                           |
+| Result against corrected RTL | FAIL                                                                                                                                 | FAIL                                                                          |
+| Current classification       | RTL characterisation, tagged `RTL-lock` (narrowed in `916b426`, retagged in `581b899`)                                               | RTL characterisation, tagged `RTL-tor`                                        |
+| Conformance oracle           | PMP-9                                                                                                                                | PMP-10                                                                        |
+
+Neither property certified architectural correctness. Both were sound as RTL characterisations but unsound as conformance or sign-off oracles. The verdict census is recorded under `evidence/matrix/`.
 - `pmp.sv` has no size input; these properties cover `addr_i`, not every byte of
   a memory operation.
 - PMP-1/2 check all-OFF; `pmp_ref_sva` also covers the general no-match defaults.

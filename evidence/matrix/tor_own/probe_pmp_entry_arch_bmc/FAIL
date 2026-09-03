@@ -1,0 +1,6 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:00 (0)
+Elapsed process time [H:MM:SS (secs)]: 0:00:00 (0)
+engine_0 (smtbmc boolector) returned FAIL
+counterexample trace: engine_0/trace.vcd
+counterexample trace: engine_0/trace.yw
+  failed assertion pmp_entry_arch_fv.\chk.a_tor_exact_arch at pmp_entry_arch_sva.sv:24.5-26.75

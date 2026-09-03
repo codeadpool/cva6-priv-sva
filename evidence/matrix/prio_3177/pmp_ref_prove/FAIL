@@ -1,0 +1,6 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:02 (2)
+Elapsed process time [H:MM:SS (secs)]: 0:00:02 (2)
+engine_0 (abc pdr) returned FAIL
+counterexample trace: engine_0/trace.vcd
+counterexample trace: engine_0/trace.yw
+  failed assertion pmp_ref_fv.\chk.a_m_impl_equiv at pmp_ref_sva.sv:53.5-53.87

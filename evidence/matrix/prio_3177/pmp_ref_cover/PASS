@@ -1,0 +1,18 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:02 (2)
+Elapsed process time [H:MM:SS (secs)]: 0:00:02 (2)
+engine_0 (smtbmc boolector) returned pass
+cover trace: engine_0/trace0.vcd
+cover trace: engine_0/trace0.yw
+  reached cover statement pmp_ref_fv.\chk.c_m_locked_deny at pmp_ref_sva.sv:62.5-62.82
+cover trace: engine_0/trace1.vcd
+cover trace: engine_0/trace1.yw
+  reached cover statement pmp_ref_fv.\chk.c_non_m_perm_deny at pmp_ref_sva.sv:61.5-61.84
+cover trace: engine_0/trace2.vcd
+cover trace: engine_0/trace2.yw
+  reached cover statement pmp_ref_fv.\chk.c_m_no_lock_allow at pmp_ref_sva.sv:63.5-63.84
+cover trace: engine_0/trace3.vcd
+cover trace: engine_0/trace3.yw
+  reached cover statement pmp_ref_fv.\chk.c_non_m_allow at pmp_ref_sva.sv:60.5-60.79
+cover trace: engine_0/trace4.vcd
+cover trace: engine_0/trace4.yw
+  reached cover statement pmp_ref_fv.\chk.c_shadowed_entry at pmp_ref_sva.sv:65.5-68.86

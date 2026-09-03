@@ -66,8 +66,12 @@ for row in "${M[@]}"; do
     fi
     out=$(make verify-"$cat" TASKS=bmc 2>&1)
     killed=$(echo "$out" | grep -oE 'results/[a-z]+/[a-z_0-9]+_bmc\] DONE \(FAIL' | grep -oE '[a-z_0-9]+_bmc' | paste -sd, -)
+
+    labels=$(for k in ${killed//,/ }; do
+        grep -ohE 'failed assertion [^ ]+' "results/$cat/$k/logfile.txt" 2>/dev/null
+    done | sed 's/.*\.//' | sort -u | paste -sd, -)
     cp "$GOLD/$f" "$MUT/$f"
-    if [ -n "$killed" ]; then echo "== $id [$cat] -> KILLED [$killed]"; else
+    if [ -n "$killed" ]; then echo "== $id [$cat] -> KILLED [$killed] ($labels)"; else
         echo "== $id [$cat] -> SURVIVED (INVESTIGATE)"
         survivors=$((survivors + 1))
     fi
