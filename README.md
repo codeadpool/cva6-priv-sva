@@ -41,7 +41,7 @@ The suite is validated:
   caught.
 - **Fix certification.** Where we submitted a fix (F5, F8, F9, F10, the DCSR
   reserved and cause fields PRIV-5/PRIV-8, and the RVH=1 dcsr.v clamps PRIV-9), the same probe
-  is re-run against the PR head and proven there by induction (PDR for F8, where
+  is re-run against the tested PR commit and proven there by induction (PDR for F8, where
   fixed-depth k-induction cannot discover the `mstatus.mpp` invariant). Each
   defect-witness cover is the exact negation of a proven assertion, so its
   unreachability follows from the proof, not from a bounded search. Proven at
@@ -81,4 +81,6 @@ make verify-probe   TASKS="bmc cover" # F7-F11 + PRIV-5 witness probes
 make results                          # status table
 ```
 
-CVA6 is pinned and never modified; the checkers only observe it via `bind`.
+Baseline verification uses the pinned CVA6 submodule unchanged. Checkers are
+either instantiated beside the DUT or attached with `bind`; mutation and
+correction checks use throwaway or reverted variants.

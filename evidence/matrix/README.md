@@ -30,8 +30,8 @@ candidates; neither has merged upstream.
 
 ## Requirement-linked results
 
-Only two proven-property cells test acceptance of a complete correction. Both
-invert:
+Only two proven-property cells test acceptance of a correction for the
+requirement each property encodes. Both invert:
 
 | Property | Column | Pin | Correction |
 |---|---|---:|---:|
@@ -142,6 +142,8 @@ mutable fork branch.
   come from the `prove` tasks.
 - Every task uses a separate `sby` work directory, so one failing assertion
   cannot hide another task's result.
-- Each `FAIL` is attributed to a named assertion in its `logfile.txt`.
+- Each assertion `FAIL` is attributed to a named assertion in its `logfile.txt`;
+  the sole cover-task `FAIL` is the expected unreachable `c_f7_witness` described
+  above.
 - A verdict applies only to the named property and RTL variant. No PASS here, by
   itself, establishes that either the correction or the property is correct.

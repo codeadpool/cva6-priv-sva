@@ -28,7 +28,7 @@ Spec: "For other traps, mtval is set to zero" (Machine-Level ISA, mtval; stval
 identical); interrupts are "other traps". #898/#448 + PR #3226 covered only
 ecall/ebreak; interrupts and F5a survived.
 Witness: `mstatus_f5_sva.sv::a_irq_mtval_zero`, cover `c_irq_m_tvalnz` reachable.
-Proven on the PR head (`3250ed48`, v5.3.0-185) by k-induction, RVH=0 config, for
+Proven on the tested PR commit (`3250ed48`, v5.3.0-185) by k-induction, RVH=0 config, for
 the M-mode `mtval` and S-mode `stval` sites: `c_irq_m_tvalnz` and
 `c_irq_s_tvalnz` still reach, and both witness covers are the negations of
 proven assertions and therefore unreachable. The third site the patch changes,
@@ -74,7 +74,7 @@ Witness: `priv_dret_sva.sv`. On golden the bmc counterexample fires first on
 `a_dcsr_prv_legal` (step 4, the raw dcsr.prv write). The post-`dret` corruption
 itself is the cover `c_f8_witness` (step 5): the trace enters debug mode, writes
 dcsr prv=2'b10, executes dret, and `priv_lvl_q` reads back 2'b10.
-Proven on the PR head (`8f74af4a`) by PDR, RVH=0 config; the probe also proves
+Proven on the tested PR commit (`8f74af4a`) by PDR, RVH=0 config; the probe also proves
 `dcsr.prv` itself stays WARL-legal (`a_dcsr_prv_legal`). `c_dret_in_debug` still
 reaches; `c_dcsr_prv_illegal` and `c_f8_witness` are the negations of the proven
 assertions and are therefore unreachable.
@@ -87,7 +87,7 @@ reserved-field half is a fix-certification, not an original finding: #1984 and
 #1985 predate this work and were filed by others. Probe `dcsr_reserved_sva.sv`
 certifies both halves: `a_dcsr_reserved_zero` (reserved bits, #1984) and
 `a_dcsr_cause_preserved` (a software dcsr write cannot change `cause`, #1985).
-Both CEX on v5.3.0 at step 4 and are proven by k-induction on the PR head, so
+Both CEX on v5.3.0 at step 4 and are proven by k-induction on the tested PR commit, so
 `c_reserved_nonzero` and `c_cause_changed` are unreachable there; the antecedent
 cover `c_dcsr_sw_write` still reaches.
 
