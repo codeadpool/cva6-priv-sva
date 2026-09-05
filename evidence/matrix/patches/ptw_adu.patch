@@ -1,0 +1,16 @@
+diff --git a/core/cva6_mmu/cva6_ptw.sv b/core/cva6_mmu/cva6_ptw.sv
+index 6dfc46d5e..8ba81ad0e 100644
+--- a/core/cva6_mmu/cva6_ptw.sv
++++ b/core/cva6_mmu/cva6_ptw.sv
+@@ -577,9 +577,9 @@ module cva6_ptw
+                   endcase
+                 end else ptw_pptr_n = {pte.ppn, vaddr_lvl[0][ptw_lvl_q[0]], (CVA6Cfg.PtLevels)'(0)};
+ 
+-                if (CVA6Cfg.RVH && (pte.a || pte.d || pte.u)) begin
++                if (pte.a || pte.d || pte.u) begin
+                   state_d = PROPAGATE_ERROR;
+-                  ptw_stage_d = ptw_stage_q;
++                  if (CVA6Cfg.RVH) ptw_stage_d = ptw_stage_q;
+                 end
+ 
+               end

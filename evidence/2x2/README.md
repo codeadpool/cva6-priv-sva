@@ -34,7 +34,8 @@ mirroring `pmp.sv:55`. That is the implementation behavior prohibited by the
 ISA. So PMP-4 agrees with the pinned RTL and disagrees with the corrected
 arbiter; PMP-9, which encodes the ISA rule, gives the opposite verdicts. PMP-4
 is an implementation characterisation, not a conformance oracle. It was
-catalogued in architecture-facing terms until `916b426` retagged it.
+catalogued in architecture-facing terms until `916b426` narrowed the wording and
+`581b899` retagged it `RTL-lock`.
 
 ## 2. TOR grain bit (#3342)
 
@@ -73,7 +74,7 @@ We test two corrections:
 - **PMP-5 encodes the implementation.** `pmp_entry_sva.sv:15` computes the TOR
   upper bound with the same expression as `pmp_entry.sv:54`. Any correction
   that removes the grain bit from matching makes it fail. Isolation runs show
-  exactly which properties invert: two reject the correction, while
+  exactly which properties invert: two reject the variant, while
   `a_tor_hi_exclusive` is proven to survive it.
 - **PMP-10 is written from the specification and tracks it.** It rejects golden
   and the incomplete fix, and accepts #3490. Same DUT, same harness, opposite

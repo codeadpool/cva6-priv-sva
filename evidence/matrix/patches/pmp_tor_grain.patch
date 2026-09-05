@@ -1,0 +1,13 @@
+diff --git a/core/pmp/src/pmp_entry.sv b/core/pmp/src/pmp_entry.sv
+index d024a9a09..d38b53e18 100644
+--- a/core/pmp/src/pmp_entry.sv
++++ b/core/pmp/src/pmp_entry.sv
+@@ -51,7 +51,7 @@ module pmp_entry #(
+         size = '0;
+         // check that the requested address is in between the two
+         // configuration addresses
+-        if (addr_i >= ({2'b0, conf_addr_prev_i} << 2) && addr_i < ({2'b0, conf_addr_i} << 2)) begin
++        if (addr_i >= ({2'b0, conf_addr_prev_i} << 2) && addr_i < ({2'b0, conf_addr_i[CVA6Cfg.PLEN-3:1], 1'b0} << 2)) begin
+           match_o = 1'b1;
+         end else match_o = 1'b0;
+ 

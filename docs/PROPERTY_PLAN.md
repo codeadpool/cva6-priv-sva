@@ -94,7 +94,7 @@ PMP-4 and PMP-5 were initially catalogued in architecture-facing terms, then rec
 | Current classification       | RTL characterisation, tagged `RTL-lock` (narrowed in `916b426`, retagged in `581b899`)                                               | RTL characterisation, tagged `RTL-tor`                                        |
 | Conformance oracle           | PMP-9                                                                                                                                | PMP-10                                                                        |
 
-Neither property certified architectural correctness. Both were sound as RTL characterisations but unsound as conformance or sign-off oracles. The verdict census is recorded under `evidence/matrix/`.
+Neither property certified architectural correctness. Both were sound as RTL characterisations but unsound as conformance or sign-off oracles. The fix-side sweep is recorded under `evidence/matrix/`.
 - `pmp.sv` has no size input; these properties cover `addr_i`, not every byte of
   a memory operation.
 - PMP-1/2 check all-OFF; `pmp_ref_sva` also covers the general no-match defaults.

@@ -10,8 +10,8 @@ the base properties pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
 
 ## F5: interrupt traps leave the instruction encoding in mtval/stval
 
-Reported 2026-07-06 as openhwgroup/cva6 #3379, fixed in PR #3386; both defects
-live on master.
+Reported 2026-07-06 as openhwgroup/cva6 #3379, fix submitted as PR #3386; both
+defects live on master.
 
 **F5a, wrong bit-select.** `csr_regfile.sv:1919` gates mtval zeroing on
 `ex_i.cause[GPLEN-1]` (bit 40); every sibling site uses the interrupt flag
@@ -69,7 +69,7 @@ as #1984/#1985 for other dcsr fields), not an escalation. Debug spec v1.0 makes
 prv WARL over the supported modes.
 Adjacent #1984/#1985 cover other dcsr fields, not prv or the post-dret
 corruption (checked 2026-07-05). Reported 2026-07-07 as openhwgroup/cva6 #3383,
-fixed in PR #3387.
+fix submitted as PR #3387.
 Witness: `priv_dret_sva.sv`. On golden the bmc counterexample fires first on
 `a_dcsr_prv_legal` (step 4, the raw dcsr.prv write). The post-`dret` corruption
 itself is the cover `c_f8_witness` (step 5): the trace enters debug mode, writes
@@ -130,8 +130,8 @@ counterexample keeps `priv_lvl` legal throughout, which is what separates it fro
 F8 (#3383). On unpatched v5.3.0 the assertion also fails at RVH=0, but by F8's
 `dcsr.prv` → trap-stack route (`:1906`), three steps later and with `priv_lvl`
 corrupted first a different mechanism, not this one. Reported 2026-07-23 as
-openhwgroup/cva6 #3411, an incomplete-fix follow-up to #1988 / #2274; fixed in
-PR #3414. The guard generalization (drop `!CVA6Cfg.RVH` from the `PRIV_LVL_HS`
+openhwgroup/cva6 #3411, an incomplete-fix follow-up to #1988 / #2274; fix
+submitted as PR #3414. The guard generalization (drop `!CVA6Cfg.RVH` from the `PRIV_LVL_HS`
 arm) is certified at RVH=1 with #3387 also applied: `a_mpp_legal` proves unbounded
 (PDR), `bmc` passes, and the five defect covers become unreachable
 (`evidence/probe/probe_mpp_legal_rvh_fixed_*`).

@@ -1,97 +1,147 @@
-# Fix-side census: does a proven property accept the repair?
+# Fix-side sweep: interpreting the results
 
-`evidence/2x2/` shows two properties inverting. This directory is the sweep behind
-them: every proven checker run against every correction we can apply to the pin,
-including the pairs where nothing happens. Reporting the boring cells is the point
-— without them "two properties inverted" has no denominator.
+`evidence/2x2/` records two properties whose verdicts invert on corrected RTL.
+This directory contains the broader sweep behind those cases: 49 archived runs
+of the proven checkers against five RTL variants applied to the pinned design.
 
-Every column starts from CVA6 v5.3.0 (`2ef1c1b1`) and differs by one named edit.
-Tool versions in `versions.txt`.
+This is a regression archive, **not a prevalence sample**. Most checker/variant
+pairs target different requirements, so their verdicts say nothing about whether
+the property accepts the correction. A pair tests fix-acceptance only when the
+property encodes the requirement changed by that correction.
 
-## Corrections
+Every column starts from CVA6 v5.3.0 (`2ef1c1b1`) and applies one named edit.
+Tool versions are recorded in `versions.txt`; the exact edits are archived in
+`patches/`.
+
+## RTL variants
 
 | Column | Edit | Origin |
 |---|---|---|
-| `tor_own` | `pmp_entry.sv`, masks the entry's own TOR bound | ours, deliberately incomplete |
-| `tor_both` | `pmp_entry.sv`, masks both TOR bounds | upstream PR #3490, open |
-| `prio_3177` | `pmp.sv`, selects lowest match before evaluating `L` | ours, from the ISA rule |
-| `csr_mtval` | `csr_regfile.sv`, zeroes mtval/stval on interrupt traps | ours, fix PR for F5 |
-| `ptw_adu` | `cva6_ptw.sv`, rejects A/D/U in non-leaf PTEs | ours, fix PR for F10 |
+| `tor_own` | Mask the current entry's TOR bound in `pmp_entry.sv` | Diagnostic variant created for this experiment; deliberately incomplete |
+| `tor_both` | Mask both TOR bounds in `pmp_entry.sv` | [openhwgroup/cva6#3490](https://github.com/openhwgroup/cva6/pull/3490); open and unmerged |
+| `prio_3177` | Select the lowest matching PMP entry before evaluating `L` | Experimental correction derived from the ISA rule |
+| `csr_mtval` | Zero `mtval`/`stval` on interrupt traps in `csr_regfile.sv` | Candidate fix PR for F5 |
+| `ptw_adu` | Reject A/D/U bits in non-leaf PTEs in `cva6_ptw.sv` | Candidate fix PR for F10 |
 
-## The pairs that count
+`tor_own` is not a candidate repair. It masks only one of the two TOR bounds
+covered by the specification and is included solely to separate the two halves
+of the grain rule. `tor_both` and `prio_3177` are spec-conforming correction
+candidates; neither has merged upstream.
 
-A cell only tests fix-acceptance if the property can observe the edit. Six pairs
-qualify: the property is proven on the pin and compiles the patched file.
+## Requirement-linked results
 
-| Property | Column | Pin | On correction | |
-|---|---|---:|---:|---|
-| `pmp_entry_sva::a_tor_exact` | `tor_own` | PASS | **FAIL** | inverted |
-| `pmp_entry_sva::a_tor_exact` | `tor_both` | PASS | **FAIL** | inverted |
-| `pmp_ref_sva::a_m_impl_equiv` | `prio_3177` | PASS | **FAIL** | inverted |
-| `csr_warl` | `csr_mtval` | PASS | PASS | accepted |
-| `trap_priv` | `csr_mtval` | PASS | PASS | accepted |
-| `vm` | `ptw_adu` | PASS | PASS | accepted |
+Only two proven-property cells test acceptance of a complete correction. Both
+invert:
 
-Three rejections, from **two** distinct properties. Both transcribe the RTL:
-`a_tor_exact` reuses `pmp_entry.sv`'s bounds, `a_m_impl_equiv` compares against a
-reference that filters unlocked entries first, like `pmp.sv:55`. Their
-spec-derived counterparts give the opposite verdicts (`evidence/2x2/`).
+| Property | Column | Pin | Correction |
+|---|---|---:|---:|
+| `pmp_entry_sva::a_tor_exact` | `tor_both` | PASS | **FAIL** |
+| `pmp_ref_sva::a_m_impl_equiv` | `prio_3177` | PASS | **FAIL** |
 
-## The cells that do not count, and why
+Both properties reproduce their RTL implementations:
 
-Eight further cells passed a corrected column without testing anything. The
-property compiles the patched file but cannot observe the edit:
+- `a_tor_exact` uses the raw TOR bounds used by `pmp_entry.sv`.
+- `a_m_impl_equiv` uses a reference model that, like `pmp.sv:55`, removes
+  unlocked entries before selecting the lowest match.
 
-- **Shared component.** `pmp_ref_sva:19` instantiates `pmp_entry` to build its
-  reference. Patch the matcher and both sides move together, so the difference
-  cancels. Its 10 covers all stay reachable — it is not vacuous, just scoped to
-  arbitration, as its own comment says.
-- **Antecedent scope.** `pmp_sva`'s assertions are gated on `all_off`. With every
-  entry OFF neither TOR bounds nor lock priority can matter.
-- **Module scope.** `vm`'s properties target the page walker; the PMP columns do
-  not reach them.
+The specification-derived properties give the opposite verdicts on the same
+design pairs:
 
-This is worth stating because cover reachability does not flag it. Every cover in
-every column stayed reachable except one, below. Non-vacuity is not sensitivity.
+| Property | Column | Pin | Correction |
+|---|---|---:|---:|
+| `pmp_entry_arch_sva::a_tor_exact_arch` | `tor_both` | FAIL | **PASS** (unbounded) |
+| `pmp_mpri_sva::a_m_spec_priority` | `prio_3177` | FAIL | **PASS** |
+
+`a_tor_exact` also fails on `tor_own`, and `a_tor_exact_arch` rejects that
+variant as well. Those verdicts show that the one-bound edit is incomplete; they
+are not evidence about accepting a repair.
+
+## What the other PASS results mean
+
+The remaining PASS cells are regression results only. They do not validate the
+correction or the property. Three mechanisms explain them.
+
+### Common-mode dependency
+
+`fv/sva/pmp_ref_sva.sv:19` instantiates `pmp_entry` inside its reference model. A matcher
+edit therefore changes the DUT and reference together, leaving their comparison
+unchanged. The edited logic is inside the cone of influence, but its effect
+cancels. All five covers remain reachable, showing that the checker is
+non-vacuous—not that it is sensitive to matcher changes.
+
+### Antecedent excludes the changed behaviour
+
+The assertions in `pmp_sva` are gated by `all_off`. When every entry is OFF,
+neither TOR bounds nor locked-entry priority can affect the result.
+
+### Different requirement
+
+- `csr_warl` checks PMP CSR write-legalisation.
+- `trap_priv` checks trap routing and `mcause`/`mepc` capture.
+- `vm` checks that a PMP denial raises an access exception and prevents a TLB
+  fill.
+
+None constrains `mtval`/`stval` contents or reserved bits in non-leaf PTEs.
+Their PASS results on `csr_mtval` and `ptw_adu` therefore do not constitute
+fix-acceptance. The requirement-linked properties are `mstatus_f5_sva` and
+`ptw_pte_sva`; their fix certifications are archived under `evidence/mstatus/`
+and `evidence/probe/`.
+
+`vm` is not structurally isolated from PMP. `ptw_pmp_sva` receives
+`allow_access` and asserts on it directly. It is insensitive to these particular
+PMP edits, not outside PMP's cone of influence.
 
 ## Reading cover verdicts
 
-A `cover` FAIL here is usually correct, not a regression.
+Antecedent reachability establishes non-vacuity, not sensitivity. Every
+antecedent cover remains reachable in every column, including cases where a
+checker cannot distinguish the edit.
 
-- **Witness covers** state the defect. They *should* die once it is fixed.
-  `prio_3177/probe_pmp_mpri_cover` FAILs because `c_f7_witness` is unreachable on
-  the corrected arbiter — the signature of the fix working.
-- **Antecedent covers** state reachability of the property's precondition. They
-  must survive a correction. All of them did, in every column.
+A failed cover can still be the expected result:
 
-Only an antecedent cover going unreachable would mean a property had gone vacuous.
-None did.
+- **Antecedent covers** establish that an assertion's precondition remains
+  reachable. They must survive a correction; all of them do.
+- **Witness covers** describe the defect itself. They should become unreachable
+  when the defect is removed. In `prio_3177/probe_pmp_mpri_cover`,
+  `c_f7_witness` becomes unreachable on the corrected arbiter, so the cover task
+  reports `FAIL` as expected.
 
-## Reproducing
+This is ordinary formal-debug practice. Only the loss of an antecedent cover
+would indicate that a passing assertion had become vacuous; no such loss occurs
+in this sweep.
 
-Per column, from the repo root:
+## Reproducing a column
+
+From the repository root, for example:
 
 ```sh
-git -C cva6 apply "$PWD/evidence/2x2/pmp_tor_grain.patch"
+patch="$PWD/evidence/matrix/patches/pmp_tor_grain.patch"
+git -C cva6 apply "$patch"
+
 cd fv/checks
-for c in pmp_entry pmp_match pmp_ref vm; do for t in bmc prove cover; do
-  sby -f -d ../../results/matrix/tor_own/${c}_${t} $c.sby $t
-done; done
+for checker in pmp_entry pmp_match pmp_ref vm; do
+  for task in bmc prove cover; do
+    sby -f -d "../../results/matrix/tor_own/${checker}_${task}" \
+      "${checker}.sby" "$task"
+  done
+done
 cd ../..
-git -C cva6 checkout core/pmp/src/pmp_entry.sv
+
+git -C cva6 apply -R "$patch"
 ```
 
-The `csr_mtval` and `ptw_adu` patches are generated from the fix branches:
+All five edits are archived in `patches/`; reproduction does not depend on a
+mutable fork branch.
 
-```sh
-git -C cva6-fork diff 'fix/mtval-interrupt-zero~1..fix/mtval-interrupt-zero' -- core/csr_regfile.sv
-git -C cva6-fork diff 'fix/ptw-nonleaf-adu~1..fix/ptw-nonleaf-adu'           -- core/cva6_mmu/cva6_ptw.sv
-```
+## Soundness and scope
 
-## Soundness
-
-- Every PMP model has zero sequential cells. With free inputs, `bmc` decides the
-  complete input space; its depth is a harness artifact, not a bound.
-- Each cell is a separate `sby` workdir, so one failing assertion cannot mask
-  another.
-- `FAIL` cells are attributed to a named assertion in their `logfile.txt`.
+- The PMP models contain zero sequential cells. With free inputs, `bmc` decides
+  their complete input space; the configured depth is a harness artifact, not a
+  verification bound.
+- `csr_warl`, `trap_priv`, and `vm` are sequential. Their unbounded results
+  come from the `prove` tasks.
+- Every task uses a separate `sby` work directory, so one failing assertion
+  cannot hide another task's result.
+- Each `FAIL` is attributed to a named assertion in its `logfile.txt`.
+- A verdict applies only to the named property and RTL variant. No PASS here, by
+  itself, establishes that either the correction or the property is correct.
