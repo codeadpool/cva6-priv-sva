@@ -1,4 +1,4 @@
-# PROBEEXPECTED TO FAIL in bmc. M-mode spec static priority vs pmp.sv:55
+# PROBE, EXPECTED TO FAIL in bmc. M-mode spec static priority vs pmp.sv:55
 [tasks]
 bmc
 cover

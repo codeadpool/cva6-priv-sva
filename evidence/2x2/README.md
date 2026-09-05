@@ -1,7 +1,9 @@
 # 2×2 experiments: how to read the verdicts
 
-> In this directory, `FAIL` usually means a property is wrong, not that CVA6 is
-> broken or something. A corrected design can expose a property that encoded the old RTL.
+> A `FAIL` here records incompatibility between a property and an RTL correction
+> variant. Once the correction is independently justified, that result can expose
+> a property that encoded the old RTL; by itself it does not establish that
+> either side is wrong.
 
 The rest of `evidence/` reports verdicts about CVA6. This directory reports
 verdicts about **the verification suite** by running each property against RTL
@@ -60,25 +62,24 @@ We test two corrections:
   fix, useful here because it separates the two halves of the rule.
 - `pmp_tor_grain_both_pr3490.patch` is the RTL from upstream PR #3490 and masks
   **both** bounds. This is the architectural behaviour. The PR is an open
-  candidate correction, not an accepted fix: unmerged at head `661e447b`.
+  candidate correction, not an accepted fix: unmerged at tested commit `661e447b`.
 
 | Property | Golden v5.3.0 | Incomplete (own bound) | Both bounds (#3490) |
 |---|---:|---:|---:|
 | `pmp_entry_sva::a_tor_exact` — **PMP-5** | **PASS** | **FAIL** | **FAIL** |
 | `pmp_entry_sva::a_tor_lo_inclusive` — **PMP-5** | **PASS** | **FAIL** | — |
-| `pmp_entry_sva::a_tor_hi_exclusive` — **PMP-5** | **PASS** | **PASS** (proven with `abc pdr`) | — |
 | `pmp_entry_arch_sva::a_tor_exact_arch` — spec-derived, **PMP-10** | **FAIL** | **FAIL** | **PASS** |
 
 ### What the table shows
 
 - **PMP-5 encodes the implementation.** `pmp_entry_sva.sv:15` computes the TOR
   upper bound with the same expression as `pmp_entry.sv:54`. Any correction
-  that removes the grain bit from matching makes it fail. Isolation runs show
-  exactly which properties invert: two reject the variant, while
-  `a_tor_hi_exclusive` is proven to survive it.
+  that removes the grain bit from matching makes it fail. The archived bmc run
+  names both `a_tor_exact` and `a_tor_lo_inclusive` as the failing assertions.
 - **PMP-10 is written from the specification and tracks it.** It rejects golden
-  and the incomplete fix, and accepts #3490. Same DUT, same harness, opposite
-  verdicts to PMP-5: the only difference is where the range came from.
+  and the incomplete fix, and accepts #3490. The two properties are evaluated on
+  the same RTL pair using wrapper twins with identical ports; their opposite
+  verdicts follow from the different TOR ranges they encode.
 
 ## Patches
 
@@ -86,7 +87,7 @@ We test two corrections:
 |---|---|---|
 | `pmp_3177_priority.patch` | `pmp.sv:52-62` | Created only for this experiment |
 | `pmp_tor_grain.patch` | `pmp_entry.sv:54` | Created only for this experiment |
-| `pmp_tor_grain_both_pr3490.patch` | `pmp_entry.sv` | Upstream PR #3490 by KnightGOKU, head `661e447b`; RTL hunk copied verbatim |
+| `pmp_tor_grain_both_pr3490.patch` | `pmp_entry.sv` | Upstream PR #3490 by KnightGOKU, tested commit `661e447b`; RTL hunk copied verbatim |
 
 None of these patches is proposed upstream by this suite. Both defects were
 reported by others:
@@ -101,7 +102,7 @@ reference points used to measure the properties.
 
 `pmp_entry.sv` is byte-identical between v5.3.0 and PR #3490's base. The PR
 hunk therefore applies unchanged to the pinned version, and the experimental
-result carries to the PR head.
+result carries to the PR at that commit.
 
 ## Reproducing
 
@@ -126,8 +127,10 @@ The other patches use the same flow. These are the commands run by the
 - Every model has **zero sequential cells**. With free inputs, `bmc` decides the
   complete input space; its configured depth is a harness artifact, not a
   verification bound.
-- Each property is run in isolation because one failing assertion can hide
-  later failures in a combined run.
+- Each checker runs in its own `sby` work directory, so one checker's failure
+  cannot mask another's. Within a checker, assertions are evaluated together: a
+  `FAIL` names the assertions that fired and does not establish that the rest
+  hold on that variant.
 - Covers are checked alongside the assertions. Antecedent covers remain
   reachable, so a passing result is not caused by vacuity. Witness covers, which
   state the negation of a now-proven assertion, deliberately become unreachable

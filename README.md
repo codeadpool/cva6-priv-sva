@@ -30,10 +30,11 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 
 The suite is validated:
 
-- **Mutation testing.** 26 targeted RTL mutations, one per property's logic; all
-  are killed (property fails when the behavior it checks is broken). Covers the
-  proven properties only: a probe already fails on golden, so any mutant against
-  it would count as trivially killed.
+- **Mutation testing.** 26 hand-selected RTL mutations across the proven checker
+  set are all killed, each attributed to one or more named assertions. That
+  establishes sensitivity to this fault set, not completeness or prevalence.
+  Probes are excluded: one already fails on golden, so any mutant against it
+  would count as trivially killed.
   Reproducible: `fv/validation/mutation_test.sh`.
 - **Probe witness signatures.** Each expected-CEX probe covers its
   exact violation state, so a probe that stops failing for the intended reason is

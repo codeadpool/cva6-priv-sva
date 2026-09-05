@@ -15,13 +15,13 @@ sby run.
 | pmp_ref_sva | pmp | PMP-3,4,8, GAP-1 | PROVEN (bmc/prove/cover) | 2026-07-06 |
 | csr_pmp_sva | csr_regfile | CSR-1,3,4,6 / CSR-2,5 | PROVEN 2026-07-02 / PROVEN 2026-07-06 | 2026-07-06 |
 | csr_priv_sva | csr_regfile | MST-1..4, TRAP-1..3, PRIV-2 / TRAP-4,5,6, MST-5, PRIV-1 | PROVEN 2026-07-03 / PROVEN 2026-07-06 | 2026-07-06 |
-| mstatus_f5_sva | csr_regfile | MST-6,8 / F5 | CEX on v5.3.0; PROVEN (k-induction) on PR #3386 head 3250ed48 | 2026-07-19 |
+| mstatus_f5_sva | csr_regfile | MST-6,8 / F5 | CEX on v5.3.0; PROVEN (k-induction) on PR #3386 tested commit 3250ed48 | 2026-07-19 |
 | mstatus_mprv_sva | csr_regfile | MST-7 / F6 | CEX (expected, upstream #3294/#1981) | 2026-07-06 |
 | pmp_mpri_sva | pmp | PMP-9 / F7 | CEX (expected, upstream #3177) | 2026-07-06 |
-| priv_dret_sva | csr_regfile | PRIV-4,6 / F8 | CEX on v5.3.0; PROVEN (PDR) on PR #3387 head 8f74af4a; also CEX at RVH=1 (the dcsr.prv defect is not RVH-gated) | 2026-07-19 |
-| dcsr_reserved_sva | csr_regfile | PRIV-5, PRIV-8 | CEX on v5.3.0; PROVEN (k-induction) on PR #3387 head 8f74af4a | 2026-07-21 |
-| mpp_legal_sva | csr_regfile | PRIV-7 / F9 | RVH=1: CEX (v5.3.0 & #3387 head, step 3), PROVEN (PDR) on #3387 + PR #3414. RVH=0: CEX on v5.3.0 (via F8/#3383), PROVEN (PDR) on #3387 head | 2026-07-24 |
-| dcsr_vlegal_sva | csr_regfile | PRIV-9 / #3387 RVH=1 | RVH=1: CEX on golden; PROVEN (k-induction) on #3387 head with the write+dret v-clamps | 2026-07-22 |
+| priv_dret_sva | csr_regfile | PRIV-4,6 / F8 | CEX on v5.3.0; PROVEN (PDR) on PR #3387 tested commit 8f74af4a; also CEX at RVH=1 (the dcsr.prv defect is not RVH-gated) | 2026-07-19 |
+| dcsr_reserved_sva | csr_regfile | PRIV-5, PRIV-8 | CEX on v5.3.0; PROVEN (k-induction) on PR #3387 tested commit 8f74af4a | 2026-07-21 |
+| mpp_legal_sva | csr_regfile | PRIV-7 / F9 | RVH=1: CEX (v5.3.0 & #3387 tested commit, step 3), PROVEN (PDR) on #3387 + PR #3414. RVH=0: CEX on v5.3.0 (via F8/#3383), PROVEN (PDR) on #3387 tested commit | 2026-07-24 |
+| dcsr_vlegal_sva | csr_regfile | PRIV-9 / #3387 RVH=1 | RVH=1: CEX on golden; PROVEN (k-induction) on #3387 tested commit with the write+dret v-clamps | 2026-07-22 |
 | ptw_pmp_sva | cva6_ptw | VM-1,3 (VM-2 structural) | PROVEN (bmc/prove/cover) | 2026-07-06 |
 | ptw_pte_sva | cva6_ptw | VM-4 / F10 | CEX on v5.3.0 and on upstream/master e4184b66 (bmc+prove); PROVEN (k-induction) on e4184b66 + PR #3422 | 2026-07-31 |
 | ptw_pmp_req_sva | cva6_ptw | VM-5 / F11 | CEX on v5.3.0 and on upstream/master e4184b66 (bmc+prove); reported as #3430, no fix submitted | 2026-08-03 |
@@ -30,7 +30,7 @@ All checkers use immediate assertions only (yosys-slang lowers no concurrent
 SVA); every asserted antecedent has a reachable cover witness.
 Counts are distinct properties; the x8 per-PMP-entry generate replication is
 not counted. Run per the README quickstart; probes (expected-CEX checkers)
-run bmc+cover on golden, and additionally `prove` against the PR head wherever we
+run bmc+cover on golden, and additionally `prove` against the PR tested commit wherever we
 submitted a fix. Engines: `smtbmc boolector` throughout, except `priv_dret` and
 `mpp_legal`, whose `prove` task runs `smtbmc boolector` and `abc pdr` in parallel
 and takes the first conclusive result. Both need PDR for the same reason: a
@@ -75,7 +75,7 @@ Scope: RISC-V Machine ISA v1.13, §§2.1.7.1.1-2.1.7.1.3
   bound of one entry or the lower bound of the next (riscv-isa-manual #884, closed 2025-12-09).
   Revised 2026-09-01: an earlier version masked only the upper bound.
 - These properties are RTL-version-specific. `evidence/2x2/` demonstrates this directly: PMP-5 and PMP-4 pass on the defective RTL and fail on the corrected RTL. See `evidence/2x2/README.md` before interpreting those results.
-- Prediction, recorded before the merge. PR #3490 (head 661e447b, open and unmerged when recorded) fixes #3342 by masking both TOR bounds. PMP-5 masks neither bound, so it fails against the PR RTL and will also fail on upstream master when the change lands; PMP-10 holds. This was confirmed by running both properties against the PR’s pmp_entry.sv verbatim. That file is byte-identical between v5.3.0 and the PR’s base commit, so the result carries directly.
+- PR #3490 (tested commit 661e447b; open and unmerged) masks both TOR bounds. PMP-5 fails and PMP-10 proves against that RTL. The archived hunk is byte-identical to the PR diff, and the PR base’s `pmp_entry.sv` is byte-identical to the pinned version, so the result carries to the PR at that commit.
 - `pmp_ref_sva` and `pmp_mpri_sva` reuse `pmp_entry`, so they check arbitration
   given matching. Mutation split, by assertion: M1/M2/M3/M4 -> `a_m_impl_equiv`;
   M5 -> `a_na4_never_match`; M16 -> `a_napot_exact`; M18 -> `a_tor_exact` and
@@ -123,7 +123,7 @@ category is not evidence of either.
 | VM-1 | PMP-denied PTE fetch => access exception | ptw:561-566,580-582 | VM-pmp | PROVEN 2026-07-06 |
 | VM-2 | PTE-fetch PMP check is S-mode READ always | ptw:237-239 | VM-pmp | STRUCTURAL (hardwired constants at the i_pmp_ptw instantiation) |
 | VM-3 | PMP-denied PTE fetch => no TLB update | ptw:562 | VM-pmp | PROVEN 2026-07-06 |
-| VM-4 | non-leaf PTE with A/D/U set => page fault | ptw:507-543 | VM-pte | CEX on v5.3.0 (F10); PROVEN on patched head |
+| VM-4 | non-leaf PTE with A/D/U set => page fault | ptw:507-543 | VM-pte | CEX on v5.3.0 (F10); PROVEN on the patched tested commit |
 | VM-5 | PMP-denied PTE address is never requested | ptw:381-390 | VM-req | CEX on v5.3.0 and e4184b66 (F11, #3430) |
 | VM-6 | PTW implicit reads are PMA-checked | ptw (no PMA port) | VM-req | STRUCTURAL: `cva6_ptw` has no non-idempotent/PMA input; the guard exists only in `load_unit.sv`, `cva6_icache.sv`, `wt_dcache_wbuffer.sv` |
 
@@ -154,9 +154,9 @@ category is not evidence of either.
 | MST-3 | mret: mie<-mpie, mpie<-1, mpp<-U, priv<-mpp | csr:2101-2123 | MST-ret | PROVEN 2026-07-03 |
 | MST-4 | sret: sie<-spie, spie<-1, spp<-0, priv<-spp | csr:2125-2143 | MST-ret | PROVEN 2026-07-03 |
 | MST-5 | mpp stays legal (WARL legalisation, csr:1382-1385); step property, dret excluded | csr:1382-1385 | MST-warl | PROVEN 2026-07-06 |
-| MST-6 | F5 probe: interrupt trap to M leaves mtval nonzero | csr:1919 | TRAP-tval | CEX on v5.3.0; PROVEN (k-induction) on #3386 head 2026-07-19 |
+| MST-6 | F5 probe: interrupt trap to M leaves mtval nonzero | csr:1919 | TRAP-tval | CEX on v5.3.0; PROVEN (k-induction) on #3386 tested commit 2026-07-19 |
 | MST-7 | mprv probe: xret below M must clear MPRV, RVH=0 build skips it | csr:2116-2122,2136-2142 | MST-ret | CEX 2026-07-06 (expected, #3294) |
-| MST-8 | F5 probe, S half: interrupt trap to S leaves stval nonzero. PR #3386 changes mtval/stval/vstval; this covers the stval site (vstval needs RVH=1, uncovered) | csr:1880 | TRAP-tval | CEX on v5.3.0; PROVEN (k-induction) on #3386 head 2026-07-19 |
+| MST-8 | F5 probe, S half: interrupt trap to S leaves stval nonzero. PR #3386 changes mtval/stval/vstval; this covers the stval site (vstval needs RVH=1, uncovered) | csr:1880 | TRAP-tval | CEX on v5.3.0; PROVEN (k-induction) on #3386 tested commit 2026-07-19 |
 
 ### priv: privilege invariants
 | ID | Property | RTL | Spec | Status |
@@ -164,9 +164,9 @@ category is not evidence of either.
 | PRIV-1 | priv_lvl stays in {M,S,U}; step property, dret excluded (see PRIV-4) | csr priv_lvl_q | PRIV | PROVEN 2026-07-06 |
 | PRIV-2 | after mret/sret, priv = saved xPP | csr:2108,2131 | MST-ret | PROVEN 2026-07-03 (conjunct of MST-3/4) |
 | PRIV-3 | sret traps under mstatus.TSR in S | decoder-level (out of csr harness scope) | PRIV-tsr | PLANNED (future decoder checker) |
-| PRIV-4 | F8 probe: priv_lvl legal after dret (dcsr.prv unlegalized) | csr:1056,2166 | PRIV | CEX on v5.3.0; PROVEN (PDR) on #3387 head 2026-07-19 |
-| PRIV-5 | DCSR reserved zero1/zero2 read 0; fix-certification for upstream #1984, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (k-induction) on #3387 head 2026-07-19 |
-| PRIV-6 | dcsr.prv itself stays WARL-legal; added as PRIV-4 induction strengthening, but a real invariant in its own right | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (PDR) on #3387 head 2026-07-19 |
-| PRIV-7 | F9 probe: mstatus.mpp rejects the reserved encoding 2'b10; guard csr:1382 is `!RVH`-gated but 2'b10 is reserved in every config | csr:1382 | PRIV-warl | RVH=1: CEX (v5.3.0 & #3387 head), PROVEN (PDR) on #3387 + PR #3414. RVH=0: CEX on v5.3.0 via F8, PROVEN (PDR) on #3387 head 2026-07-24 |
-| PRIV-8 | dcsr.cause preserved across a software dcsr write (hardware-written only); fix-certification for upstream #1985, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (k-induction) on #3387 head 2026-07-21 |
-| PRIV-9 | dcsr.v never pairs with prv=M (M+V=1) at RVH=1: an in-debug dcsr write cannot store {M,v=1} (write clamp), and dret never resumes M with V=1 (dret clamp). Global invariant left to #3313 (mret+mpv). Fix-cert for the #3387 RVH=1 clamps | csr:1179,2390 | PRIV-warl | CEX on golden RVH=1; PROVEN (k-induction) on #3387 head 2026-07-22 |
+| PRIV-4 | F8 probe: priv_lvl legal after dret (dcsr.prv unlegalized) | csr:1056,2166 | PRIV | CEX on v5.3.0; PROVEN (PDR) on #3387 tested commit 2026-07-19 |
+| PRIV-5 | DCSR reserved zero1/zero2 read 0; fix-certification for upstream #1984, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (k-induction) on #3387 tested commit 2026-07-19 |
+| PRIV-6 | dcsr.prv itself stays WARL-legal; added as PRIV-4 induction strengthening, but a real invariant in its own right | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (PDR) on #3387 tested commit 2026-07-19 |
+| PRIV-7 | F9 probe: mstatus.mpp rejects the reserved encoding 2'b10; guard csr:1382 is `!RVH`-gated but 2'b10 is reserved in every config | csr:1382 | PRIV-warl | RVH=1: CEX (v5.3.0 & #3387 tested commit), PROVEN (PDR) on #3387 + PR #3414. RVH=0: CEX on v5.3.0 via F8, PROVEN (PDR) on #3387 tested commit 2026-07-24 |
+| PRIV-8 | dcsr.cause preserved across a software dcsr write (hardware-written only); fix-certification for upstream #1985, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (k-induction) on #3387 tested commit 2026-07-21 |
+| PRIV-9 | dcsr.v never pairs with prv=M (M+V=1) at RVH=1: an in-debug dcsr write cannot store {M,v=1} (write clamp), and dret never resumes M with V=1 (dret clamp). Global invariant left to #3313 (mret+mpv). Fix-cert for the #3387 RVH=1 clamps | csr:1179,2390 | PRIV-warl | CEX on golden RVH=1; PROVEN (k-induction) on #3387 tested commit 2026-07-22 |

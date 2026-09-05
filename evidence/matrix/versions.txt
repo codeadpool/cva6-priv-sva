@@ -7,3 +7,5 @@ z3:        Z3 version 4.8.12 - 64 bit
 path:      /workspace/cva6
 commit:    2ef1c1b1fca419354920c5487293bc605294904e
 describe:  v5.3.0
+
+oss-cad-suite: 2026-04-07 (pinned in Dockerfile + CI)
