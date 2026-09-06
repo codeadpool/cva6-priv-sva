@@ -175,7 +175,7 @@ unbounded proof, not from any bounded cover result. The antecedent cover
 `c_nonleaf_adu_seen` still reaches after the fix. It excludes the last
 page-table level via `pte_can_descend`, where a non-leaf PTE already faults
 through the `ptw_lvl_q[0] == CVA6Cfg.PtLevels - 1` branch for an unrelated
-reason, so what stays reachable is the affected descent path. VM-1/3 still prove at the patched head
+reason, so what stays reachable is the affected descent path. VM-1/3 still prove on the tested patched revision
 (`evidence/probe/probe_ptw_pte_base_*`, `probe_ptw_pte_fix_*`,
 `evidence/vm/vm_fix_prove`). Certification uses `ptw_fv_master.sv`, a wrapper
 twin carrying the post-v5.3.0 MMU types. The issue was filed against
@@ -199,7 +199,7 @@ presented and a response can have been received. Unchanged on upstream master
 
 The architectural outcome is already proven correct here: VM-1 shows the access
 exception is raised, VM-3 shows the TLB is not filled. What is not enforced is
-that the denied physical read never occurs.
+that the denied read request is suppressed at the D-cache interface.
 
 Spec: PMP applies to implicit page-table accesses, whose effective privilege is
 S. sail-riscv 0.12 (`65ddde80`) structures this as check-then-read: `read_pte`
