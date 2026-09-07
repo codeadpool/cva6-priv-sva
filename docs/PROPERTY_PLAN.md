@@ -18,7 +18,7 @@ sby run.
 | mstatus_f5_sva | csr_regfile | MST-6,8 / F5 | CEX on v5.3.0; PROVEN (k-induction) on PR #3386 tested commit 3250ed48 | 2026-07-19 |
 | mstatus_mprv_sva | csr_regfile | MST-7 / F6 | CEX (expected, upstream #3294/#1981) | 2026-07-06 |
 | pmp_mpri_sva | pmp | PMP-9 / F7 | CEX (expected, upstream #3177) | 2026-07-06 |
-| priv_dret_sva | csr_regfile | PRIV-4,6 / F8 | CEX on v5.3.0; PROVEN (PDR) on PR #3387 tested commit 8f74af4a; also CEX at RVH=1 (the dcsr.prv defect is not RVH-gated) | 2026-07-19 |
+| priv_dret_sva | csr_regfile | PRIV-4,6,10 / F8 | CEX on v5.3.0; PROVEN (PDR) on PR #3387 tested commit 2e8f3d9e; at RVH=1 `a_priv_legal` still CEXes via mstatus.MPP (F9), which needs PR #3414 too | 2026-09-07 |
 | dcsr_reserved_sva | csr_regfile | PRIV-5, PRIV-8 | CEX on v5.3.0; PROVEN (k-induction) on PR #3387 tested commit 8f74af4a | 2026-07-21 |
 | mpp_legal_sva | csr_regfile | PRIV-7 / F9 | RVH=1: CEX (v5.3.0 & #3387 tested commit, step 3), PROVEN (PDR) on #3387 + PR #3414. RVH=0: CEX on v5.3.0 (via F8/#3383), PROVEN (PDR) on #3387 tested commit | 2026-07-24 |
 | dcsr_vlegal_sva | csr_regfile | PRIV-9 / #3387 RVH=1 | RVH=1: CEX on golden; PROVEN (k-induction) on #3387 tested commit with the write+dret v-clamps | 2026-07-22 |
@@ -167,6 +167,7 @@ category is not evidence of either.
 | PRIV-4 | F8 probe: priv_lvl legal after dret (dcsr.prv unlegalized) | csr:1056,2166 | PRIV | CEX on v5.3.0; PROVEN (PDR) on #3387 tested commit 2026-07-19 |
 | PRIV-5 | DCSR reserved zero1/zero2 read 0; fix-certification for upstream #1984, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (k-induction) on #3387 tested commit 2026-07-19 |
 | PRIV-6 | dcsr.prv itself stays WARL-legal; added as PRIV-4 induction strengthening, but a real invariant in its own right | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (PDR) on #3387 tested commit 2026-07-19 |
+| PRIV-10 | an unsupported dcsr.prv write leaves the field at its previous value (WARL preservation, as `mstatus.mpp` does at csr:1382) | fork csr:1232-1238 | PRIV-warl | CEX on v5.3.0 and on the remap-to-M revision; PROVEN (PDR) on #3387 tested commit 2e8f3d9e 2026-09-07 |
 | PRIV-7 | F9 probe: mstatus.mpp rejects the reserved encoding 2'b10; guard csr:1382 is `!RVH`-gated but 2'b10 is reserved in every config | csr:1382 | PRIV-warl | RVH=1: CEX (v5.3.0 & #3387 tested commit), PROVEN (PDR) on #3387 + PR #3414. RVH=0: CEX on v5.3.0 via F8, PROVEN (PDR) on #3387 tested commit 2026-07-24 |
 | PRIV-8 | dcsr.cause preserved across a software dcsr write (hardware-written only); fix-certification for upstream #1985, not an original finding | csr:1056 | PRIV-warl | CEX on v5.3.0; PROVEN (k-induction) on #3387 tested commit 2026-07-21 |
 | PRIV-9 | dcsr.v never pairs with prv=M (M+V=1) at RVH=1: an in-debug dcsr write cannot store {M,v=1} (write clamp), and dret never resumes M with V=1 (dret clamp). Global invariant left to #3313 (mret+mpv). Fix-cert for the #3387 RVH=1 clamps | csr:1179,2390 | PRIV-warl | CEX on golden RVH=1; PROVEN (k-induction) on #3387 tested commit 2026-07-22 |

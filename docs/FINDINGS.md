@@ -74,10 +74,14 @@ Witness: `priv_dret_sva.sv`. On golden the bmc counterexample fires first on
 `a_dcsr_prv_legal` (step 4, the raw dcsr.prv write). The post-`dret` corruption
 itself is the cover `c_f8_witness` (step 5): the trace enters debug mode, writes
 dcsr prv=2'b10, executes dret, and `priv_lvl_q` reads back 2'b10.
-Proven on the tested PR commit (`8f74af4a`) by PDR, RVH=0 config; the probe also proves
+Proven on the tested PR commit (`2e8f3d9e`) by PDR, RVH=0 config; the probe also proves
 `dcsr.prv` itself stays WARL-legal (`a_dcsr_prv_legal`). `c_dret_in_debug` still
 reaches; `c_dcsr_prv_illegal` and `c_f8_witness` are the negations of the proven
 assertions and are therefore unreachable.
+On review the branch changed policy: an unsupported write now preserves the
+previous `dcsr.prv` rather than remapping to M, matching `mstatus.mpp` at `:1382`.
+Both are WARL-legal. PRIV-10 checks the preservation, which `a_dcsr_prv_legal`
+cannot see because M is itself legal.
 
 **Sibling fields (PRIV-5).** The same write path left `v`, `cause` and the
 reserved fields raw. PR #3387 hardwires `v` to 0 when RVH=0, preserves

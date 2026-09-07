@@ -7,12 +7,15 @@
 module priv_dret_sva #(
     parameter config_pkg::cva6_cfg_t CVA6Cfg = config_pkg::cva6_cfg_empty
 ) (
-    input logic                   clk_i,
-    input logic                   rst_ni,
-    input riscv::priv_lvl_t       priv_lvl,   // priv_lvl_q
-    input logic             [1:0] dcsr_prv,   // dcsr_q.prv
-    input logic                   dret_i,     // dret
-    input logic                   debug_mode  // debug_mode_q
+    input logic                    clk_i,
+    input logic                    rst_ni,
+    input riscv::priv_lvl_t        priv_lvl,      // priv_lvl_q
+    input logic             [ 1:0] dcsr_prv,      // dcsr_q.prv
+    input logic                    dret_i,        // dret
+    input logic                    debug_mode,    // debug_mode_q
+    input logic                    csr_we,
+    input logic             [11:0] csr_addr,      // conv_csr_addr.address
+    input logic             [ 1:0] csr_wdata_prv  // csr_wdata[1:0], the written prv
 );
   logic prv_legal, priv_legal;
   assign prv_legal = (dcsr_prv == riscv::PRIV_LVL_M)
@@ -37,6 +40,31 @@ module priv_dret_sva #(
 
   always_ff @(posedge clk_i) if (rst_ni) a_dcsr_prv_legal : assert (prv_legal);
 
+  // PR #3387 review: dcsr.prv is WARL, so an unsupported encoding must leave the
+  // field at its previous legal value rather than remapping it
+  logic wr_prv_legal, dcsr_wr_illegal;
+  assign wr_prv_legal = (csr_wdata_prv == riscv::PRIV_LVL_M)
+      || (CVA6Cfg.RVS && csr_wdata_prv == riscv::PRIV_LVL_S)
+      || (CVA6Cfg.RVU && csr_wdata_prv == riscv::PRIV_LVL_U);
+  assign dcsr_wr_illegal = csr_we && csr_addr == riscv::CSR_DCSR && !wr_prv_legal;
+
+  logic wr_illegal_q, dbg_q;
+  logic [1:0] prv_prev_q;
+  always_ff @(posedge clk_i) begin
+    wr_illegal_q <= dcsr_wr_illegal;
+    prv_prev_q   <= dcsr_prv;
+    dbg_q        <= debug_mode;
+  end
+
+  // debug entry also writes dcsr.prv (csr:1962-2013), so cycles where
+  // debug_mode moves are excluded,a weakening, not a soundness
+  // argument: entry can write prv without raising debug_mode when the matching
+  // ebreak* bit is clear
+  always_ff @(posedge clk_i)
+    if (rst_ni)
+      a_dcsr_prv_preserved :
+      assert (!(wr_illegal_q && debug_mode == dbg_q) || dcsr_prv == prv_prev_q);
+
   always_ff @(posedge clk_i)
     if (rst_ni) begin
       // reachability of debug entry, dret, and dret-in-debug
@@ -49,5 +77,7 @@ module priv_dret_sva #(
       // witness signature: priv_lvl actually reaches 2'b10 (PRIV_LVL_HS), the
       // exact unimplemented encoding. Pins the probe to this defect.
       c_f8_witness : cover (!priv_legal && priv_lvl == riscv::PRIV_LVL_HS);
+      // antecedent for a_dcsr_prv_preserved: an illegal prv write is attempted
+      c_dcsr_wr_illegal : cover (dcsr_wr_illegal);
     end
 endmodule

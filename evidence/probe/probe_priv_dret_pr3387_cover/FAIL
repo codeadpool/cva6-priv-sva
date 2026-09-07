@@ -1,15 +1,18 @@
 Elapsed clock time [H:MM:SS (secs)]: 0:00:12 (12)
-Elapsed process time [H:MM:SS (secs)]: 0:00:13 (13)
+Elapsed process time [H:MM:SS (secs)]: 0:00:12 (12)
 engine_0 (smtbmc boolector) returned FAIL
 cover trace: engine_0/trace0.vcd
 cover trace: engine_0/trace0.yw
-  reached cover statement csr_fv.\dut.i_priv_dret_sva.c_dret_seen at priv_dret_sva.sv:42.7-42.36 step 2
+  reached cover statement csr_fv.\dut.i_priv_dret_sva.c_dret_seen at priv_dret_sva.sv:68.7-68.36 step 2
 cover trace: engine_0/trace1.vcd
 cover trace: engine_0/trace1.yw
-  reached cover statement csr_fv.\dut.i_priv_dret_sva.c_debug_mode_seen at priv_dret_sva.sv:41.7-41.46 step 3
+  reached cover statement csr_fv.\dut.i_priv_dret_sva.c_debug_mode_seen at priv_dret_sva.sv:67.7-67.46 step 3
 cover trace: engine_0/trace2.vcd
 cover trace: engine_0/trace2.yw
-  reached cover statement csr_fv.\dut.i_priv_dret_sva.c_dret_in_debug at priv_dret_sva.sv:43.7-43.54 step 3
+  reached cover statement csr_fv.\dut.i_priv_dret_sva.c_dret_in_debug at priv_dret_sva.sv:69.7-69.54 step 3
+cover trace: engine_0/trace3.vcd
+cover trace: engine_0/trace3.yw
+  reached cover statement csr_fv.\dut.i_priv_dret_sva.c_dcsr_wr_illegal at priv_dret_sva.sv:77.7-77.51 step 3
 unreached cover statements:
-  csr_fv.\dut.i_priv_dret_sva.c_dcsr_prv_illegal at priv_dret_sva.sv:46.7-46.47
-  csr_fv.\dut.i_priv_dret_sva.c_f8_witness at priv_dret_sva.sv:49.7-49.76
+  csr_fv.\dut.i_priv_dret_sva.c_dcsr_prv_illegal at priv_dret_sva.sv:72.7-72.47
+  csr_fv.\dut.i_priv_dret_sva.c_f8_witness at priv_dret_sva.sv:75.7-75.76
