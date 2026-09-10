@@ -5,26 +5,27 @@ Open-source formal verification (SystemVerilog Assertions, proven with
 trap delegation, `mret`/`sret`, mstatus stacking, and the MMU↔PMP interaction
 as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule).
 
-> Status (2026-08-03): base properties proven (bmc + induction + cover, every
+> Status (2026-09-10): base properties proven (bmc + induction + cover, every
 > antecedent cover-witnessed) across PMP incl. a multi-entry reference model,
 > PMP-CSR WARL, trap delegation/return, mstatus stacking, privilege invariants,
 > and the MMU-PMP interaction. A set of witness probes fail by design, each a
 > machine-checked counterexample to a spec nonconformance. Seven findings. Five
 > are our own: F5 (interrupt mtval/stval, #3379, PR #3386) and F8 (unlegalized
 > `dcsr.prv` lets `dret` set priv_lvl to an unimplemented encoding, #3383,
-> PR #3387), both with fixes open upstream; and F9 (`mstatus.MPP` retains the
+> PR #3387), both fixed upstream; and F9 (`mstatus.MPP` retains the
 > reserved encoding 2'b10 when the hypervisor extension is enabled: an
 > incomplete fix of the RVH=0-only #1988/#2274 affecting RVH=1 builds only, not
-> the default config; reported as #3411, fix open as PR #3414); and F10 (the page-table walker follows a
+> the default config; reported as #3411, fixed by PR #3414); and F10 (the page-table walker follows a
 > non-leaf PTE carrying reserved A/D/U bits instead of raising a page fault, in
 > every paged-MMU configuration with RVH=0 including the default one; reported as
-> #3420, fix open as PR #3422, certified by induction); and F11 (the walker puts a
+> #3420, fixed by PR #3422, certified by induction); and F11 (the walker puts a
 > PMP-denied PTE address on the memory interface before enforcing the denial: the
 > access fault is still raised, but the denied read request is not suppressed at
 > the D-cache interface; reported
 > as #3430, no fix submitted). Two independently rediscover
 > known-open upstream issues: F6 (MPRV-on-xret, #3294) and F7 (PMP M-mode
-> priority, #3177). Findings: `docs/FINDINGS.md`; full table:
+> priority, #3177). CVA6's PMP is also equivalence-checked against the Sail
+> model: `evidence/sail/README.md`. Findings: `docs/FINDINGS.md`; full table:
 > `docs/PROPERTY_PLAN.md`.
 
 ## Validation
@@ -56,11 +57,13 @@ The suite is validated:
 ## Layout
 ```
 cva6/                  GOLDEN upstream CVA6 v5.3.0 @ 2ef1c1b (submodule, never edited)
+sail-riscv/            pinned sail-riscv 0.12 @ 65ddde8 (submodule, never edited)
 fv/
   sva/<m>_sva.sv       checkers
   sva/<m>_bind.sv
   wrappers/<m>_fv.sv   formal tops
   checks/<cat>.sby     sby scripts (tasks: bmc / prove / cover)
+  sail/                Sail PMP reference: slice, generated SV, provenance
 docs/
 Makefile               verify-<cat>, verify-all, results, versions, clean
 Dockerfile             pins one OSS-CAD-Suite release (yosys + sby + solvers + slang)

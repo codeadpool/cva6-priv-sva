@@ -4,14 +4,14 @@ CVA6 v5.3.0 (`2ef1c1b`) against the RISC-V privileged spec v1.13, on
 `cv64a6_imafdc_sv39` (RVH=0) except F9, which needs `cv64a6_imafdch_sv39`
 (RVH=1). Seven findings: five of our own (F5, F8, F9, F10, F11) and two that
 rediscover known open upstream issues (F6, F7). Fixes for F5, F8, F9 and F10
-are open as pull requests.
+are merged upstream.
 Each has a witness under `evidence/`: the finding probes fail in bmc by design,
 the base properties pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
 
 ## F5: interrupt traps leave the instruction encoding in mtval/stval
 
-Reported 2026-07-06 as openhwgroup/cva6 #3379, fix submitted as PR #3386; both
-defects live on master.
+Reported 2026-07-06 as openhwgroup/cva6 #3379, fixed by PR #3386 (merged
+2026-09-10); both defects lived on master when reported.
 
 **F5a, wrong bit-select.** `csr_regfile.sv:1919` gates mtval zeroing on
 `ex_i.cause[GPLEN-1]` (bit 40); every sibling site uses the interrupt flag
@@ -69,7 +69,7 @@ as #1984/#1985 for other dcsr fields), not an escalation. Debug spec v1.0 makes
 prv WARL over the supported modes.
 Adjacent #1984/#1985 cover other dcsr fields, not prv or the post-dret
 corruption (checked 2026-07-05). Reported 2026-07-07 as openhwgroup/cva6 #3383,
-fix submitted as PR #3387.
+fixed by PR #3387 (merged 2026-09-09).
 Witness: `priv_dret_sva.sv`. On golden the bmc counterexample fires first on
 `a_dcsr_prv_legal` (step 4, the raw dcsr.prv write). The post-`dret` corruption
 itself is the cover `c_f8_witness` (step 5): the trace enters debug mode, writes
@@ -134,15 +134,16 @@ counterexample keeps `priv_lvl` legal throughout, which is what separates it fro
 F8 (#3383). On unpatched v5.3.0 the assertion also fails at RVH=0, but by F8's
 `dcsr.prv` → trap-stack route (`:1906`), three steps later and with `priv_lvl`
 corrupted first a different mechanism, not this one. Reported 2026-07-23 as
-openhwgroup/cva6 #3411, an incomplete-fix follow-up to #1988 / #2274; fix
-submitted as PR #3414. The guard generalization (drop `!CVA6Cfg.RVH` from the `PRIV_LVL_HS`
+openhwgroup/cva6 #3411, an incomplete-fix follow-up to #1988 / #2274; fixed by
+PR #3414 (merged 2026-09-07). The guard generalization (drop `!CVA6Cfg.RVH` from the `PRIV_LVL_HS`
 arm) is certified at RVH=1 with #3387 also applied: `a_mpp_legal` proves unbounded
 (PDR), `bmc` passes, and the five defect covers become unreachable
 (`evidence/probe/probe_mpp_legal_rvh_fixed_*`).
 
 ## F10: non-leaf PTEs with reserved A/D/U are accepted when RVH=0
 
-Reported 2026-07-29 as openhwgroup/cva6 #3420, fix submitted as PR #3422.
+Reported 2026-07-29 as openhwgroup/cva6 #3420, fixed by PR #3422 (merged
+2026-09-10).
 
 `cva6_ptw.sv:543` gates the reserved-bit check on the hypervisor extension:
 `if (CVA6Cfg.RVH && (pte.a || pte.d || pte.u))`. Noticed while reviewing the
