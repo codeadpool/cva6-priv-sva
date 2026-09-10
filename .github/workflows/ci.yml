@@ -16,10 +16,17 @@ jobs:
         with:
           version: '2026-04-07'
       - run: make versions
+      # Sail slice must still be upstream's code, re-derived not hand-edited
+      - run: make sail-provenance
+      # exception: Sail miter wrapper, where the assumes are the stated
+      # equivalence domain. Three (reserved==0, mode!=NA4, !(W&&!R)) are
+      # discharged by proven csr_pmp_sva properties; two restrict the access to
+      # aligned and non-wrapping. any assume elsewhere still fails the build
       - name: no assumes (soundness gate)
         run: |
-          if grep -rnw assume fv/; then echo "unexpected assume in fv/ (free inputs only)"; exit 1; fi
-          echo "no assumes in fv/"
+          if grep -rnw assume fv/ --exclude=pmp_sail_ref_fv.sv; then
+            echo "unexpected assume in fv/ (free inputs only)"; exit 1; fi
+          echo "no assumes in fv/ outside the Sail miter domain"
       # The twelve expected-CEX probes fail bmc by design, so keep going and gate on
       # the explicit verdict check below rather than the aggregate exit code
       - run: make -k verify-all || true
@@ -57,6 +64,12 @@ jobs:
                    probe/probe_ptw_req probe/probe_pmp_entry_arch; do
             fail "${p}_prove"
           done
+          # Sail miter on golden: CVA6 v5.3.0 does not conform, so bmc and prove
+          # fail on a_f7_implies_div. It proves once PR #3490 is applied: see the
+          # status block in pmp_sail_ref_sva.sv and evidence/sail/
+          fail "sail/sail_pmp_bmc"
+          fail "sail/sail_pmp_prove"
+          pass "sail/sail_pmp_cover"
           echo "all verdicts as expected"
 
   # The 2x2s: our proven properties on corrected CVA6,

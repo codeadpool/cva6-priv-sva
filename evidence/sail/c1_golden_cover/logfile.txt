@@ -1,0 +1,66 @@
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Removing directory '/workspace/results/sail/c1_golden_cover'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/fv/checks/../../results/sail/c1_golden_cover/src/config_pkg.sv'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/fv/checks/../../results/sail/c1_golden_cover/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/fv/checks/../../results/sail/c1_golden_cover/src/riscv_pkg.sv'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/fv/checks/../../results/sail/c1_golden_cover/src/build_config_pkg.sv'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/fv/checks/../../results/sail/c1_golden_cover/src/lzc.sv'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/fv/checks/../../results/sail/c1_golden_cover/src/cf_math_pkg.sv'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp_entry.sv' to '/workspace/fv/checks/../../results/sail/c1_golden_cover/src/pmp_entry.sv'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Copy '/workspace/fv/checks/../../cva6/core/pmp/src/pmp.sv' to '/workspace/fv/checks/../../results/sail/c1_golden_cover/src/pmp.sv'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Copy '/workspace/fv/checks/../sail/generated/sail_pmp_0_12.sv' to '/workspace/fv/checks/../../results/sail/c1_golden_cover/src/sail_pmp_0_12.sv'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Copy '/workspace/fv/checks/../sail/generated/sail_modules.sv' to '/workspace/fv/checks/../../results/sail/c1_golden_cover/src/sail_modules.sv'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Copy '/workspace/fv/checks/../sva/pmp_sail_ref_sva.sv' to '/workspace/fv/checks/../../results/sail/c1_golden_cover/src/pmp_sail_ref_sva.sv'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] Copy '/workspace/fv/checks/../wrappers/pmp_sail_ref_fv.sv' to '/workspace/fv/checks/../../results/sail/c1_golden_cover/src/pmp_sail_ref_fv.sv'.
+SBY  0:51:15 [../../results/sail/c1_golden_cover] engine_0: smtbmc boolector
+SBY  0:51:15 [../../results/sail/c1_golden_cover] base: starting process "cd ../../results/sail/c1_golden_cover/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY  0:51:24 [../../results/sail/c1_golden_cover] base: Top level design units:
+SBY  0:51:24 [../../results/sail/c1_golden_cover] base: pmp_sail_ref_fv
+SBY  0:51:24 [../../results/sail/c1_golden_cover] base: Build succeeded: 0 errors, 0 warnings
+SBY  0:51:24 [../../results/sail/c1_golden_cover] base: finished (returncode=0)
+SBY  0:51:24 [../../results/sail/c1_golden_cover] prep: starting process "cd ../../results/sail/c1_golden_cover/model; yosys -ql design_prep.log design_prep.ys"
+SBY  0:51:25 [../../results/sail/c1_golden_cover] prep: finished (returncode=0)
+SBY  0:51:25 [../../results/sail/c1_golden_cover] smt2: starting process "cd ../../results/sail/c1_golden_cover/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY  0:51:25 [../../results/sail/c1_golden_cover] smt2: finished (returncode=0)
+SBY  0:51:25 [../../results/sail/c1_golden_cover] engine_0: starting process "cd ../../results/sail/c1_golden_cover; yosys-smtbmc -s boolector --presat --unroll -c --noprogress -t 2  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2"
+SBY  0:51:25 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:00  Solver: boolector
+SBY  0:51:25 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY  0:51:26 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:00  Reached cover statement in step 0 at pmp_sail_ref_fv: chk.c_read_deny
+SBY  0:51:26 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
+SBY  0:51:26 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+SBY  0:51:26 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace0.smtc
+SBY  0:51:26 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace0.yw
+SBY  0:51:26 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:01  Checking cover reachability in step 0..
+SBY  0:51:27 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:02  Reached cover statement in step 0 at pmp_sail_ref_fv: chk.c_f7_shape
+SBY  0:51:27 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:02  Reached cover statement in step 0 at pmp_sail_ref_fv: chk.c_m_divergence
+SBY  0:51:27 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:02  Writing trace to VCD file: engine_0/trace1.vcd
+SBY  0:51:27 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:02  Writing trace to Verilog testbench: engine_0/trace1_tb.v
+SBY  0:51:27 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:02  Writing trace to constraints file: engine_0/trace1.smtc
+SBY  0:51:27 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:02  Writing trace to Yosys witness file: engine_0/trace1.yw
+SBY  0:51:27 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:02  Checking cover reachability in step 0..
+SBY  0:51:28 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:03  Reached cover statement in step 0 at pmp_sail_ref_fv: chk.c_exec_deny
+SBY  0:51:28 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:03  Writing trace to VCD file: engine_0/trace2.vcd
+SBY  0:51:29 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:03  Writing trace to Verilog testbench: engine_0/trace2_tb.v
+SBY  0:51:29 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:03  Writing trace to constraints file: engine_0/trace2.smtc
+SBY  0:51:29 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:03  Writing trace to Yosys witness file: engine_0/trace2.yw
+SBY  0:51:29 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:03  Checking cover reachability in step 0..
+SBY  0:51:29 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:04  Reached cover statement in step 0 at pmp_sail_ref_fv: chk.c_write_allow
+SBY  0:51:29 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:04  Writing trace to VCD file: engine_0/trace3.vcd
+SBY  0:51:30 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:04  Writing trace to Verilog testbench: engine_0/trace3_tb.v
+SBY  0:51:30 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:04  Writing trace to constraints file: engine_0/trace3.smtc
+SBY  0:51:30 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:04  Writing trace to Yosys witness file: engine_0/trace3.yw
+SBY  0:51:30 [../../results/sail/c1_golden_cover] engine_0: ##   0:00:04  Status: passed
+SBY  0:51:30 [../../results/sail/c1_golden_cover] engine_0: finished (returncode=0)
+SBY  0:51:30 [../../results/sail/c1_golden_cover] engine_0: Status returned by engine: pass
+SBY  0:51:30 [../../results/sail/c1_golden_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:14 (14)
+SBY  0:51:30 [../../results/sail/c1_golden_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:15 (15)
+SBY  0:51:30 [../../results/sail/c1_golden_cover] summary: engine_0 (smtbmc boolector) returned pass
+SBY  0:51:30 [../../results/sail/c1_golden_cover] summary: cover trace: ../../results/sail/c1_golden_cover/engine_0/trace0.vcd
+SBY  0:51:30 [../../results/sail/c1_golden_cover] summary:   reached cover statement pmp_sail_ref_fv.\chk.c_read_deny at pmp_sail_ref_sva.sv:99.5-99.80
+SBY  0:51:30 [../../results/sail/c1_golden_cover] summary: cover trace: ../../results/sail/c1_golden_cover/engine_0/trace1.vcd
+SBY  0:51:30 [../../results/sail/c1_golden_cover] summary:   reached cover statement pmp_sail_ref_fv.\chk.c_f7_shape at pmp_sail_ref_sva.sv:102.5-102.70
+SBY  0:51:30 [../../results/sail/c1_golden_cover] summary:   reached cover statement pmp_sail_ref_fv.\chk.c_m_divergence at pmp_sail_ref_sva.sv:103.5-103.96
+SBY  0:51:30 [../../results/sail/c1_golden_cover] summary: cover trace: ../../results/sail/c1_golden_cover/engine_0/trace2.vcd
+SBY  0:51:30 [../../results/sail/c1_golden_cover] summary:   reached cover statement pmp_sail_ref_fv.\chk.c_exec_deny at pmp_sail_ref_sva.sv:101.5-101.80
+SBY  0:51:30 [../../results/sail/c1_golden_cover] summary: cover trace: ../../results/sail/c1_golden_cover/engine_0/trace3.vcd
+SBY  0:51:30 [../../results/sail/c1_golden_cover] summary:   reached cover statement pmp_sail_ref_fv.\chk.c_write_allow at pmp_sail_ref_sva.sv:100.5-100.82
+SBY  0:51:30 [../../results/sail/c1_golden_cover] DONE (PASS, rc=0)

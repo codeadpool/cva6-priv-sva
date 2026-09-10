@@ -1,0 +1,53 @@
+# Provenance of the Sail golden-model PMP reference.
+#
+# Every pin below is re-checked by `make sail-provenance` (fv/sail/provenance.sh),
+# which needs no Sail toolchain: only the pinned sail-riscv submodule and the
+# files in this dir
+
+[reference model]
+name                sail-riscv (the RISC-V ISA formal model, Sail language)
+release             0.12
+commit              65ddde80ee2b131bf46c20e6e748343c336c4071
+location            ./sail-riscv  (git submodule, pinned)
+upstream sources    model/pmp/pmp_control.sail   -> slice/pmp_control.sail (specialized)
+                                                -> slice/pmp_hw.sail (loop body, unrolled 16x)
+                    model/pmp/pmp_regs.sail      -> slice/pmp_slice_prelude.sail (helpers + types)
+                    model/core, model/extensions -> slice/pmp_slice_prelude.sail (types)
+                    model/prelude/prelude.sail   -> slice/pmp_base.sail (mostly verbatim)
+                    model/prelude/errors.sail    -> slice/errors.sail (verbatim)
+licence             BSD-2-Clause (sail-riscv LICENCE)
+
+[compiler]
+name                Sail
+version             0.20.2
+install             opam package `sail.0.20.2`
+recipe              fv/sail/Containerfile.sail
+release asset       https://github.com/rems-project/sail/releases/download/0.20.2/sail-0.20.2.tbz
+asset sha256        3221c89257ef01da3b9f4768655b3b64e685a382e0978e9cdf256b288cec6474
+backend             SystemVerilog (--sv), toplevel pmpCheckHw
+
+[slice]             sha256 of the Sail sources the SV is generated from
+2d848d05bd6b20ccfeb054d639aef4c2e03692aa1dfb5d356544e99ecae97d3a  slice/errors.sail
+4b3fbf3bf115d89a6f27272bcfc3488ecf0ba5a53428ee530ee289dc86f66f3a  slice/pmp_base.sail
+fc2d263b6a8afab7baefe36f40fa6e0bce69430d3ea292c78c1acc67978844b3  slice/pmp_control.sail
+5e8f24bf790d84f8bffa42ad3e4eb0db6965db32a4a12e255f135c48c4d723ec  slice/pmp_hw.sail
+f69f93c4b1dc21ed87a2deeaf0ac6371b91d33ad4ccbf125b2934fdcaa7241ca  slice/pmp_slice_prelude.sail
+
+[generated]         sha256 of the committed SystemVerilog (regenerate: fv/sail/regen.sh)
+181f1ede0afde45f1c0c1824393c9dfe2ec00054059c68231c8e1a205c6d09c4  generated/sail_pmp_0_12.sv
+6ead4ecfcca2b68416da60a97c4cb2e949fe7e19eb0e58290269aa27d5d0660f  generated/sail_modules.sv
+
+# generated/sail_modules.sv is copied unmodified from the compiler's own
+# lib/sv/sail_modules.sv; its hash equals that file in the 0.20.2 release
+# asset above, which independently identifies the compiler that produced
+# generated/sail_pmp_0_12.sv.
+
+[design under comparison]
+core                CVA6 v5.3.0, commit 2ef1c1b1fca419354920c5487293bc605294904e
+config              cv64a6_imafdc_sv39   (XLEN 64, PLEN 56, 8 PMP entries, G=1)
+rtl                 cva6/core/pmp/src/pmp.sv, pmp_entry.sv (unmodified golden submodule)
+
+[verification]
+miter               fv/wrappers/pmp_sail_ref_fv.sv + fv/sva/pmp_sail_ref_sva.sv
+run                 fv/checks/sail_pmp.sby  (make verify-sail)
+toolchain           OSS-CAD-Suite 2026-04-07 (Yosys 0.63 + yosys-slang, SymbiYosys, boolector)

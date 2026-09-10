@@ -1,0 +1,21 @@
+── tools ──
+yosys:     Yosys 0.63 (git sha1 70a11c6bf, g++ 13.3.0-6ubuntu2~24.04.1 -fPIC -O3)
+sby:       usage: sby [options] [<jobname>.sby [tasknames] | <dirname>]
+z3:        Z3 version 4.8.12 - 64 bit
+oss-cad-suite: 2026-04-07 (pinned in Dockerfile + CI)
+
+── reference model ──
+sail-riscv: 0.12, 65ddde80ee2b131bf46c20e6e748343c336c4071 (submodule, pinned)
+compiler:   Sail 0.20.2, generated SV pinned by hash in fv/sail/PROVENANCE
+check:      make sail-provenance
+
+── CVA6 ──
+base:       v5.3.0, 2ef1c1b1fca419354920c5487293bc605294904e (submodule, pinned)
+
+Four same-base columns, each adding only the named archived patch:
+  sail_pmp_*        base, unpatched. Same RTL as c1; CI-shaped names.
+  c1_golden_*       base, unpatched.
+  c2_tor_*          + evidence/matrix/patches/pmp_tor_grain_both_pr3490.patch
+                      = upstream PR #3490, merged 2026-09-06 as 6fe7b959.
+  c3_full_*         + evidence/matrix/patches/pmp_3177_priority.patch as well.
+                      ours; #3177 is open upstream with no PR.

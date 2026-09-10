@@ -14,7 +14,7 @@ CHECKS_DIR   := fv/checks
 # sby tasks run per category (override e.g.: make verify-pmp TASKS=prove)
 TASKS        ?= bmc prove cover
 
-CATEGORIES   := pmp csr trap priv mstatus vm probe
+CATEGORIES   := pmp csr trap priv mstatus vm probe sail
 
 .DEFAULT_GOAL := help
 
@@ -106,6 +106,13 @@ evidence:
 	            -exec cp -f {} "evidence/$$c/$$t/" \; 2>/dev/null || true; \
 	    done; \
 	done; printf "evidence/ updated - review, then commit\n"
+
+# ── Sail reference model ─────────────────────────────────────────────────────
+# Checks the slice against the pinned sail-riscv submodule. Needs no Sail
+# toolchain. To regenerate the SV instead, see the header of fv/sail/regen.sh.
+.PHONY: sail-provenance
+sail-provenance:
+	@bash fv/sail/provenance.sh
 
 # ── Cleanup ──────────────────────────────────────────────────────────────────
 .PHONY: clean clean-cat
