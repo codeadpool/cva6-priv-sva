@@ -2,6 +2,7 @@ Upstream openhwgroup/cva6 PR #3490 by KnightGOKU, head 661e447bf4b842eaba53a6d1a
 opened 2026-08-22, fixes #3342. RTL hunk only; the PR's directed simulation test is not included.
 Reproduced here verbatim so the verdict inversion can be re-derived. Not authored by us.
 pmp_entry.sv is byte-identical between v5.3.0 and this PR's base, so the hunk applies to the pin.
+Merged 2026-09-06 as 6fe7b959; v5.3.0 plus this hunk is byte-identical to the merged pmp_entry.sv.
 
 diff --git a/core/pmp/src/pmp_entry.sv b/core/pmp/src/pmp_entry.sv
 index d024a9a09..6101e761f 100644

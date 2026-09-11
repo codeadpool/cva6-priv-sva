@@ -1,0 +1,39 @@
+# c3: sail_pmp_tor.sby plus our #3177 priority fix to pmp.sv (`make sail-rtl`).
+# SAIL_FULL_EQUIV swaps Theorems B and C for full equivalence.
+
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc:   mode bmc
+bmc:   depth 2
+prove: mode prove
+prove: depth 2
+cover: mode cover
+cover: depth 2
+
+[engines]
+bmc:   smtbmc boolector
+prove: smtbmc boolector
+cover: smtbmc boolector
+
+[script]
+plugin -i slang
+read_slang -D SAIL_FULL_EQUIV --single-unit --std 1800-2023 --top pmp_sail_ref_fv config_pkg.sv cv64a6_imafdc_sv39_config_pkg.sv riscv_pkg.sv build_config_pkg.sv lzc.sv cf_math_pkg.sv pmp_entry.sv pmp.sv sail_pmp_0_12.sv pmp_sail_ref_sva.sv pmp_sail_ref_fv.sv
+prep -top pmp_sail_ref_fv
+
+[files]
+../../cva6/core/include/config_pkg.sv
+../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv
+../../cva6/core/include/riscv_pkg.sv
+../../cva6/core/include/build_config_pkg.sv
+../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv
+../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv
+../../results/sail_rtl/pr3490/pmp_entry.sv
+../../results/sail_rtl/prio3177/pmp.sv
+../sail/generated/sail_pmp_0_12.sv
+../sail/generated/sail_modules.sv
+../sva/pmp_sail_ref_sva.sv
+../wrappers/pmp_sail_ref_fv.sv

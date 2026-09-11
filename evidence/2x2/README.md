@@ -61,8 +61,8 @@ We test two corrections:
 - `pmp_tor_grain.patch` masks the entry's **own** bound only: an **incomplete**
   fix, useful here because it separates the two halves of the rule.
 - `pmp_tor_grain_both_pr3490.patch` is the RTL from upstream PR #3490 and masks
-  **both** bounds. This is the architectural behaviour. The PR is an open
-  candidate correction, not an accepted fix: unmerged at tested commit `661e447b`.
+  **both** bounds. This is the architectural behaviour. Merged 2026-09-06 as
+  `6fe7b959`; v5.3.0 plus this hunk is byte-identical to the merged `pmp_entry.sv`.
 
 | Property | Golden v5.3.0 | Incomplete (own bound) | Both bounds (#3490) |
 |---|---:|---:|---:|
@@ -87,7 +87,7 @@ We test two corrections:
 |---|---|---|
 | `pmp_3177_priority.patch` | `pmp.sv:52-62` | Created only for this experiment |
 | `pmp_tor_grain.patch` | `pmp_entry.sv:54` | Created only for this experiment |
-| `pmp_tor_grain_both_pr3490.patch` | `pmp_entry.sv` | Upstream PR #3490 by KnightGOKU, tested commit `661e447b`; RTL hunk copied verbatim |
+| `pmp_tor_grain_both_pr3490.patch` | `pmp_entry.sv` | Upstream PR #3490 by KnightGOKU, tested commit `661e447b`, merged as `6fe7b959`; RTL hunk copied verbatim |
 
 None of these patches is proposed upstream by this suite. Both defects were
 reported by others:

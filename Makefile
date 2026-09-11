@@ -104,6 +104,7 @@ evidence:
 	        done; \
 	        find "$$d" -maxdepth 2 -name 'trace*.vcd' \
 	            -exec cp -f {} "evidence/$$c/$$t/" \; 2>/dev/null || true; \
+	        [ -d "$$d/src" ] && (cd "$$d/src" && sha256sum *) >"evidence/$$c/$$t/sources.sha256" || true; \
 	    done; \
 	done; printf "evidence/ updated - review, then commit\n"
 
@@ -113,6 +114,19 @@ evidence:
 .PHONY: sail-provenance
 sail-provenance:
 	@bash fv/sail/provenance.sh
+
+# RTL for the c2/c3 columns (sail_pmp_tor.sby, sail_pmp_full.sby): the golden
+# files with the archived patches applied by patch(1), written to results/ so
+# the cva6 submodule is never modified. Rebuilt only when an input changes.
+SAIL_RTL     := $(PROJECT_ROOT)/results/sail_rtl
+SAIL_PATCHES := evidence/matrix/patches
+$(SAIL_RTL)/pr3490/pmp_entry.sv: $(CVA6)/core/pmp/src/pmp_entry.sv $(SAIL_PATCHES)/pmp_tor_grain_both_pr3490.patch
+	@mkdir -p $(@D) && patch -s -o $@.tmp $^ && mv -f $@.tmp $@
+$(SAIL_RTL)/prio3177/pmp.sv: $(CVA6)/core/pmp/src/pmp.sv $(SAIL_PATCHES)/pmp_3177_priority.patch
+	@mkdir -p $(@D) && patch -s -o $@.tmp $^ && mv -f $@.tmp $@
+.PHONY: sail-rtl
+sail-rtl: $(SAIL_RTL)/pr3490/pmp_entry.sv $(SAIL_RTL)/prio3177/pmp.sv
+verify-sail: sail-rtl
 
 # ── Cleanup ──────────────────────────────────────────────────────────────────
 .PHONY: clean clean-cat

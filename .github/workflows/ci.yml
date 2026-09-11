@@ -9,18 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           submodules: true
-      - uses: YosysHQ/setup-oss-cad-suite@v3
+      - uses: YosysHQ/setup-oss-cad-suite@aefa8397bbf8fc6670a0a62af9805a89738f3cde # v3.1.0
         with:
           version: '2026-04-07'
       - run: make versions
       # Sail slice must still be upstream's code, re-derived not hand-edited
       - run: make sail-provenance
       # exception: Sail miter wrapper, where the assumes are the stated
-      # equivalence domain. Three (reserved==0, mode!=NA4, !(W&&!R)) are
-      # discharged by proven csr_pmp_sva properties; two restrict the access to
+      # equivalence domain. Three (reserved==0, mode!=NA4, !(W&&!R)) are CSR
+      # invariants proven separately in csr_warl; two restrict the access to
       # aligned and non-wrapping. any assume elsewhere still fails the build
       - name: no assumes (soundness gate)
         run: |
@@ -64,13 +64,33 @@ jobs:
                    probe/probe_ptw_req probe/probe_pmp_entry_arch; do
             fail "${p}_prove"
           done
-          # Sail miter on golden: CVA6 v5.3.0 does not conform, so bmc and prove
-          # fail on a_f7_implies_div. It proves once PR #3490 is applied: see the
-          # status block in pmp_sail_ref_sva.sv and evidence/sail/
+          # Sail miter, three columns (evidence/sail/): golden CVA6 does not agree
+          # with Sail; with #3490 (c2) every property proves; with #3177 also fixed
+          # (c3) they agree everywhere, so the M-divergence cover is the only miss
           fail "sail/sail_pmp_bmc"
           fail "sail/sail_pmp_prove"
           pass "sail/sail_pmp_cover"
+          for t in bmc prove cover; do pass "sail/sail_pmp_tor_$t"; done
+          pass "sail/sail_pmp_full_bmc"
+          pass "sail/sail_pmp_full_prove"
+          fail "sail/sail_pmp_full_cover"
+          log=results/sail/sail_pmp_full_cover/logfile.txt
+          test "$(grep -c 'Unreached cover statement' "$log")" = 1
+          grep -q 'Unreached cover statement at .*c_m_divergence' "$log"
+          for d in sail_pmp sail_pmp_tor sail_pmp_full; do
+            test "$(grep -c yosys-smt2-register "results/sail/${d}_prove/model/design_smt2.smt2")" = 0
+          done
           echo "all verdicts as expected"
+
+  # the committed Sail SV must regenerate byte-for-byte from the slice with the
+  # digest-pinned official compiler, via the documented container.
+  sail-regen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - run: docker build -f fv/sail/Containerfile.sail -t cva6-sail fv/sail
+      - run: docker run --rm -v "$PWD":/workspace:ro -w /tmp cva6-sail bash /workspace/fv/sail/regen.sh --verify
 
   # The 2x2s: our proven properties on corrected CVA6,
   # Verdicts must invert. Failure means the experiment no longer reproduces.
@@ -79,10 +99,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           submodules: true
-      - uses: YosysHQ/setup-oss-cad-suite@v3
+      - uses: YosysHQ/setup-oss-cad-suite@aefa8397bbf8fc6670a0a62af9805a89738f3cde # v3.1.0
         with:
           version: '2026-04-07'
       - name: "TOR grain bit (#3342), incomplete own-bound fix: both oracles must break"
@@ -136,10 +156,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           submodules: true
-      - uses: YosysHQ/setup-oss-cad-suite@v3
+      - uses: YosysHQ/setup-oss-cad-suite@aefa8397bbf8fc6670a0a62af9805a89738f3cde # v3.1.0
         with:
           version: '2026-04-07'
       - run: bash fv/validation/mutation_test.sh

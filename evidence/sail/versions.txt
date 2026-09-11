@@ -6,16 +6,16 @@ oss-cad-suite: 2026-04-07 (pinned in Dockerfile + CI)
 
 ── reference model ──
 sail-riscv: 0.12, 65ddde80ee2b131bf46c20e6e748343c336c4071 (submodule, pinned)
-compiler:   Sail 0.20.2, generated SV pinned by hash in fv/sail/PROVENANCE
-check:      make sail-provenance
+compiler:   Sail 0.20.2 official binary, pinned by sha256 in fv/sail/PROVENANCE
+check:      make sail-provenance; CI regenerates the SV with the pinned binary
 
 ── CVA6 ──
 base:       v5.3.0, 2ef1c1b1fca419354920c5487293bc605294904e (submodule, pinned)
 
-Four same-base columns, each adding only the named archived patch:
-  sail_pmp_*        base, unpatched. Same RTL as c1; CI-shaped names.
-  c1_golden_*       base, unpatched.
-  c2_tor_*          + evidence/matrix/patches/pmp_tor_grain_both_pr3490.patch
+Three columns, one sby file each; c2 and c3 add only the named archived patch,
+applied to a copy by make sail-rtl. Each result dir has sources.sha256.
+  sail_pmp_*        base, unpatched.
+  sail_pmp_tor_*    + evidence/matrix/patches/pmp_tor_grain_both_pr3490.patch
                       = upstream PR #3490, merged 2026-09-06 as 6fe7b959.
-  c3_full_*         + evidence/matrix/patches/pmp_3177_priority.patch as well.
+  sail_pmp_full_*   + evidence/matrix/patches/pmp_3177_priority.patch as well.
                       ours; #3177 is open upstream with no PR.

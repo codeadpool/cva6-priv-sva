@@ -1,9 +1,12 @@
 # CVA6 PMP vs the Sail golden model (sail-riscv 0.12): cv64a6_imafdc_sv39
-# config (N=8), against the golden CVA6 v5.3.0 submodule
+# config (N=8). Column c1, the golden CVA6 v5.3.0 submodule; c2 and c3 are
+# sail_pmp_tor.sby and sail_pmp_full.sby.
 #
 #   Theorem A (a_us_equiv)       U/S: cva6 == sail
 #   Theorem B (a_m_div_is_f7)    every M-mode divergence has the F7 shape
 #   Theorem C (a_f7_implies_div) the F7 shape always diverges in M
+#   a_div_sail_allows            any difference is sail allow, cva6 deny
+#   a_amatch_arch                the F7 matcher is the architectural one
 #   lemma     (a_no_boundary_cross) the single-address reduction is valid
 #   lemma     (a_sail_no_internal_exception) the Sail top stays in-domain
 

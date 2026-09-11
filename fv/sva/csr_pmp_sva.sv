@@ -72,7 +72,7 @@ module csr_pmp_sva #(
       && csr_addr_i < PmpAddrBase + 12'(CVA6Cfg.NrPMPEntries);
   always_comb
     if (pmpaddr_rd) begin
-      // CSR-2: bit 0 reads 1 for NAPOT, 0 for OFF/TOR (the G=1 grain bit)
+      // CSR-2 (RTL, see upstream #2656): bit 0 reads 1 for NAPOT, 0 for OFF/TOR
       a_pmpaddr_g_bit : assert (csr_rdata[0] == pmpcfg_q[rd_idx].addr_mode[1]);
       // CSR-2: the bits above the grain read back the stored address
       a_pmpaddr_body : assert (csr_rdata[CVA6Cfg.PLEN-3:1] == pmpaddr_q[rd_idx][CVA6Cfg.PLEN-3:1]);

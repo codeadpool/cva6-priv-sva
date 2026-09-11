@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # ============================================================================
 # Regenerate generated/*.sv from slice/*.sail with the Sail SystemVerilog
-# backend. Requires Sail 0.20.2 on PATH: use the pinned image:
+# backend. Requires Sail 0.20.2 on PATH: use the pinned image, from the repo root:
 #   podman build -f fv/sail/Containerfile.sail -t cva6-sail:0.20.2 fv/sail
-#   podman run --rm -v "$PWD":/workspace -w /workspace cva6-sail:0.20.2 \
-#       fv/sail/regen.sh --verify
+#   podman run --rm -v "$PWD":/workspace:ro -w /tmp cva6-sail:0.20.2 \
+#       bash /workspace/fv/sail/regen.sh --verify
 #
 #   regen.sh              overwrite generated/ in place
-#   regen.sh --verify     regenerate into a temp dir and diff against generated
+#   regen.sh --verify     regenerate into a temp dir and compare with generated/
 #   regen.sh <outdir>     write somewhere else
 # ============================================================================
 set -euo pipefail

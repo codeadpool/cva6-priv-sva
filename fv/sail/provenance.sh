@@ -134,7 +134,7 @@ while IFS='|' read -r name file start end; do
         bad "$name differs from upstream $file"
     fi
 done <<<"$decls"
-# Deliberate, documented exceptions (see fv/sail/README.md):
+# Deliberate, documented exceptions:
 #   ExceptionType         - reduced to the three access faults; the miter only
 #                           distinguishes None from Some, so the cause is unused.
 #   accessFaultFromAccessType - upstream's nested prefetch match is flattened;

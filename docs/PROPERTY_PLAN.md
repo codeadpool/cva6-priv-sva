@@ -75,7 +75,7 @@ Scope: RISC-V Machine ISA v1.13, §§2.1.7.1.1-2.1.7.1.3
   bound of one entry or the lower bound of the next (riscv-isa-manual #884, closed 2025-12-09).
   Revised 2026-09-01: an earlier version masked only the upper bound.
 - These properties are RTL-version-specific. `evidence/2x2/` demonstrates this directly: PMP-5 and PMP-4 pass on the defective RTL and fail on the corrected RTL. See `evidence/2x2/README.md` before interpreting those results.
-- PR #3490 (tested commit 661e447b; open and unmerged) masks both TOR bounds. PMP-5 fails and PMP-10 proves against that RTL. The archived hunk is byte-identical to the PR diff, and the PR base’s `pmp_entry.sv` is byte-identical to the pinned version, so the result carries to the PR at that commit.
+- PR #3490 (tested commit 661e447b) masks both TOR bounds. PMP-5 fails and PMP-10 proves against that RTL. Merged 2026-09-06 as 6fe7b959; v5.3.0 plus the archived hunk is byte-identical to the merged `pmp_entry.sv`.
 - `pmp_ref_sva` and `pmp_mpri_sva` reuse `pmp_entry`, so they check arbitration
   given matching. Mutation split, by assertion: M1/M2/M3/M4 -> `a_m_impl_equiv`;
   M5 -> `a_na4_never_match`; M16 -> `a_napot_exact`; M18 -> `a_tor_exact` and
@@ -103,7 +103,7 @@ Neither property certified architectural correctness. Both were sound as RTL cha
 | ID | Property | RTL | Spec | Status |
 |---|---|---|---|---|
 | CSR-1 | write A=NA4 => addr_mode unchanged (G=1) | csr:2708-2710 | PMP-na4 | PROVEN 2026-07-02 |
-| CSR-2 | OFF/TOR => pmpaddr[0] reads 0; NAPOT => 1 | csr:862-868 | PMP-grain | PROVEN 2026-07-06 |
+| CSR-2 | RTL: OFF/TOR => pmpaddr[0] reads 0; NAPOT => 1 (the NAPOT half is reported nonconformant upstream, #2656) | csr:862-868 | RTL-grain | PROVEN 2026-07-06 |
 | CSR-3 | write r=0,w=1 => access_type unchanged | csr:2713-2714 | PMP-rwx | PROVEN 2026-07-02 |
 | CSR-4 | locked entry not updatable | csr:1639-1666,1736-1738 | PMP-lock | PROVEN 2026-07-02 |
 | CSR-5 | entry below a locked TOR not updatable | csr:1639-1642,1737 | PMP-lock | PROVEN 2026-07-06 |

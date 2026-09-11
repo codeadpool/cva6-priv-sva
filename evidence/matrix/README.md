@@ -18,15 +18,15 @@ Tool versions are recorded in `versions.txt`; the exact edits are archived in
 | Column | Edit | Origin |
 |---|---|---|
 | `tor_own` | Mask the current entry's TOR bound in `pmp_entry.sv` | Diagnostic variant created for this experiment; deliberately incomplete |
-| `tor_both` | Mask both TOR bounds in `pmp_entry.sv` | [openhwgroup/cva6#3490](https://github.com/openhwgroup/cva6/pull/3490); open and unmerged |
+| `tor_both` | Mask both TOR bounds in `pmp_entry.sv` | [openhwgroup/cva6#3490](https://github.com/openhwgroup/cva6/pull/3490); merged 2026-09-06 |
 | `prio_3177` | Select the lowest matching PMP entry before evaluating `L` | Experimental correction derived from the ISA rule |
-| `csr_mtval` | Zero `mtval`/`stval` on interrupt traps in `csr_regfile.sv` | Candidate fix PR for F5 |
-| `ptw_adu` | Reject A/D/U bits in non-leaf PTEs in `cva6_ptw.sv` | Candidate fix PR for F10 |
+| `csr_mtval` | Zero `mtval`/`stval` on interrupt traps in `csr_regfile.sv` | F5 fix as tested; PR #3386, since merged |
+| `ptw_adu` | Reject A/D/U bits in non-leaf PTEs in `cva6_ptw.sv` | F10 fix as tested; PR #3422, since merged |
 
 `tor_own` is not a candidate repair. It masks only one of the two TOR bounds
 covered by the specification and is included solely to separate the two halves
-of the grain rule. `tor_both` and `prio_3177` are spec-conforming correction
-candidates; neither has merged upstream.
+of the grain rule. `tor_both` and `prio_3177` are spec-conforming corrections;
+`tor_both` has merged upstream, `prio_3177` has not (#3177 is open).
 
 ## Requirement-linked results
 
