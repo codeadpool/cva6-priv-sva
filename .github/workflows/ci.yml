@@ -163,3 +163,18 @@ jobs:
         with:
           version: '2026-04-07'
       - run: bash fv/validation/mutation_test.sh
+
+  # Sail adapter mutation (evidence/sail/TIER1_PROTOCOL.md), on demand only
+  sail-mutation:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          submodules: true
+      - uses: YosysHQ/setup-oss-cad-suite@aefa8397bbf8fc6670a0a62af9805a89738f3cde # v3.1.0
+        with:
+          version: '2026-04-07'
+      - run: make sail-rtl
+      - run: bash fv/validation/sail_mutation.sh

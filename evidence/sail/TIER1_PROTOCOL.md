@@ -161,3 +161,36 @@ before execution:
 ## Dated amendments and results
 
 Append entries here. Do not rewrite the protocol or predictions above.
+
+### 2026-09-12: Section 1 execution freeze
+
+Committed together before any Section 1 bmc, prove or cover run:
+
+| File | sha256 |
+|---|---|
+| `fv/validation/sail_mutation.sh` | `894fe3b60da01d1ee45a9706f7d09a9df00f2971311189326113a38489943a15` |
+| `fv/validation/sail_mut_eq_fv.sv` | `87ced4caa39cf018a0f93b3c3834a10e520cba1ab8868c28f2ee11c1823a008a` |
+| `evidence/sail/mutation/patches/A1.patch` | `f9a7848a7b2f50087c27abfe2985f96d1d5fdc090cf98ee501658d9d5abf255d` |
+| `evidence/sail/mutation/patches/A2.patch` | `6b9c21e6ad86326b27069f2146743b78d373522dec9d382ec05fbf419eaf508a` |
+| `evidence/sail/mutation/patches/A3.patch` | `75a1f0d1d3a39b30f2aed7bf394cebd714fb3b0c51d9c411a00f9de8605f7d70` |
+| `evidence/sail/mutation/patches/A4.patch` | `8725282646edcaf1f051433acfd7bf88fbaad19aba05747903aee1ee7ffccb67` |
+| `evidence/sail/mutation/patches/A5.patch` | `afaee4e33670bea40608b9cfc4ed2ac211c502efb1503be3a04c483feae43052` |
+| `evidence/sail/mutation/patches/A6.patch` | `55e034d6f29641ed6443f37c59d8ab52e3390b92eccd41e14d1b06efe078e0d7` |
+| `evidence/sail/mutation/patches/A7.patch` | `e2667b215a5ef65aee67b90f91eff96586f968b6efe3b631c839a9a0cec5b86c` |
+| `evidence/sail/mutation/patches/A8.patch` | `320a81c472d679fb378efc5a2d63330ab8ca07405ab3890df655abf6a68e688a` |
+| `evidence/sail/mutation/patches/A9.patch` | `d34aa46aef09e9f7c2fcf43e8df096d721a07cec8722f8d59c9c0b448959f450` |
+| `evidence/sail/mutation/patches/A10.patch` | `e33e2c485db0a04a60a876b57aa30f22489d3f36a5b5e8155a6458f2afc13053` |
+| `evidence/sail/mutation/patches/A11.patch` | `b86cca4b76117074524bca8a31fbe31b0c9529019f8366cd90bc040127cbf396` |
+| `evidence/sail/mutation/patches/A12.patch` | `b523f93aa8a9a3f18a6ee772c89fad17d1fe2719382a304033cf9bff69cc54dd` |
+| `evidence/sail/mutation/patches/A13.patch` | `7535fcdc585b854bf8d03f07ba570de54caf5eb9fbdc1b232959ed5a6ca9f168` |
+
+Everything else these runs read is unchanged since tag `sail-tier0`.
+
+Plumbing check, 2026-09-12: all 13 patches apply, and the c2 and equivalence
+builds of the baseline and every mutant elaborate in yosys with empty logs. No
+bmc, prove or cover task was run.
+
+The runner checks every result against the predictions above. The direct
+equivalence miter runs for all 13 mutants, and for the baseline against itself,
+not only for survivors. CI job `sail-mutation` (manual dispatch) runs the same
+runner.

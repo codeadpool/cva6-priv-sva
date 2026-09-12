@@ -1,0 +1,11 @@
+--- a/fv/wrappers/pmp_sail_ref_fv.sv
++++ b/fv/wrappers/pmp_sail_ref_fv.sv
+@@ -121,7 +121,7 @@
+   // reference: Sail-RISC-V 0.12 generated decision
+   pmpCheckHw sail_pmp (
+       .addr_0                  (addr_i),
+-      .width_0                 (width_bytes),
++      .width_0                 (64'd1),
+       .access_0                (sail_access),
+       .priv_0                  (sail_priv),
+       .pmpaddr_n_0             (sail_addr),

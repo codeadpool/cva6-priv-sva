@@ -1,0 +1,16 @@
+--- a/fv/wrappers/pmp_sail_ref_fv.sv
++++ b/fv/wrappers/pmp_sail_ref_fv.sv
+@@ -57,11 +57,11 @@
+     case (priv_kind_i)
+       0: begin
+         cva6_priv = riscv::PRIV_LVL_U;
+-        sail_priv = User;
++        sail_priv = Supervisor;
+       end
+       1: begin
+         cva6_priv = riscv::PRIV_LVL_S;
+-        sail_priv = Supervisor;
++        sail_priv = User;
+       end
+       default: begin
+         cva6_priv = riscv::PRIV_LVL_M;

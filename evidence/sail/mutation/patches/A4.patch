@@ -1,0 +1,16 @@
+--- a/fv/wrappers/pmp_sail_ref_fv.sv
++++ b/fv/wrappers/pmp_sail_ref_fv.sv
+@@ -42,11 +42,11 @@
+     case (access_kind_i)
+       0: begin
+         cva6_access = riscv::ACCESS_READ;
+-        sail_access = zLoadzIEmem_payloadz5zK(Data);
++        sail_access = zStorezIEmem_payloadz5zK(Data);
+       end
+       1: begin
+         cva6_access = riscv::ACCESS_WRITE;
+-        sail_access = zStorezIEmem_payloadz5zK(Data);
++        sail_access = zLoadzIEmem_payloadz5zK(Data);
+       end
+       default: begin
+         cva6_access = riscv::ACCESS_EXEC;

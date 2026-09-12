@@ -1,0 +1,13 @@
+--- a/fv/wrappers/pmp_sail_ref_fv.sv
++++ b/fv/wrappers/pmp_sail_ref_fv.sv
+@@ -72,8 +72,8 @@
+     // Sail has 64 entry slots; slots N..63 stay all-zero = OFF (never match), so
+     // both models decide over exactly the N implemented entries.
+     for (int i = 0; i < 64; i++) begin
+-      sail_addr[i]     = '0;
+-      sail_cfg[i].bits = '0;
++      sail_addr[i]     = {{(64 - PMPADDR_W) {1'b0}}, {PMPADDR_W{1'b1}}};
++      sail_cfg[i].bits = 8'h1f;
+     end
+     for (int i = 0; i < N; i++) begin
+       sail_addr[i]     = {{(64 - PMPADDR_W) {1'b0}}, pmpaddr_i[i]};

@@ -1,0 +1,11 @@
+--- a/fv/wrappers/pmp_sail_ref_fv.sv
++++ b/fv/wrappers/pmp_sail_ref_fv.sv
+@@ -50,7 +50,7 @@
+       end
+       default: begin
+         cva6_access = riscv::ACCESS_EXEC;
+-        sail_access = zInstructionFetchzIEmem_payloadz5zK(SAIL_UNIT);
++        sail_access = zLoadzIEmem_payloadz5zK(Data);
+       end
+     endcase
+

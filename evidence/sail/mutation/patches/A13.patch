@@ -1,0 +1,11 @@
+--- a/fv/wrappers/pmp_sail_ref_fv.sv
++++ b/fv/wrappers/pmp_sail_ref_fv.sv
+@@ -80,7 +80,7 @@
+       sail_cfg[i].bits = cfg_i[i];
+     end
+
+-    sail_allow = sail_result.tag == ZNONEZIUEXCEPTIONTYPEZK;
++    sail_allow = sail_result.tag != ZNONEZIUEXCEPTIONTYPEZK;
+
+     // access_kind_i / priv_kind_i need no assume: both are [1:0] and both case
+     // statements above have a default arm, so encoding 3 maps to exactly the

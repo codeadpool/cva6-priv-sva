@@ -1,0 +1,11 @@
+--- a/fv/wrappers/pmp_sail_ref_fv.sv
++++ b/fv/wrappers/pmp_sail_ref_fv.sv
+@@ -60,7 +60,7 @@
+         sail_priv = User;
+       end
+       1: begin
+-        cva6_priv = riscv::PRIV_LVL_S;
++        cva6_priv = riscv::PRIV_LVL_M;
+         sail_priv = Supervisor;
+       end
+       default: begin

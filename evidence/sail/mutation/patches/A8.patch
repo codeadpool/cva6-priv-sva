@@ -1,0 +1,11 @@
+--- a/fv/wrappers/pmp_sail_ref_fv.sv
++++ b/fv/wrappers/pmp_sail_ref_fv.sv
+@@ -76,7 +76,7 @@
+       sail_cfg[i].bits = '0;
+     end
+     for (int i = 0; i < N; i++) begin
+-      sail_addr[i]     = {{(64 - PMPADDR_W) {1'b0}}, pmpaddr_i[i]};
++      sail_addr[i]     = {{(64 - PMPADDR_W) {pmpaddr_i[i][PMPADDR_W-1]}}, pmpaddr_i[i]};
+       sail_cfg[i].bits = cfg_i[i];
+     end
+

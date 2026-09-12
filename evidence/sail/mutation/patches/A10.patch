@@ -1,0 +1,11 @@
+--- a/fv/wrappers/pmp_sail_ref_fv.sv
++++ b/fv/wrappers/pmp_sail_ref_fv.sv
+@@ -77,7 +77,7 @@
+     end
+     for (int i = 0; i < N; i++) begin
+       sail_addr[i]     = {{(64 - PMPADDR_W) {1'b0}}, pmpaddr_i[i]};
+-      sail_cfg[i].bits = cfg_i[i];
++      sail_cfg[i].bits = cfg_i[i] & 8'h7f;
+     end
+
+     sail_allow = sail_result.tag == ZNONEZIUEXCEPTIONTYPEZK;
