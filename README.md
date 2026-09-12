@@ -5,7 +5,7 @@ Open-source formal verification (SystemVerilog Assertions, proven with
 trap delegation, `mret`/`sret`, mstatus stacking, and the MMU↔PMP interaction
 as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule).
 
-> Status (2026-09-10): base properties proven (bmc + induction + cover, every
+> Status (2026-09-12): base properties proven (bmc + induction + cover, every
 > antecedent cover-witnessed) across PMP incl. a multi-entry reference model,
 > PMP-CSR WARL, trap delegation/return, mstatus stacking, privilege invariants,
 > and the MMU-PMP interaction. A set of witness probes fail by design, each a
@@ -23,10 +23,10 @@ as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule)
 > access fault is still raised, but the denied read request is not suppressed at
 > the D-cache interface; reported
 > as #3430, no fix submitted). Two independently rediscover
-> known-open upstream issues: F6 (MPRV-on-xret, #3294) and F7 (PMP M-mode
-> priority, #3177). CVA6's PMP is also equivalence-checked against the Sail
-> model: `evidence/sail/README.md`. Findings: `docs/FINDINGS.md`; full table:
-> `docs/PROPERTY_PLAN.md`.
+> upstream issues: F6 (MPRV-on-xret, #3294, since closed by PR #3551) and F7
+> (PMP M-mode priority, #3177, open). CVA6's PMP is also equivalence-checked
+> against the Sail model: `evidence/sail/README.md`. Findings:
+> `docs/FINDINGS.md`; full table: `docs/PROPERTY_PLAN.md`.
 
 ## Validation
 
@@ -51,8 +51,9 @@ The suite is validated:
   `cv64a6_imafdch_sv39` (RVH=1). Both runs are archived under `evidence/`,
   each labelled with the commit it was proven against. F6 and F7 are known
   upstream issues with no fix of ours, so no "after" evidence is claimed.
-- **No assumptions.** `fv/` contains no `assume`, so the proven properties hold
-  under unconstrained inputs (CI enforces this).
+- **No assumptions.** Outside the Sail miter, `fv/` contains no `assume`, so the
+  proven properties hold under unconstrained inputs (CI enforces this). The
+  miter's five assumes are its stated domain: `evidence/sail/README.md`.
 
 ## Layout
 ```

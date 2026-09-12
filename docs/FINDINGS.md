@@ -3,7 +3,7 @@
 CVA6 v5.3.0 (`2ef1c1b`) against the RISC-V privileged spec v1.13, on
 `cv64a6_imafdc_sv39` (RVH=0) except F9, which needs `cv64a6_imafdch_sv39`
 (RVH=1). Seven findings: five of our own (F5, F8, F9, F10, F11) and two that
-rediscover known open upstream issues (F6, F7). Fixes for F5, F8, F9 and F10
+rediscover known upstream issues (F6, F7). Fixes for F5, F8, F9 and F10
 are merged upstream.
 Each has a witness under `evidence/`: the finding probes fail in bmc by design,
 the base properties pass bmc/prove/cover. Inventory: `PROPERTY_PLAN.md`.
@@ -42,7 +42,7 @@ Reachable because RVU=1 makes MPRV writable (`:1378-1381`). Spec (Machine ISA
 v1.13, §2.1.1.6.1, "Privilege and Global Interrupt-Enable Stack in mstatus
 register"): if `xPP` contains `y` and `y≠M`, `xRET` sets `MPRV=0`.
 Known upstream (#3294, #1981). Probe `mstatus_mprv_sva.sv` (expected bmc CEX) =
-machine-checked corroboration.
+machine-checked corroboration. #3294 was closed on 2026-09-11 by PR #3551.
 
 ## F7: M-mode PMP lock filter applied before priority
 

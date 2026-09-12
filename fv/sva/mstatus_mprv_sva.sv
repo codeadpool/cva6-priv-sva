@@ -34,7 +34,7 @@ module mstatus_mprv_sva #(
   always_ff @(posedge clk_i)
     if (rst_ni && past_valid) begin
       // F6 (MST-7) probe: mret to a mode below M must clear mstatus.MPRV.
-      // expected CEX, corroborates known-open upstream #3294/#1981.
+      // expected CEX, corroborates upstream #3294/#1981.
       a_mret_clears_mprv : assert (!ante_mret_u_q || !mst_mprv);
       // F6 (MST-7) probe: sret returning below M must also clear MPRV
       a_sret_clears_mprv : assert (!ante_sret_q || !mst_mprv);
