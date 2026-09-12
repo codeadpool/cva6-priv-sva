@@ -64,9 +64,9 @@ jobs:
                    probe/probe_ptw_req probe/probe_pmp_entry_arch; do
             fail "${p}_prove"
           done
-          # Sail miter, three columns (evidence/sail/): golden CVA6 does not agree
-          # with Sail; with #3490 (c2) every property proves; with #3177 also fixed
-          # (c3) they agree everywhere, so the M-divergence cover is the only miss
+          # Sail miter, three columns (evidence/sail/): golden (c1) fails a_amatch_arch;
+          # with #3490 (c2) every property proves; with #3177 also fixed (c3)
+          # a_full_equiv proves, so the M-divergence cover is the only miss
           fail "sail/sail_pmp_bmc"
           fail "sail/sail_pmp_prove"
           pass "sail/sail_pmp_cover"

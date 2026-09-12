@@ -100,3 +100,6 @@ The RTL is v5.3.0 plus the archived patches. The patched `pmp_entry.sv` is
 byte-identical to the one #3490 merged (`6fe7b959`), but in that tree `pmp.sv`
 and the config and type packages differ from v5.3.0, so this is not a result
 about CVA6 master.
+
+Tier 1, adapter mutation and the port to current releases, is preregistered in
+[TIER1_PROTOCOL.md](TIER1_PROTOCOL.md).
