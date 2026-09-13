@@ -105,4 +105,7 @@ Tier 1, adapter mutation and the port to current releases, is preregistered in
 [TIER1_PROTOCOL.md](TIER1_PROTOCOL.md). Section 1, adapter mutation, is done:
 every prediction held. All 11 mutants that change a decision are killed, and
 the 2 predicted equivalent are proven equivalent
-([mutation/summary.txt](mutation/summary.txt)).
+([mutation/summary.txt](mutation/summary.txt)). Section 2, the port to
+sail-riscv 0.14 and CVA6 master `49b5fa9e`, is done: every prediction held. The
+c2 theorems hold on master over the same domain, and with the #3177 patch full
+equivalence holds ([port/summary.txt](port/summary.txt)).

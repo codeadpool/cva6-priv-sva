@@ -258,3 +258,41 @@ cover task was run.
 
 The runner checks every column and mutant against the predictions above. CI job
 `sail-port` (manual dispatch) runs the same runner.
+
+### 2026-09-13: Section 2 results
+
+Run on the frozen commit `f2b6821` after its CI passed. Logs, source hashes and
+witnesses: `evidence/sail/port/`, one directory per run, and `summary.txt`.
+
+| Column | Sail | CVA6 | bmc | prove | cover | Prediction |
+|---|---|---|---|---|---|---|
+| P0 | 0.12 | v5.3.0 + #3490 | PASS | PASS | 5/5 | holds |
+| P1 | 0.14 | v5.3.0 + #3490 | PASS | PASS | 5/5 | holds |
+| P2 | 0.12 | master `49b5fa9e` | PASS | PASS | 5/5 | holds |
+| P3 | 0.14 | master `49b5fa9e` | PASS | PASS | 5/5 | holds |
+| P4 | 0.14 | master + #3177 patch | PASS | PASS | 4/5, only `c_m_divergence` unreached | holds |
+
+| ID | c2 on P3 | Detecting assertions | Direct equivalence | Prediction |
+|---|---|---|---|---|
+| baseline | all PASS, 5/5 covers | — | equal to itself | holds |
+| A1 | survived | — | equal | holds |
+| A2 | killed | `a_us_equiv` | differs | holds |
+| A3 | killed | `a_div_sail_allows`, `a_m_div_is_f7` | differs | holds |
+| A4 | killed | `a_div_sail_allows`, `a_us_equiv` | differs | holds |
+| A5 | killed | `a_div_sail_allows`, `a_m_div_is_f7` | differs | holds |
+| A6 | survived | — | equal | holds |
+| A7 | killed | `a_div_sail_allows`, `a_m_div_is_f7` | differs | holds |
+| A8 | killed | `a_f7_implies_div` | differs | holds |
+| A9 | killed | `a_div_sail_allows`, `a_m_div_is_f7` | differs | holds |
+| A10 | killed | `a_m_div_is_f7` | differs | holds |
+| A11 | killed | `a_us_equiv` | differs | holds |
+| A12 | killed | `a_us_equiv` | differs | holds |
+| A13 | killed | `a_f7_implies_div` | differs | holds |
+
+Every prediction held. On CVA6 master `49b5fa9e` with sail-riscv 0.14 (P3) every
+c2 theorem proves; with the #3177 patch (P4) full equivalence proves. P1 and P2,
+which change one axis at a time, match P0. Every mutant keeps its Section 1
+outcome; seven (A4, A5, A7, A8, A9, A11, A13) name different detecting
+assertions than in Section 1, because a run names only what its own
+counterexample violates and the designs differ. No invalid run. Every prove
+model has zero registers, so each prove verdict covers the whole domain.

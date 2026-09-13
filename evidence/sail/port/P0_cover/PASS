@@ -1,0 +1,16 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:14 (14)
+Elapsed process time [H:MM:SS (secs)]: 0:00:15 (15)
+engine_0 (smtbmc boolector) returned pass
+cover trace: engine_0/trace0.vcd
+cover trace: engine_0/trace0.yw
+  reached cover statement pmp_sail_ref_fv.\chk.c_read_deny at pmp_sail_ref_sva.sv:103.5-103.80
+cover trace: engine_0/trace1.vcd
+cover trace: engine_0/trace1.yw
+  reached cover statement pmp_sail_ref_fv.\chk.c_exec_deny at pmp_sail_ref_sva.sv:105.5-105.80
+cover trace: engine_0/trace2.vcd
+cover trace: engine_0/trace2.yw
+  reached cover statement pmp_sail_ref_fv.\chk.c_f7_shape at pmp_sail_ref_sva.sv:106.5-106.70
+  reached cover statement pmp_sail_ref_fv.\chk.c_m_divergence at pmp_sail_ref_sva.sv:107.5-107.96
+cover trace: engine_0/trace3.vcd
+cover trace: engine_0/trace3.yw
+  reached cover statement pmp_sail_ref_fv.\chk.c_write_allow at pmp_sail_ref_sva.sv:104.5-104.82
