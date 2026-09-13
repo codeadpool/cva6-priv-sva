@@ -223,3 +223,38 @@ run, no non-equivalent survivor. Every mutant still reaches all 5 covers
 (reported, not counted). Every model has zero registers, so each prove verdict
 covers the whole domain. Detecting assertions are the ones the bmc and prove
 runs name, not a claim that they are the only detectors.
+
+### 2026-09-13: Section 2 execution freeze
+
+Committed together before any Section 2 bmc, prove or cover run:
+
+| File | sha256 |
+|---|---|
+| `fv/validation/sail_port.sh` | `4abeb15e0932131d48c95a1d39abe72a5e244eca77da6116306f6dc201f85c65` |
+| `third_party/ported/SHA256SUMS` | `ef37ea09d7791bf06de5c5a058fbc0bf2d0a4ebb17e7c587b1f70e447f80b490` |
+| `third_party/ported/ported.sh` | `c7b6f41c774d7fc3669b70a2fd4145fa9f1166f0dec693c9c6f8595fece71385` |
+| `fv/sail/slice_0_14/errors.sail` | `2d848d05bd6b20ccfeb054d639aef4c2e03692aa1dfb5d356544e99ecae97d3a` |
+| `fv/sail/slice_0_14/pmp_base.sail` | `4b3fbf3bf115d89a6f27272bcfc3488ecf0ba5a53428ee530ee289dc86f66f3a` |
+| `fv/sail/slice_0_14/pmp_control.sail` | `a02791151431bc4e071b305d1d66584deb60989d3452048ad6a179cde8afa0ee` |
+| `fv/sail/slice_0_14/pmp_hw.sail` | `828ca1bad60cb3667d753398c0b66198ea2c0c5981bb080c6d000fbadc2345d1` |
+| `fv/sail/slice_0_14/pmp_slice_prelude.sail` | `496df65ebf0dd435e173dfa2067e9f48bff6165d41e03c870ab255fc2fe49b19` |
+| `fv/sail/generated/sail_pmp_0_14.sv` | `530121fe454c4355cc30b6ab189a4566eca80551065653509330a660a97cd860` |
+| `fv/sail/PROVENANCE` | `80c754a415f1ae26e64142d701bfdb571b80e7c21816e0b74b0f2f3d4ece502f` |
+| `fv/sail/regen.sh` | `e2e05cacaf9b6c7ba732789eb1fe9d4b3f89f6478b782bfd2cf371f3acce17ec` |
+| `fv/sail/provenance.sh` | `72b714a3db2e2158011e07b8d560125f153060401bdb1e7490b1ae9fe3bdb9d7` |
+
+`SHA256SUMS` pins the 22 exact copies from sail-riscv `29e6158` and CVA6
+`49b5fa9e` in `third_party/ported/`; CI job `ported-sources` re-fetches both
+commits and byte-compares every copy. The non-verbatim edits of the 0.14 slice
+are listed in `PROVENANCE`. The wrapper, checker, equivalence harness and A1-A13
+patches are unchanged since the Section 1 freeze (`8b9deeb`): they are the P3
+adapter and faults as they are. The #3177 patch applies to master `pmp.sv`
+unchanged (2-line offset).
+
+Pre-run checks, 2026-09-13: `regen.sh 0.12 --verify` reproduces the committed
+SV byte for byte; `provenance.sh` passes for 0.12 and 0.14; the five columns and
+the 28 P3 mutant builds elaborate in yosys with empty logs. No bmc, prove or
+cover task was run.
+
+The runner checks every column and mutant against the predictions above. CI job
+`sail-port` (manual dispatch) runs the same runner.

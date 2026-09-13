@@ -1,19 +1,32 @@
 #!/usr/bin/env bash
 # ============================================================================
-# Regenerate generated/*.sv from slice/*.sail with the Sail SystemVerilog
-# backend. Requires Sail 0.20.2 on PATH: use the pinned image, from the repo root:
+# Regenerate generated/*.sv from a slice with the Sail SystemVerilog backend.
+# Requires Sail 0.20.2 on PATH: use the pinned image, from the repo root:
 #   podman build -f fv/sail/Containerfile.sail -t cva6-sail:0.20.2 fv/sail
 #   podman run --rm -v "$PWD":/workspace:ro -w /tmp cva6-sail:0.20.2 \
 #       bash /workspace/fv/sail/regen.sh --verify
 #
-#   regen.sh              overwrite generated/ in place
-#   regen.sh --verify     regenerate into a temp dir and compare with generated/
-#   regen.sh <outdir>     write somewhere else
+#   regen.sh [0.12|0.14]              overwrite generated/ in place (default 0.12)
+#   regen.sh [0.12|0.14] --verify     regenerate into a temp dir and compare
+#   regen.sh [0.12|0.14] <outdir>     write somewhere else
+# 0.12 reads slice/ and writes sail_pmp_0_12.sv; 0.14 reads slice_0_14/ and
+# writes sail_pmp_0_14.sv.
 # ============================================================================
 set -euo pipefail
 
 here="$(cd "$(dirname "$0")" && pwd)"
-slice="$here/slice"
+ver=0.12
+case "${1:-}" in
+0.12 | 0.14)
+    ver=$1
+    shift
+    ;;
+esac
+case "$ver" in
+0.12) slice="$here/slice" ;;
+0.14) slice="$here/slice_0_14" ;;
+esac
+out_sv="sail_pmp_${ver/./_}.sv"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 
@@ -66,36 +79,36 @@ sail \
 
 # Slang compatibility cleanup (reviewable, no PMP logic touched):
 #  - give generated enums the explicit base type slang requires;
-#  - zero the one pre-top undefined PMP-config placeholder;
+#  - zero the pre-top undefined PMP-config placeholder;
 #  - keep the declarations through pmpCheckHw, drop the simulator setup emitted
 #    after that module.
 sed -E \
     -e 's/^typedef enum (\[[^]]+\]) \{/typedef enum logic \1 {/' \
-    -e "s/zz434_2 = undefined_bitvector\(128'h8\);/zz434_2 = '{9'd8, 128'd0};/" \
+    -e "s/(zz[0-9]+_[0-9]+) = undefined_bitvector\(128'h8\);/\1 = '{9'd8, 128'd0};/" \
     "$tmp/sail_pmp_raw.sv" >"$tmp/patched.sv"
 awk 'BEGIN { seen=0 } /^module pmpCheckHw\(/ { seen=1 } { print } seen && /^endmodule$/ { exit }' \
-    "$tmp/patched.sv" >"$out_dir/sail_pmp_0_12.sv"
+    "$tmp/patched.sv" >"$out_dir/$out_sv"
 cp "$sail_dir/lib/sv/sail_modules.sv" "$out_dir/sail_modules.sv"
 
-if grep -q 'undefined_bitvector' "$out_dir/sail_pmp_0_12.sv"; then
+if grep -q 'undefined_bitvector' "$out_dir/$out_sv"; then
     echo "ERROR: undefined_bitvector survived in the generated module - re-derive the sed" >&2
     exit 1
 fi
 
-tops="$(grep -c '^module pmpCheckHw(' "$out_dir/sail_pmp_0_12.sv" || true)"
-if [ "$tops" != 1 ] || [ "$(tail -n1 "$out_dir/sail_pmp_0_12.sv")" != "endmodule" ]; then
+tops="$(grep -c '^module pmpCheckHw(' "$out_dir/$out_sv" || true)"
+if [ "$tops" != 1 ] || [ "$(tail -n1 "$out_dir/$out_sv")" != "endmodule" ]; then
     echo "ERROR: expected exactly one complete pmpCheckHw module, found $tops" >&2
     exit 1
 fi
 
 echo "Generated:"
-sha256sum "$out_dir/sail_pmp_0_12.sv" "$out_dir/sail_modules.sv"
+sha256sum "$out_dir/$out_sv" "$out_dir/sail_modules.sv"
 
 if [ "$verify" = 1 ]; then
     echo
     echo "== reproducibility check against committed generated/ =="
     rc=0
-    for f in sail_pmp_0_12.sv sail_modules.sv; do
+    for f in "$out_sv" sail_modules.sv; do
         if cmp -s "$out_dir/$f" "$here/generated/$f"; then
             echo "OK    $f byte-identical"
         else

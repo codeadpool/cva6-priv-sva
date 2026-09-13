@@ -90,7 +90,16 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - run: docker build -f fv/sail/Containerfile.sail -t cva6-sail fv/sail
-      - run: docker run --rm -v "$PWD":/workspace:ro -w /tmp cva6-sail bash /workspace/fv/sail/regen.sh --verify
+      - run: docker run --rm -v "$PWD":/workspace:ro -w /tmp cva6-sail bash /workspace/fv/sail/regen.sh 0.12 --verify
+      - run: docker run --rm -v "$PWD":/workspace:ro -w /tmp cva6-sail bash /workspace/fv/sail/regen.sh 0.14 --verify
+
+  # third_party/ported/ must be byte-identical to its pinned upstream commits
+  ported-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - run: bash third_party/ported/ported.sh
 
   # The 2x2s: our proven properties on corrected CVA6,
   # Verdicts must invert. Failure means the experiment no longer reproduces.
@@ -178,3 +187,18 @@ jobs:
           version: '2026-04-07'
       - run: make sail-rtl
       - run: bash fv/validation/sail_mutation.sh
+
+  # Sail port matrix (evidence/sail/TIER1_PROTOCOL.md), on demand only
+  sail-port:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          submodules: true
+      - uses: YosysHQ/setup-oss-cad-suite@aefa8397bbf8fc6670a0a62af9805a89738f3cde # v3.1.0
+        with:
+          version: '2026-04-07'
+      - run: make sail-rtl
+      - run: bash fv/validation/sail_port.sh

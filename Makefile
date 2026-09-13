@@ -109,11 +109,16 @@ evidence:
 	done; printf "evidence/ updated - review, then commit\n"
 
 # ── Sail reference model ─────────────────────────────────────────────────────
-# Checks the slice against the pinned sail-riscv submodule. Needs no Sail
+# Checks both slices against their pinned upstream sources. Needs no Sail
 # toolchain. To regenerate the SV instead, see the header of fv/sail/regen.sh.
 .PHONY: sail-provenance
 sail-provenance:
-	@bash fv/sail/provenance.sh
+	@bash fv/sail/provenance.sh 0.12 && bash fv/sail/provenance.sh 0.14
+
+# Checks third_party/ported/ against its pinned upstream commits (online).
+.PHONY: ported-audit
+ported-audit:
+	@bash third_party/ported/ported.sh
 
 # RTL for the c2/c3 columns (sail_pmp_tor.sby, sail_pmp_full.sby): the golden
 # files with the archived patches applied by patch(1), written to results/ so

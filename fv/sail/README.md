@@ -7,7 +7,8 @@ SystemVerilog for comparison with CVA6's `pmp.sv`. The miter is
 `fv/checks/sail_pmp*.sby`; results and scope are in `evidence/sail/README.md`.
 
 ```
-slice/              Sail sources we compile
+slice/              Sail sources we compile (sail-riscv 0.12)
+slice_0_14/         the same slice from sail-riscv 0.14 (Tier 1 port)
 generated/          compiler output: committed, never hand-edited
 PROVENANCE          every pin: commits, versions, sha256
 NOTICE              upstream licences for slice/ and generated/
@@ -47,7 +48,9 @@ podman run --rm -v "$PWD":/workspace:ro -w /tmp cva6-sail:0.20.2 \
 
 `--verify` must report both files byte-identical; CI runs the same check.
 Without it the script rewrites `generated/`: drop `:ro`, and update the hashes
-in `PROVENANCE` in the same commit.
+in `PROVENANCE` in the same commit. `regen.sh 0.14` does the same for
+`slice_0_14/`; `provenance.sh 0.14` checks it against
+`third_party/ported/sail-riscv-29e6158`.
 
 ## Licence
 

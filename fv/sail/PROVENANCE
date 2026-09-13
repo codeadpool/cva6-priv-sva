@@ -53,3 +53,27 @@ rtl                 cva6/core/pmp/src/pmp.sv, pmp_entry.sv (unmodified golden su
 miter               fv/wrappers/pmp_sail_ref_fv.sv + fv/sva/pmp_sail_ref_sva.sv
 run                 fv/checks/sail_pmp.sby, sail_pmp_tor.sby, sail_pmp_full.sby (make verify-sail)
 toolchain           OSS-CAD-Suite 2026-04-07 (Yosys 0.63 + yosys-slang, SymbiYosys, boolector)
+
+[reference model 0.14]  Tier 1 §2 port, evidence/sail/TIER1_PROTOCOL.md
+release             0.14
+commit              29e6158f0a88bdb26b9fbcd0718ab919449b5179
+location            third_party/ported/sail-riscv-29e6158 (exact copies, see ORIGINS.md)
+upstream sources    as for 0.12, into slice_0_14/
+edits beyond 0.12   pmp_slice_prelude.sail: MemoryAccessType and accessFaultFromAccessType
+                    follow 0.14 (two bool fields on LoadReserved, StoreConditional and
+                    Atomic; new LoadExecute); get_config_print_pmp, print_log and dec_str
+                    stubbed (logging only; upstream's flag is false outside the C++
+                    emulator). pmp_hw.sail: 0.14's pmpCheck loop body, 16x.
+                    pmp_base.sail and errors.sail are identical to slice/.
+design              CVA6 master 49b5fa9e, third_party/ported/cva6-49b5fa9e
+run                 fv/validation/sail_port.sh (P0-P4, A1-A13 on P3)
+
+[slice 0.14]        sha256
+2d848d05bd6b20ccfeb054d639aef4c2e03692aa1dfb5d356544e99ecae97d3a  slice_0_14/errors.sail
+4b3fbf3bf115d89a6f27272bcfc3488ecf0ba5a53428ee530ee289dc86f66f3a  slice_0_14/pmp_base.sail
+a02791151431bc4e071b305d1d66584deb60989d3452048ad6a179cde8afa0ee  slice_0_14/pmp_control.sail
+828ca1bad60cb3667d753398c0b66198ea2c0c5981bb080c6d000fbadc2345d1  slice_0_14/pmp_hw.sail
+496df65ebf0dd435e173dfa2067e9f48bff6165d41e03c870ab255fc2fe49b19  slice_0_14/pmp_slice_prelude.sail
+
+[generated 0.14]    sha256 (regen.sh 0.14; generated/sail_modules.sv as above)
+530121fe454c4355cc30b6ab189a4566eca80551065653509330a660a97cd860  generated/sail_pmp_0_14.sv

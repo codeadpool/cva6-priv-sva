@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 # ============================================================================
 # Provenance check for the Sail golden-model PMP reference. Needs NO Sail
-# toolchain: only the pinned sail-riscv submodule and the files in fv/sail/.
-#   1. sail-riscv submodule sits at the pinned 0.12 commit;
-#   2. slice/errors.sail is verbatim upstream;
-#   3. slice/pmp_control.sail is upstream + EXACTLY the documented specialization
+# toolchain: only the pinned upstream sources and the files in fv/sail/.
+#   provenance.sh [0.12|0.14]    (default 0.12)
+#   0.12: slice/ against the sail-riscv submodule;
+#   0.14: slice_0_14/ against third_party/ported/sail-riscv-29e6158.
+#   1. the upstream sources are the pinned ones;
+#   2. errors.sail is verbatim upstream;
+#   3. pmp_control.sail is upstream + EXACTLY the documented specialization
 #      (re-derived here from upstream, then compared byte for byte);
-#   4. slice/pmp_slice_prelude.sail's pmpReadAddrReg/pmpLocked match upstream
-#      pmp_regs.sail modulo the same specialization;
+#   4. the prelude's pmpReadAddrReg/pmpLocked match upstream pmp_regs.sail
+#      modulo the same specialization;
 #  4b. every type the slice re-declares matches its upstream declaration;
 #  4c. pmp_hw.sail is upstream's pmpCheck loop body 16x, same terminal default;
 #   5. slice + generated SV hashes match fv/sail/PROVENANCE.
@@ -16,12 +19,25 @@ set -euo pipefail
 
 here="$(cd "$(dirname "$0")" && pwd)"
 repo="$(cd "$here/../.." && pwd)"
-sub="$repo/sail-riscv"
-up="$sub/model"
+ver="${1:-0.12}"
+case "$ver" in
+0.12)
+    up="$repo/sail-riscv/model"
+    sl=slice
+    ;;
+0.14)
+    up="$repo/third_party/ported/sail-riscv-29e6158/model"
+    sl=slice_0_14
+    ;;
+*)
+    echo "usage: provenance.sh [0.12|0.14]"
+    exit 2
+    ;;
+esac
+gen="generated/sail_pmp_${ver/./_}.sv"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 
-SAIL_RISCV_COMMIT=65ddde80ee2b131bf46c20e6e748343c336c4071
 fail=0
 note() { printf '%s\n' "$*"; }
 bad() {
@@ -31,35 +47,45 @@ bad() {
 # comments out, whitespace out: compare code, not layout
 strip() { sed 's,//.*,,' "$1" | tr -d '[:space:]'; }
 
-# --- 1. submodule pin ------------------------------------------------------
-note "== sail-riscv submodule pin =="
-if [ ! -e "$sub/.git" ]; then
-    bad "sail-riscv not checked out - run: git submodule update --init sail-riscv"
-    exit 1
-fi
-got="$(git -C "$sub" rev-parse HEAD)"
-if [ "$got" = "$SAIL_RISCV_COMMIT" ]; then note "OK    $got (0.12)"; else bad "commit $got != $SAIL_RISCV_COMMIT"; fi
-# commit alone isn't enough: a modified working tree would let every check
-# below compare the slice against locally edited "upstream" sources.
-if git -C "$sub" diff --quiet && git -C "$sub" diff --cached --quiet; then
-    note "OK    working tree clean"
+# --- 1. upstream pin --------------------------------------------------------
+if [ "$ver" = 0.12 ]; then
+    sub="$repo/sail-riscv"
+    SAIL_RISCV_COMMIT=65ddde80ee2b131bf46c20e6e748343c336c4071
+    note "== sail-riscv submodule pin =="
+    if [ ! -e "$sub/.git" ]; then
+        bad "sail-riscv not checked out - run: git submodule update --init sail-riscv"
+        exit 1
+    fi
+    got="$(git -C "$sub" rev-parse HEAD)"
+    if [ "$got" = "$SAIL_RISCV_COMMIT" ]; then note "OK    $got (0.12)"; else bad "commit $got != $SAIL_RISCV_COMMIT"; fi
+    # commit alone isn't enough: a modified working tree would let every check
+    # below compare the slice against locally edited "upstream" sources.
+    if git -C "$sub" diff --quiet && git -C "$sub" diff --cached --quiet; then
+        note "OK    working tree clean"
+    else
+        bad "sail-riscv has local modifications; provenance needs a clean $SAIL_RISCV_COMMIT tree"
+    fi
 else
-    bad "sail-riscv has local modifications; provenance needs a clean $SAIL_RISCV_COMMIT tree"
+    note "== sail-riscv 0.14 copies (third_party/ported) =="
+    if out="$(bash "$repo/third_party/ported/ported.sh" --offline 2>&1)"; then note "$out"; else
+        bad "$out"
+        exit 1
+    fi
 fi
 
 # --- 2. verbatim upstream file --------------------------------------------
-note "== slice/errors.sail is verbatim upstream =="
-if diff -q "$up/prelude/errors.sail" "$here/slice/errors.sail" >/dev/null; then
+note "== $sl/errors.sail is verbatim upstream =="
+if diff -q "$up/prelude/errors.sail" "$here/$sl/errors.sail" >/dev/null; then
     note "OK    identical to model/prelude/errors.sail"
 else
-    bad "slice/errors.sail differs from model/prelude/errors.sail"
+    bad "$sl/errors.sail differs from model/prelude/errors.sail"
 fi
 
 # --- 3. the specialization, re-derived from upstream -----------------------
 # The ONLY changes to pmp_control.sail: drop `private` from the 3 functions
 # the top calls and the enum in their signature, fix the entry count at 16, and
 # specialize the NA4 grain assertion to G=1. Re-derived, so it cannot grow.
-note "== slice/pmp_control.sail == upstream + documented specialization =="
+note "== $sl/pmp_control.sail == upstream + documented specialization =="
 sed -E \
     -e 's/^private (function (pmpCheckRWX|pmpRangeMatch|pmpMatchAddr)\()/\1/' \
     -e 's/^private (enum pmpAddrMatch )/\1/' \
@@ -67,10 +93,10 @@ sed -E \
     -e 's/if sys_pmp_count == 0 then/if 16 == 0 then/' \
     -e 's/foreach \(i from 0 to sys_pmp_count - 1\)/foreach (i from 0 to 16 - 1)/' \
     "$up/pmp/pmp_control.sail" >"$tmp/expected_pmp_control.sail"
-if diff -u "$tmp/expected_pmp_control.sail" "$here/slice/pmp_control.sail"; then
+if diff -u "$tmp/expected_pmp_control.sail" "$here/$sl/pmp_control.sail"; then
     note "OK    byte-identical to the re-derived specialization"
 else
-    bad "slice/pmp_control.sail carries changes beyond the documented specialization"
+    bad "$sl/pmp_control.sail carries changes beyond the documented specialization"
 fi
 
 # --- 4. the two helpers lifted out of pmp_regs.sail ------------------------
@@ -88,7 +114,7 @@ for spec in 'pmpReadAddrReg:^}' 'pmpLocked:^$'; do
         sed -e 's/^private //' -e 's/let G = sys_pmp_grain;/let G = 1;/' >"$tmp/up_$fn"
     awk -v f="^function $fn" -v e="$end" \
         'BEGIN{on=0} $0 ~ f {on=1} on {print} on && NR>1 && $0 ~ e && $0 !~ f {exit}' \
-        "$here/slice/pmp_slice_prelude.sail" >"$tmp/sl_$fn"
+        "$here/$sl/pmp_slice_prelude.sail" >"$tmp/sl_$fn"
     if [ ! -s "$tmp/up_$fn" ] || [ ! -s "$tmp/sl_$fn" ]; then
         bad "$fn: could not extract it from one of the two sources"
     elif [ "$(strip "$tmp/up_$fn")" = "$(strip "$tmp/sl_$fn")" ]; then
@@ -123,7 +149,7 @@ register pmpaddr_n|pmp/pmp_regs.sail|^register pmpaddr_n|^register pmpaddr_n'
 while IFS='|' read -r name file start end; do
     [ -n "$name" ] || continue
     u="$(extract "$up/$file" "$start" "$end" | tnorm)"
-    v="$(extract "$here/slice/pmp_slice_prelude.sail" "$start" "$end" | tnorm)"
+    v="$(extract "$here/$sl/pmp_slice_prelude.sail" "$start" "$end" | tnorm)"
     if [ -z "$u" ]; then
         bad "$name: not found in $file"
     elif [ -z "$v" ]; then
@@ -141,21 +167,25 @@ done <<<"$decls"
 #                           every arm still returns Some, so allow/deny is unchanged.
 #   mem_payload_name/str  - stubbed; only feed internal_error strings, and
 #                           --sv-no-strings removes strings from the output anyway.
+#   get_config_print_pmp, print_log, dec_str (0.14) - logging stubs; upstream's
+#                           get_config_print_pmp is also false outside the C++
+#                           emulator, so its logging never runs.
 
 # --- 4c. the acyclic expansion ---------------------------------------------
 # pmp_hw.sail is the one hand-written file: upstream's `foreach` over entries,
 # unrolled because the SV backend needs a statically unrollable CFG. Check that
 # all 16 blocks are the SAME block modulo the index, and that the terminal
-# default is upstream's character for character. What the blocks do is then
-# fixed by the upstream helpers they call.
+# default is upstream's. What the blocks do is then fixed by the upstream
+# helpers they call.
 note "== pmp_hw.sail is upstream's loop body, 16x =="
-hw="$here/slice/pmp_hw.sail"
+hw="$here/$sl/pmp_hw.sail"
 block() {
     local i=$1
     awk -v tag="cfg_$i = pmpcfg_n[$i]" 'BEGIN{on=0} index($0,tag){on=1} on {print} on && /^  };$/ {exit}' "$hw" |
         sed -e "s/cfg_$i/CFG/g" -e "s/pmpcfg_n\[$i\]/pmpcfg_n[IDX]/" \
             -e "s/pmpReadAddrReg($i)/pmpReadAddrReg(IDX)/" \
-            -e "s/pmpReadAddrReg($((i - 1)))/PREV/" -e "s/zeros()/PREV/" |
+            -e "s/pmpReadAddrReg($((i - 1)))/PREV/" -e "s/zeros()/PREV/" \
+            -e "s/dec_str($i)/dec_str(IDX)/g" |
         sed 's,//.*,,' | tr -d '[:space:]'
 }
 # the blocks matching each other only proves self-consistency. Normalize
@@ -165,7 +195,8 @@ upstream_block() {
         "$up/pmp/pmp_control.sail" |
         sed -e 's/pmpcfg_n\[i\]/pmpcfg_n[IDX]/' -e 's/pmpReadAddrReg(i)/pmpReadAddrReg(IDX)/g' \
             -e 's/prev_pmpaddr/PREV/g' -e 's/let cfg =/let CFG =/' -e 's/, cfg,/, CFG,/' \
-            -e 's/pmpCheckRWX(cfg,/pmpCheckRWX(CFG,/' -e 's/pmpLocked(cfg)/pmpLocked(CFG)/' |
+            -e 's/pmpCheckRWX(cfg,/pmpCheckRWX(CFG,/' -e 's/pmpLocked(cfg)/pmpLocked(CFG)/' \
+            -e 's/dec_str(i)/dec_str(IDX)/g' |
         sed 's,//.*,,' | tr -d '[:space:]'
 }
 ref="$(block 0)"
@@ -189,8 +220,13 @@ else
 fi
 n_entries="$(grep -c 'pmpcfg_n\[' "$hw" || true)"
 [ "$n_entries" = 16 ] && note "OK    exactly 16 entries expanded" || bad "expected 16 entry blocks, found $n_entries"
-term='if priv == Machine then None() else Some(accessFaultFromAccessType(access))'
-if grep -qF "$term" "$hw" && grep -qF "$term" "$up/pmp/pmp_control.sail"; then
+# terminal default: from `if priv == Machine then None()` to the end of the function
+term() {
+    awk 'index($0, "  if priv == Machine then None()") == 1 {on=1} on && /^}$/ {exit} on {print}' "$1" |
+        sed 's,//.*,,' | tr -d '[:space:]'
+}
+t_up="$(term "$up/pmp/pmp_control.sail")"
+if [ -n "$t_up" ] && [ "$t_up" = "$(term "$hw")" ]; then
     note "OK    terminal default identical to upstream pmpCheck"
 else
     bad "terminal default does not match upstream pmpCheck"
@@ -198,14 +234,16 @@ fi
 
 # --- 5. hashes -------------------------------------------------------------
 # What the checks above do not diff against upstream is pinned by hash here:
-# pmp_base.sail, the prelude's XLEN/PLEN specializations and its three
-# documented exceptions, and the generated SV. See fv/sail/README.md.
-note "== slice + generated hashes (fv/sail/PROVENANCE) =="
-grep -E '^[0-9a-f]{64}  (slice|generated)/' "$here/PROVENANCE" >"$tmp/sums" || true
+# pmp_base.sail, the prelude's XLEN/PLEN specializations and its documented
+# exceptions, and the generated SV. See fv/sail/README.md.
+note "== $sl + generated hashes (fv/sail/PROVENANCE) =="
+grep -E "^[0-9a-f]{64}  ($sl/|${gen//./\\.}\$|generated/sail_modules\.sv\$)" "$here/PROVENANCE" >"$tmp/sums" || true
 # a hash per line is not enough: a file omitted from PROVENANCE would simply go
-# unchecked. Require the manifest to name exactly the files on disk.
-(cd "$here" && find slice generated -type f \( -name '*.sail' -o -name '*.sv' \) -print |
-    LC_ALL=C sort) >"$tmp/on_disk"
+# unchecked. Require the manifest to name exactly this version's files on disk.
+(cd "$here" && {
+    find "$sl" -type f -name '*.sail'
+    for f in "$gen" generated/sail_modules.sv; do if [ -e "$f" ]; then echo "$f"; fi; done
+} | LC_ALL=C sort) >"$tmp/on_disk"
 awk '{print $2}' "$tmp/sums" | LC_ALL=C sort >"$tmp/in_manifest"
 if [ ! -s "$tmp/sums" ]; then
     bad "no hash lines found in PROVENANCE"
@@ -218,7 +256,7 @@ else
 fi
 
 echo
-if [ "$fail" = 0 ]; then echo "PROVENANCE OK"; else
-    echo "PROVENANCE FAILED"
+if [ "$fail" = 0 ]; then echo "PROVENANCE OK ($ver)"; else
+    echo "PROVENANCE FAILED ($ver)"
     exit 1
 fi

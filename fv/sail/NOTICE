@@ -3,15 +3,18 @@ are reproduced in full below.
 
   slice/*.sail                derived from sail-riscv 0.12
                               (https://github.com/riscv/sail-riscv)
+  slice_0_14/*.sail           derived from sail-riscv 0.14
   generated/sail_pmp_0_12.sv  generated from slice/ by the Sail compiler
-                              (both licences apply)
+  generated/sail_pmp_0_14.sv  generated from slice_0_14/ by the Sail compiler
+                              (both licences apply to both files)
   generated/sail_modules.sv   copied from the Sail 0.20.2 compiler library
                               (https://github.com/rems-project/sail)
 
 The rest of this repository is Apache-2.0 (../../LICENSE).
 
 ========================================================================
-sail-riscv: LICENCE at 65ddde80ee2b131bf46c20e6e748343c336c4071 (0.12)
+sail-riscv: LICENCE at 65ddde80ee2b131bf46c20e6e748343c336c4071 (0.12),
+identical at 29e6158f0a88bdb26b9fbcd0718ab919449b5179 (0.14)
 ========================================================================
 
 RISCV Sail Model
