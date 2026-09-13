@@ -194,3 +194,32 @@ The runner checks every result against the predictions above. The direct
 equivalence miter runs for all 13 mutants, and for the baseline against itself,
 not only for survivors. CI job `sail-mutation` (manual dispatch) runs the same
 runner.
+
+### 2026-09-12: Section 1 results
+
+Run on the frozen commit `8b9deeb` after its CI passed. Logs, source hashes and
+witnesses: `evidence/sail/mutation/`, one directory per run, and `summary.txt`.
+
+| ID | c2 | Detecting assertions | Direct equivalence | Prediction |
+|---|---|---|---|---|
+| baseline | all PASS, 5/5 covers | — | equal to itself | holds |
+| A1 | survived | — | equal | holds |
+| A2 | killed | `a_us_equiv` | differs | holds |
+| A3 | killed | `a_div_sail_allows`, `a_m_div_is_f7` | differs | holds |
+| A4 | killed | `a_us_equiv`, `a_m_div_is_f7` | differs | holds |
+| A5 | killed | `a_us_equiv`, `a_div_sail_allows` | differs | holds |
+| A6 | survived | — | equal | holds |
+| A7 | killed | `a_f7_implies_div` | differs | holds |
+| A8 | killed | `a_div_sail_allows`, `a_m_div_is_f7` | differs | holds |
+| A9 | killed | `a_m_div_is_f7` | differs | holds |
+| A10 | killed | `a_m_div_is_f7` | differs | holds |
+| A11 | killed | `a_m_div_is_f7` | differs | holds |
+| A12 | killed | `a_us_equiv` | differs | holds |
+| A13 | killed | `a_us_equiv` | differs | holds |
+
+Every prediction held. All 11 mutants that change a decision are killed; A1 and
+A6 are proven observationally equivalent, so they leave the score. No invalid
+run, no non-equivalent survivor. Every mutant still reaches all 5 covers
+(reported, not counted). Every model has zero registers, so each prove verdict
+covers the whole domain. Detecting assertions are the ones the bmc and prove
+runs name, not a claim that they are the only detectors.

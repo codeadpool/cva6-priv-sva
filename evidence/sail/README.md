@@ -102,4 +102,7 @@ and the config and type packages differ from v5.3.0, so this is not a result
 about CVA6 master.
 
 Tier 1, adapter mutation and the port to current releases, is preregistered in
-[TIER1_PROTOCOL.md](TIER1_PROTOCOL.md).
+[TIER1_PROTOCOL.md](TIER1_PROTOCOL.md). Section 1, adapter mutation, is done:
+every prediction held. All 11 mutants that change a decision are killed, and
+the 2 predicted equivalent are proven equivalent
+([mutation/summary.txt](mutation/summary.txt)).

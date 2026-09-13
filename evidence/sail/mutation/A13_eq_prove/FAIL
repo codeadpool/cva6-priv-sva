@@ -1,0 +1,7 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:18 (18)
+Elapsed process time [H:MM:SS (secs)]: 0:00:20 (20)
+engine_0 (smtbmc boolector) returned FAIL for basecase
+engine_0 (smtbmc boolector) returned pass for induction
+counterexample trace [basecase]: engine_0/trace.vcd
+counterexample trace [basecase]: engine_0/trace.yw
+  failed assertion sail_mut_eq_fv.a_same_decision at sail_mut_eq_fv.sv:42.5-42.79

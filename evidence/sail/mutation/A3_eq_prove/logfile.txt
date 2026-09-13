@@ -1,0 +1,51 @@
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Removing directory '/workspace/results/sail_mut/A3_eq_prove'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/cva6/core/include/config_pkg.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/config_pkg.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/cva6/core/include/riscv_pkg.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/riscv_pkg.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/cva6/core/include/build_config_pkg.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/build_config_pkg.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/lzc.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/cf_math_pkg.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/results/sail_rtl/pr3490/pmp_entry.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/pmp_entry.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/cva6/core/pmp/src/pmp.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/pmp.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/fv/sail/generated/sail_pmp_0_12.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/sail_pmp_0_12.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/fv/sail/generated/sail_modules.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/sail_modules.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/results/sail_mut/A3/base.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/base.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/results/sail_mut/A3/mut.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/mut.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] Copy '/workspace/fv/validation/sail_mut_eq_fv.sv' to '/workspace/results/sail_mut/A3_eq_prove/src/sail_mut_eq_fv.sv'.
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] engine_0: smtbmc boolector
+SBY 23:05:25 [/workspace/results/sail_mut/A3_eq_prove] base: starting process "cd /workspace/results/sail_mut/A3_eq_prove/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY 23:05:43 [/workspace/results/sail_mut/A3_eq_prove] base: finished (returncode=0)
+SBY 23:05:43 [/workspace/results/sail_mut/A3_eq_prove] prep: starting process "cd /workspace/results/sail_mut/A3_eq_prove/model; yosys -ql design_prep.log design_prep.ys"
+SBY 23:05:44 [/workspace/results/sail_mut/A3_eq_prove] prep: finished (returncode=0)
+SBY 23:05:44 [/workspace/results/sail_mut/A3_eq_prove] smt2: starting process "cd /workspace/results/sail_mut/A3_eq_prove/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY 23:05:44 [/workspace/results/sail_mut/A3_eq_prove] smt2: finished (returncode=0)
+SBY 23:05:44 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: starting process "cd /workspace/results/sail_mut/A3_eq_prove; yosys-smtbmc -s boolector --presat --unroll --noprogress -t 2  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2"
+SBY 23:05:44 [/workspace/results/sail_mut/A3_eq_prove] engine_0.induction: starting process "cd /workspace/results/sail_mut/A3_eq_prove; yosys-smtbmc -s boolector --presat --unroll -i --noprogress -t 2  --append 0 --dump-vcd engine_0/trace_induct.vcd --dump-yw engine_0/trace_induct.yw --dump-vlogtb engine_0/trace_induct_tb.v --dump-smtc engine_0/trace_induct.smtc model/design_smt2.smt2"
+SBY 23:05:44 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: ##   0:00:00  Solver: boolector
+SBY 23:05:44 [/workspace/results/sail_mut/A3_eq_prove] engine_0.induction: ##   0:00:00  Solver: boolector
+SBY 23:05:45 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 0..
+SBY 23:05:45 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 0..
+SBY 23:05:45 [/workspace/results/sail_mut/A3_eq_prove] engine_0.induction: ##   0:00:00  Trying induction in step 2..
+SBY 23:05:45 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: ##   0:00:00  BMC failed!
+SBY 23:05:45 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: ##   0:00:00  Assert failed in sail_mut_eq_fv: a_same_decision
+SBY 23:05:45 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: ##   0:00:00  Writing trace to VCD file: engine_0/trace.vcd
+SBY 23:05:45 [/workspace/results/sail_mut/A3_eq_prove] engine_0.induction: ##   0:00:00  Trying induction in step 1..
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] engine_0.induction: ##   0:00:01  Trying induction in step 0..
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace_tb.v
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: ##   0:00:01  Writing trace to constraints file: engine_0/trace.smtc
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace.yw
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: ##   0:00:01  Status: failed
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] engine_0.induction: ##   0:00:01  Temporal induction failed!
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] engine_0.induction: ##   0:00:01  Assert failed in sail_mut_eq_fv: a_same_decision
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] engine_0.induction: ##   0:00:01  Writing trace to VCD file: engine_0/trace_induct.vcd
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: finished (returncode=1)
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] engine_0.basecase: Status returned by engine for basecase: FAIL
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] engine_0.induction: terminating process
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:20 (20)
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:22 (22)
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] summary: engine_0 (smtbmc boolector) returned FAIL for basecase
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] summary: counterexample trace [basecase]: /workspace/results/sail_mut/A3_eq_prove/engine_0/trace.vcd
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] summary:   failed assertion sail_mut_eq_fv.a_same_decision at sail_mut_eq_fv.sv:42.5-42.79
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] summary: counterexample trace [induction]: /workspace/results/sail_mut/A3_eq_prove/engine_0/trace_induct.vcd
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] summary:   failed assertion sail_mut_eq_fv.a_same_decision at sail_mut_eq_fv.sv:42.5-42.79
+SBY 23:05:46 [/workspace/results/sail_mut/A3_eq_prove] DONE (FAIL, rc=2)

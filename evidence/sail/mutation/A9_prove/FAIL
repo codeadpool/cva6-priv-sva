@@ -1,0 +1,6 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:10 (10)
+Elapsed process time [H:MM:SS (secs)]: 0:00:11 (11)
+engine_0 (smtbmc boolector) returned FAIL for basecase
+counterexample trace [basecase]: engine_0/trace.vcd
+counterexample trace [basecase]: engine_0/trace.yw
+  failed assertion pmp_sail_ref_fv.\chk.a_m_div_is_f7 at pmp_sail_ref_sva.sv:82.5-83.95

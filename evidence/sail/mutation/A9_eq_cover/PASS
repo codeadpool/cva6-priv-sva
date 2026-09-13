@@ -1,0 +1,6 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:18 (18)
+Elapsed process time [H:MM:SS (secs)]: 0:00:19 (19)
+engine_0 (smtbmc boolector) returned pass
+cover trace: engine_0/trace0.vcd
+cover trace: engine_0/trace0.yw
+  reached cover statement sail_mut_eq_fv.c_domain at sail_mut_eq_fv.sv:44.5-44.29

@@ -1,0 +1,20 @@
+{
+  "format": "Yosys Witness Trace",
+  "generator": "smtbmc",
+  "clocks": [],
+  "signals": [
+    {"path": ["\\_witness_", "\\anyseq_auto_setundef_cc_533_execute_7132"], "width": 6, "offset": 0, "init_only": false},
+    {"path": ["\\_witness_", "\\anyseq_auto_setundef_cc_533_execute_7134"], "width": 6, "offset": 0, "init_only": false},
+    {"path": ["\\_witness_", "\\anyseq_auto_setundef_cc_533_execute_7136"], "width": 6, "offset": 0, "init_only": false},
+    {"path": ["\\_witness_", "\\anyseq_auto_setundef_cc_533_execute_7138"], "width": 6, "offset": 0, "init_only": false},
+    {"path": ["\\access_kind_i"], "width": 2, "offset": 0, "init_only": false},
+    {"path": ["\\addr_i"], "width": 56, "offset": 0, "init_only": false},
+    {"path": ["\\cfg_i"], "width": 64, "offset": 0, "init_only": false},
+    {"path": ["\\pmpaddr_i"], "width": 432, "offset": 0, "init_only": false},
+    {"path": ["\\priv_kind_i"], "width": 2, "offset": 0, "init_only": false},
+    {"path": ["\\size_lg2_i"], "width": 2, "offset": 0, "init_only": false}
+  ],
+  "steps": [
+    {"bits": "111001000010110011000010000000011111111111111111111111111001000010110010001011001100001111111111011000001111111101000011100110000011111111111111111111111111111111111100000011000110001001000100011011000101011000100101111000010011100110000000001100011011000000000000110001111000000011100101111011111111111111111111111111111111111100000011100110000010000100011111111111111111111111111100000111100110000010000010001101111111111111111111111010001000100000001000110000000000000111001001100010011000100000000000001110011000001111111111111111111111111111111111100011000000000000000000000000"}
+  ]
+}

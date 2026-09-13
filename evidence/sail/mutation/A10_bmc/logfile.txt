@@ -1,0 +1,39 @@
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Removing directory '/workspace/results/sail_mut/A10_bmc'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Copy '/workspace/cva6/core/include/config_pkg.sv' to '/workspace/results/sail_mut/A10_bmc/src/config_pkg.sv'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Copy '/workspace/cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/sail_mut/A10_bmc/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Copy '/workspace/cva6/core/include/riscv_pkg.sv' to '/workspace/results/sail_mut/A10_bmc/src/riscv_pkg.sv'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Copy '/workspace/cva6/core/include/build_config_pkg.sv' to '/workspace/results/sail_mut/A10_bmc/src/build_config_pkg.sv'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Copy '/workspace/cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/results/sail_mut/A10_bmc/src/lzc.sv'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Copy '/workspace/cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/sail_mut/A10_bmc/src/cf_math_pkg.sv'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Copy '/workspace/results/sail_rtl/pr3490/pmp_entry.sv' to '/workspace/results/sail_mut/A10_bmc/src/pmp_entry.sv'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Copy '/workspace/cva6/core/pmp/src/pmp.sv' to '/workspace/results/sail_mut/A10_bmc/src/pmp.sv'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Copy '/workspace/fv/sail/generated/sail_pmp_0_12.sv' to '/workspace/results/sail_mut/A10_bmc/src/sail_pmp_0_12.sv'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Copy '/workspace/fv/sail/generated/sail_modules.sv' to '/workspace/results/sail_mut/A10_bmc/src/sail_modules.sv'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Copy '/workspace/fv/sva/pmp_sail_ref_sva.sv' to '/workspace/results/sail_mut/A10_bmc/src/pmp_sail_ref_sva.sv'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] Copy '/workspace/results/sail_mut/A10/pmp_sail_ref_fv.sv' to '/workspace/results/sail_mut/A10_bmc/src/pmp_sail_ref_fv.sv'.
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] engine_0: smtbmc boolector
+SBY 23:17:41 [/workspace/results/sail_mut/A10_bmc] base: starting process "cd /workspace/results/sail_mut/A10_bmc/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY 23:17:50 [/workspace/results/sail_mut/A10_bmc] base: finished (returncode=0)
+SBY 23:17:50 [/workspace/results/sail_mut/A10_bmc] prep: starting process "cd /workspace/results/sail_mut/A10_bmc/model; yosys -ql design_prep.log design_prep.ys"
+SBY 23:17:51 [/workspace/results/sail_mut/A10_bmc] prep: finished (returncode=0)
+SBY 23:17:51 [/workspace/results/sail_mut/A10_bmc] smt2: starting process "cd /workspace/results/sail_mut/A10_bmc/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY 23:17:51 [/workspace/results/sail_mut/A10_bmc] smt2: finished (returncode=0)
+SBY 23:17:51 [/workspace/results/sail_mut/A10_bmc] engine_0: starting process "cd /workspace/results/sail_mut/A10_bmc; yosys-smtbmc -s boolector --presat --unroll --noprogress -t 2  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2"
+SBY 23:17:51 [/workspace/results/sail_mut/A10_bmc] engine_0: ##   0:00:00  Solver: boolector
+SBY 23:17:51 [/workspace/results/sail_mut/A10_bmc] engine_0: ##   0:00:00  Checking assumptions in step 0..
+SBY 23:17:51 [/workspace/results/sail_mut/A10_bmc] engine_0: ##   0:00:00  Checking assertions in step 0..
+SBY 23:17:52 [/workspace/results/sail_mut/A10_bmc] engine_0: ##   0:00:01  BMC failed!
+SBY 23:17:52 [/workspace/results/sail_mut/A10_bmc] engine_0: ##   0:00:01  Assert failed in pmp_sail_ref_fv: chk.a_m_div_is_f7
+SBY 23:17:52 [/workspace/results/sail_mut/A10_bmc] engine_0: ##   0:00:01  Writing trace to VCD file: engine_0/trace.vcd
+SBY 23:17:53 [/workspace/results/sail_mut/A10_bmc] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace_tb.v
+SBY 23:17:53 [/workspace/results/sail_mut/A10_bmc] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace.smtc
+SBY 23:17:53 [/workspace/results/sail_mut/A10_bmc] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace.yw
+SBY 23:17:53 [/workspace/results/sail_mut/A10_bmc] engine_0: ##   0:00:01  Status: failed
+SBY 23:17:53 [/workspace/results/sail_mut/A10_bmc] engine_0: finished (returncode=1)
+SBY 23:17:53 [/workspace/results/sail_mut/A10_bmc] engine_0: Status returned by engine: FAIL
+SBY 23:17:53 [/workspace/results/sail_mut/A10_bmc] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:11 (11)
+SBY 23:17:53 [/workspace/results/sail_mut/A10_bmc] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:11 (11)
+SBY 23:17:53 [/workspace/results/sail_mut/A10_bmc] summary: engine_0 (smtbmc boolector) returned FAIL
+SBY 23:17:53 [/workspace/results/sail_mut/A10_bmc] summary: counterexample trace: /workspace/results/sail_mut/A10_bmc/engine_0/trace.vcd
+SBY 23:17:53 [/workspace/results/sail_mut/A10_bmc] summary:   failed assertion pmp_sail_ref_fv.\chk.a_m_div_is_f7 at pmp_sail_ref_sva.sv:82.5-83.95
+SBY 23:17:53 [/workspace/results/sail_mut/A10_bmc] DONE (FAIL, rc=2)

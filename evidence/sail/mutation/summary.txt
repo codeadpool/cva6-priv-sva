@@ -1,0 +1,14 @@
+base  SURVIVED                                 covers 5/5  eq equivalent predicted c2      yes
+A1    SURVIVED                                 covers 5/5  eq equivalent predicted survive yes
+A2    KILLED a_us_equiv                        covers 5/5  eq differs    predicted kill    yes
+A3    KILLED a_div_sail_allows,a_m_div_is_f7   covers 5/5  eq differs    predicted kill    yes
+A4    KILLED a_m_div_is_f7,a_us_equiv          covers 5/5  eq differs    predicted kill    yes
+A5    KILLED a_div_sail_allows,a_us_equiv      covers 5/5  eq differs    predicted kill    yes
+A6    SURVIVED                                 covers 5/5  eq equivalent predicted survive yes
+A7    KILLED a_f7_implies_div                  covers 5/5  eq differs    predicted kill    yes
+A8    KILLED a_div_sail_allows,a_m_div_is_f7   covers 5/5  eq differs    predicted kill    yes
+A9    KILLED a_m_div_is_f7                     covers 5/5  eq differs    predicted kill    yes
+A10   KILLED a_m_div_is_f7                     covers 5/5  eq differs    predicted kill    yes
+A11   KILLED a_m_div_is_f7                     covers 5/5  eq differs    predicted kill    yes
+A12   KILLED a_us_equiv                        covers 5/5  eq differs    predicted kill    yes
+A13   KILLED a_us_equiv                        covers 5/5  eq differs    predicted kill    yes
