@@ -1,0 +1,34 @@
+name: sail-regen
+# The committed Sail SV must regenerate byte-for-byte from its slice with the
+# digest-pinned official compiler. regen.sh reads only fv/sail/, so this runs
+# when fv/sail/ changes, weekly, and on demand.
+on:
+  push:
+    paths:
+      - 'fv/sail/**'
+      - '.github/workflows/sail-regen.yml'
+  pull_request:
+    paths:
+      - 'fv/sail/**'
+      - '.github/workflows/sail-regen.yml'
+  schedule:
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: sail-regen-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: ${{ github.event_name == 'push' }}
+
+jobs:
+  regen:
+    name: regen ${{ matrix.version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ['0.12', '0.14']
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - run: docker build -f fv/sail/Containerfile.sail -t cva6-sail fv/sail
+      - run: docker run --rm -v "$PWD":/workspace:ro -w /tmp cva6-sail bash /workspace/fv/sail/regen.sh ${{ matrix.version }} --verify

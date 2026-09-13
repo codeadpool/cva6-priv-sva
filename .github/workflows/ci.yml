@@ -41,8 +41,9 @@ jobs:
             echo "unexpected assume in fv/ (free inputs only)"; exit 1; fi
           echo "no assumes in fv/ outside the Sail miter domain"
       # The twelve expected-CEX probes fail bmc by design, so keep going and gate on
-      # the explicit verdict check below rather than the aggregate exit code
-      - run: make -j4 -k --output-sync=target verify-all || true
+      # the explicit verdict check below rather than the aggregate exit code.
+      # Every Makefile category except sail, which runs in verify-sail
+      - run: make -k $(for c in $(sed -n 's/^CATEGORIES *:= *//p' Makefile); do [ "$c" = sail ] || echo "verify-$c"; done) || true
       - run: make results || true
       - name: assert expected verdicts
         run: |
@@ -77,34 +78,46 @@ jobs:
                    probe/probe_ptw_req probe/probe_pmp_entry_arch; do
             fail "${p}_prove"
           done
-          # Sail miter, three columns (evidence/sail/): golden (c1) fails a_amatch_arch;
-          # with #3490 (c2) every property proves; with #3177 also fixed (c3)
-          # a_full_equiv proves, so the M-divergence cover is the only miss
-          fail "sail/sail_pmp_bmc"
-          fail "sail/sail_pmp_prove"
-          pass "sail/sail_pmp_cover"
-          for t in bmc prove cover; do pass "sail/sail_pmp_tor_$t"; done
-          pass "sail/sail_pmp_full_bmc"
-          pass "sail/sail_pmp_full_prove"
-          fail "sail/sail_pmp_full_cover"
-          log=results/sail/sail_pmp_full_cover/logfile.txt
-          test "$(grep -c 'Unreached cover statement' "$log")" = 1
-          grep -q 'Unreached cover statement at .*c_m_divergence' "$log"
-          for d in sail_pmp sail_pmp_tor sail_pmp_full; do
-            test "$(grep -c yosys-smt2-register "results/sail/${d}_prove/model/design_smt2.smt2")" = 0
-          done
           echo "all verdicts as expected"
 
-  # the committed Sail SV must regenerate byte-for-byte from the slice with the
-  # digest-pinned official compiler, via the documented container.
-  sail-regen:
+  # Sail miter, one job per column (evidence/sail/): golden (c1) fails a_amatch_arch;
+  # with #3490 (c2) every property proves; with #3177 also fixed (c3)
+  # a_full_equiv proves, so the M-divergence cover is the only miss
+  verify-sail:
+    name: verify-sail ${{ matrix.sby }}
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { sby: sail_pmp, expect: FAIL FAIL PASS }
+          - { sby: sail_pmp_tor, expect: PASS PASS PASS }
+          - { sby: sail_pmp_full, expect: PASS PASS FAIL }
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-      - run: docker build -f fv/sail/Containerfile.sail -t cva6-sail fv/sail
-      - run: docker run --rm -v "$PWD":/workspace:ro -w /tmp cva6-sail bash /workspace/fv/sail/regen.sh 0.12 --verify
-      - run: docker run --rm -v "$PWD":/workspace:ro -w /tmp cva6-sail bash /workspace/fv/sail/regen.sh 0.14 --verify
+        with:
+          submodules: true
+      - uses: YosysHQ/setup-oss-cad-suite@aefa8397bbf8fc6670a0a62af9805a89738f3cde # v3.1.0
+        with:
+          version: '2026-04-07'
+      - run: make -k run-${{ matrix.sby }}-bmc run-${{ matrix.sby }}-prove run-${{ matrix.sby }}-cover || true
+      - name: assert expected verdicts
+        run: |
+          set -e
+          s=${{ matrix.sby }}
+          set -- ${{ matrix.expect }}
+          for t in bmc prove cover; do
+            test -f "results/sail/${s}_$t/$1" || { echo "${s}_$t is not $1"; exit 1; }
+            shift
+          done
+          test "$(grep -c yosys-smt2-register "results/sail/${s}_prove/model/design_smt2.smt2")" = 0
+          if [ "$s" = sail_pmp_full ]; then
+            log=results/sail/sail_pmp_full_cover/logfile.txt
+            test "$(grep -c 'Unreached cover statement' "$log")" = 1
+            grep -q 'Unreached cover statement at .*c_m_divergence' "$log"
+          fi
+          echo "verdicts as expected"
 
   # third_party/ported/ must be byte-identical to its pinned upstream commits
   ported-sources:
