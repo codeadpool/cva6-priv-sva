@@ -1,8 +1,21 @@
 name: ci
 on:
   push:
+    paths:
+      - '**'
+      - '!**.md'
+      - '!docs/**'
+      - '!figs/**'
+      - '!CITATION.cff'
+      - '!evidence/**'
+      - 'evidence/**.patch'
   pull_request:
   workflow_dispatch:
+
+# newer push cancels the older push run; dispatch campaigns are never cancelled
+concurrency:
+  group: ci-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
   verify:
@@ -29,7 +42,7 @@ jobs:
           echo "no assumes in fv/ outside the Sail miter domain"
       # The twelve expected-CEX probes fail bmc by design, so keep going and gate on
       # the explicit verdict check below rather than the aggregate exit code
-      - run: make -k verify-all || true
+      - run: make -j4 -k --output-sync=target verify-all || true
       - run: make results || true
       - name: assert expected verdicts
         run: |

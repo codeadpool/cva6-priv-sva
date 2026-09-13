@@ -51,22 +51,22 @@ versions:
 verify-all: $(addprefix verify-,$(CATEGORIES))
 	@printf "═══ all categories complete ═══\n"
 
+cat_sbys = $(basename $(notdir $(wildcard $(CHECKS_DIR)/$(1)*.sby)))
+
+define TASK_RULE
+.PHONY: run-$(2)-$(3)
+run-$(2)-$(3):
+	@printf "── %s [%s] ──\n" "$(2)" "$(3)"
+	@(cd $(CHECKS_DIR) && sby -f -d "$(PROJECT_ROOT)/$(RESULTS_DIR)/$(1)/$(2)_$(3)" "$(2).sby" "$(3)") || true
+endef
+
 define VERIFY_RULE
-verify-$(1):
-	@found=0; \
-	for f in $(CHECKS_DIR)/$(1)*.sby; do \
-	    [ -f "$$$$f" ] || continue; found=1; \
-	    base=$$$$(basename "$$$$f" .sby); \
-	    for task in $(TASKS); do \
-	        printf "── %s [%s] ──\n" "$$$$base" "$$$$task"; \
-	        ( cd $(CHECKS_DIR) && sby -f -d \
-	            "$(PROJECT_ROOT)/$(RESULTS_DIR)/$(1)/$$$${base}_$$$${task}" \
-	            "$$$$base.sby" "$$$$task" ) || true; \
-	    done; \
-	done; \
-	[ "$$$$found" = 1 ] || echo "no $(CHECKS_DIR)/$(1)*.sby"
+verify-$(1): $(foreach s,$(call cat_sbys,$(1)),$(addprefix run-$(s)-,$(TASKS)))
+	@$(if $(call cat_sbys,$(1)),:,echo "no $(CHECKS_DIR)/$(1)*.sby")
 	@printf "═══ $(1) complete ═══\n"
 endef
+
+$(foreach c,$(CATEGORIES),$(foreach s,$(call cat_sbys,$(c)),$(foreach t,$(TASKS),$(eval $(call TASK_RULE,$(c),$(s),$(t))))))
 $(foreach c,$(CATEGORIES),$(eval $(call VERIFY_RULE,$(c))))
 
 # ── Results aggregation ──────────────────────────────────────────────────────
@@ -131,7 +131,7 @@ $(SAIL_RTL)/prio3177/pmp.sv: $(CVA6)/core/pmp/src/pmp.sv $(SAIL_PATCHES)/pmp_317
 	@mkdir -p $(@D) && patch -s -o $@.tmp $^ && mv -f $@.tmp $@
 .PHONY: sail-rtl
 sail-rtl: $(SAIL_RTL)/pr3490/pmp_entry.sv $(SAIL_RTL)/prio3177/pmp.sv
-verify-sail: sail-rtl
+$(foreach s,$(call cat_sbys,sail),$(addprefix run-$(s)-,$(TASKS))): sail-rtl
 
 # ── Cleanup ──────────────────────────────────────────────────────────────────
 .PHONY: clean clean-cat
