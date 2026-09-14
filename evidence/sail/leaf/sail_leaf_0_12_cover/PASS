@@ -1,0 +1,9 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:19 (19)
+Elapsed process time [H:MM:SS (secs)]: 0:00:20 (20)
+engine_0 (smtbmc boolector) returned pass
+cover trace: engine_0/trace0.vcd
+cover trace: engine_0/trace0.yw
+  reached cover statement sail_leaf_fv.\chk.c_leaf_diff_partial at sail_leaf_sva.sv:63.5-63.43
+cover trace: engine_0/trace1.vcd
+cover trace: engine_0/trace1.yw
+  reached cover statement sail_leaf_fv.\chk.c_leaf_diff_aligned4 at sail_leaf_sva.sv:62.5-62.45

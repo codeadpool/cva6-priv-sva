@@ -1,0 +1,38 @@
+SBY  3:51:47 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] Removing directory '/workspace/results/leaf/sail/sail_leaf_0_12_cover'.
+SBY  3:51:47 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] Copy '/workspace/fv/checks/../sail/generated/sail_pmp_0_12.sv' to '/workspace/results/leaf/sail/sail_leaf_0_12_cover/src/sail_pmp_0_12.sv'.
+SBY  3:51:47 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] Copy '/workspace/fv/checks/../sail/generated/sail_modules.sv' to '/workspace/results/leaf/sail/sail_leaf_0_12_cover/src/sail_modules.sv'.
+SBY  3:51:47 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] Copy '/workspace/fv/checks/../wrappers/sail_leaf_shim_0_12.sv' to '/workspace/results/leaf/sail/sail_leaf_0_12_cover/src/sail_leaf_shim_0_12.sv'.
+SBY  3:51:47 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] Copy '/workspace/fv/checks/../sva/sail_leaf_sva.sv' to '/workspace/results/leaf/sail/sail_leaf_0_12_cover/src/sail_leaf_sva.sv'.
+SBY  3:51:47 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] Copy '/workspace/fv/checks/../wrappers/sail_leaf_fv.sv' to '/workspace/results/leaf/sail/sail_leaf_0_12_cover/src/sail_leaf_fv.sv'.
+SBY  3:51:47 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: smtbmc boolector
+SBY  3:51:47 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] base: starting process "cd /workspace/results/leaf/sail/sail_leaf_0_12_cover/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY  3:52:02 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] base: finished (returncode=0)
+SBY  3:52:02 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] prep: starting process "cd /workspace/results/leaf/sail/sail_leaf_0_12_cover/model; yosys -ql design_prep.log design_prep.ys"
+SBY  3:52:04 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] prep: finished (returncode=0)
+SBY  3:52:04 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] smt2: starting process "cd /workspace/results/leaf/sail/sail_leaf_0_12_cover/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY  3:52:04 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] smt2: finished (returncode=0)
+SBY  3:52:04 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: starting process "cd /workspace/results/leaf/sail/sail_leaf_0_12_cover; yosys-smtbmc -s boolector --presat --unroll -c --noprogress -t 2  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2"
+SBY  3:52:04 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:00  Solver: boolector
+SBY  3:52:04 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY  3:52:05 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:00  Reached cover statement in step 0 at sail_leaf_fv: chk.c_leaf_diff_partial
+SBY  3:52:05 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
+SBY  3:52:05 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+SBY  3:52:05 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace0.smtc
+SBY  3:52:05 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace0.yw
+SBY  3:52:05 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:01  Checking cover reachability in step 0..
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:02  Reached cover statement in step 0 at sail_leaf_fv: chk.c_leaf_diff_aligned4
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:02  Writing trace to VCD file: engine_0/trace1.vcd
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:02  Writing trace to Verilog testbench: engine_0/trace1_tb.v
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:02  Writing trace to constraints file: engine_0/trace1.smtc
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:02  Writing trace to Yosys witness file: engine_0/trace1.yw
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: ##   0:00:02  Status: passed
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: finished (returncode=0)
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] engine_0: Status returned by engine: pass
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:19 (19)
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:20 (20)
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] summary: engine_0 (smtbmc boolector) returned pass
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] summary: cover trace: /workspace/results/leaf/sail/sail_leaf_0_12_cover/engine_0/trace0.vcd
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] summary:   reached cover statement sail_leaf_fv.\chk.c_leaf_diff_partial at sail_leaf_sva.sv:63.5-63.43
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] summary: cover trace: /workspace/results/leaf/sail/sail_leaf_0_12_cover/engine_0/trace1.vcd
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] summary:   reached cover statement sail_leaf_fv.\chk.c_leaf_diff_aligned4 at sail_leaf_sva.sv:62.5-62.45
+SBY  3:52:06 [/workspace/results/leaf/sail/sail_leaf_0_12_cover] DONE (PASS, rc=0)

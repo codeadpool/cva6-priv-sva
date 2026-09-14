@@ -503,3 +503,64 @@ but never assigns them (`sail_pmp_0_12.sv:1145-1146`,
 `sail_pmp_0_14.sv:1304-1305`). `check` finds no undriven wire, so they hold the
 `bit` default 0, and `a_helpers_no_internal_exception` can fail only through
 `pmpCheckRWX`.
+
+### 2026-09-14: Section 3.1 results
+
+Executed from frozen commit `54c355a` after its CI passed. Logs, source hashes,
+and cover witnesses are archived under `evidence/sail/leaf/`; `summary.txt`
+records the checked verdicts.
+
+| Sail version | BMC | Prove | Cover | Registers | Prediction |
+|---|---|---|---|---|---|
+| 0.14 (`sail_leaf`) | PASS | PASS | PASS, 2/2 reached | 0 | holds |
+| 0.12 (`sail_leaf_0_12`) | PASS | PASS | PASS, 2/2 reached | 0 | holds |
+
+Every preregistered prediction held on both versions. Because the models contain
+no registers, the assertion results cover the complete stated symbolic domain
+rather than a bounded execution prefix.
+
+The covers establish that Sail's per-entry TOR match can differ from the match
+obtained after clearing the predecessor grain bit. The proofs establish that:
+
+- `a_decide_faithful`: the reconstructed first-match decision equals
+  `pmpCheckHw`;
+- `a_leaf_unobservable`: replacing Sail's predecessor value with the masked
+  value never changes the final Boolean allow/deny decision;
+- `a_leaf_shape`: every leaf mismatch is a TOR entry preceded by a NAPOT entry
+  whose raw `pmpaddr[0]` is one;
+- `a_leaf_preempted`: that NAPOT predecessor has the same non-NoMatch result in
+  both match vectors, so the later TOR entry cannot determine either decision;
+- `a_partial_outside_c2_domain`: if the predecessor returns PartialMatch, the
+  access is outside the existing CVA6 miter's naturally aligned 1/2/4/8-byte
+  domain;
+- the generated top and all directly instantiated helpers raise no internal
+  Sail exception.
+
+The result is therefore a genuine per-entry discrepancy that is observationally
+equivalent at the composed `pmpCheck` allow/deny boundary within the checked
+domain.
+
+Aligned witness. In the 0.14 trace `sail_leaf_cover/trace1.vcd`, a U-mode
+four-byte load accesses `0xa8e8eff64d0ba8`. Entry 3 is a no-permission NAPOT
+region:
+
+- raw `pmpaddr[3]`: `0x2a3a3bfd9342eb`;
+- decoded region: `[0xa8e8eff64d0ba0, 0xa8e8eff64d0bc0)`;
+- size: 32 bytes.
+
+Entry 4 is TOR. Sail retains the predecessor's low bit and obtains lower bound
+`0xa8e8eff64d0bac`, making entry 4 return NoMatch. Clearing that bit gives lower
+bound `0xa8e8eff64d0ba8`, making entry 4 return Match. Entry 3 nevertheless
+matches first and denies the access under both interpretations. The 0.12 witness
+in `sail_leaf_0_12_cover/trace1.vcd` has the same structural form.
+
+Assertion accounting. The source contains 49 assertions: four top-level
+assertions and three per-slot assertions for slots 1–15. The 24 assertions
+associated with fixed-OFF slots 8–15 are constant true and are reduced by Yosys
+to one assertion cell. Consequently, each synthesized model contains 26
+assertion cells: four top-level, 21 for symbolic slots 1–7, and one representing
+the 24 constant assertions.
+
+Both `.sby` files now run in the permanent `verify-sail` CI matrix. CI checks the
+expected BMC and proof verdicts, zero-register result, and reachability of both
+named covers.

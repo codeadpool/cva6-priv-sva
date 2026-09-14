@@ -87,10 +87,8 @@ Agreement with generated `sail-riscv` **0.12** for `cv64a6_imafdc_sv39` at G=1
 with 8 entries, over the domain above. Not ISA conformance: whether Sail matches
 the specification is outside the proof, and at one leaf point it does not. For a
 TOR entry whose predecessor is NAPOT, Sail's lower bound keeps bit 0, where #884
-says it is ignored. By inspection that never changes a decision, because the
-NAPOT predecessor covers the word with higher priority. Section 3.1 of
-[TIER1_PROTOCOL.md](TIER1_PROTOCOL.md) checks it formally; it is frozen, not yet
-run.
+says it is ignored. That never changes a decision, because the NAPOT
+predecessor matches first; Tier 1 Section 3.1 proves this (below).
 
 Sail checks every byte of the access, and `a_no_boundary_cross` proves an
 aligned access stays inside one 8-byte granule, so CVA6's single-address
@@ -103,11 +101,14 @@ byte-identical to the one #3490 merged (`6fe7b959`), but in that tree `pmp.sv`
 and the config and type packages differ from v5.3.0, so this is not a result
 about CVA6 master.
 
-Tier 1, adapter mutation and the port to current releases, is preregistered in
-[TIER1_PROTOCOL.md](TIER1_PROTOCOL.md). Section 1, adapter mutation, is done:
-every prediction held. All 11 mutants that change a decision are killed, and
+Tier 1, adapter mutation, the port to current releases and the leaf check, is
+preregistered in [TIER1_PROTOCOL.md](TIER1_PROTOCOL.md). Section 1, adapter
+mutation, is done: every prediction held. All 11 mutants that change a decision are killed, and
 the 2 predicted equivalent are proven equivalent
 ([mutation/summary.txt](mutation/summary.txt)). Section 2, the port to
 sail-riscv 0.14 and CVA6 master `49b5fa9e`, is done: every prediction held. The
 c2 theorems hold on master over the same domain, and with the #3177 patch full
-equivalence holds ([port/summary.txt](port/summary.txt)).
+equivalence holds ([port/summary.txt](port/summary.txt)). Section 3.1, the leaf
+point in Scope, is done: every prediction held. On sail-riscv 0.14 and 0.12, for
+widths 1-4096 at any alignment, the per-entry match differs but `pmpCheck`'s
+decision never does ([leaf/summary.txt](leaf/summary.txt)).
