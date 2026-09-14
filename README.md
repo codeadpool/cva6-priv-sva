@@ -69,7 +69,8 @@ fv/
   sail/                Sail PMP reference: slice, generated SV, provenance
 docs/
 Makefile               verify-<cat>, verify-all, results, versions, clean
-Dockerfile             pins one OSS-CAD-Suite release (yosys + sby + solvers + slang)
+Dockerfile             toolchain image: yosys + sby + solvers + slang
+tools/oss-cad-suite.sh the pinned OSS-CAD-Suite release, sha256-checked (Dockerfile and CI)
 results/               scratch (gitignored)
 evidence/              committed logs + traces (make evidence)
 ```

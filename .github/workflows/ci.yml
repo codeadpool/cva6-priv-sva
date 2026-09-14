@@ -25,9 +25,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           submodules: true
-      - uses: YosysHQ/setup-oss-cad-suite@aefa8397bbf8fc6670a0a62af9805a89738f3cde # v3.1.0
-        with:
-          version: '2026-04-07'
+      - run: bash tools/oss-cad-suite.sh "$RUNNER_TEMP"
       - run: make versions
       # Sail slice must still be upstream's code, re-derived not hand-edited
       - run: make sail-provenance
@@ -103,9 +101,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           submodules: true
-      - uses: YosysHQ/setup-oss-cad-suite@aefa8397bbf8fc6670a0a62af9805a89738f3cde # v3.1.0
-        with:
-          version: '2026-04-07'
+      - run: bash tools/oss-cad-suite.sh "$RUNNER_TEMP"
       - run: make -k run-${{ matrix.sby }}-bmc run-${{ matrix.sby }}-prove run-${{ matrix.sby }}-cover || true
       - name: assert expected verdicts
         run: |
@@ -148,9 +144,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           submodules: true
-      - uses: YosysHQ/setup-oss-cad-suite@aefa8397bbf8fc6670a0a62af9805a89738f3cde # v3.1.0
-        with:
-          version: '2026-04-07'
+      - run: bash tools/oss-cad-suite.sh "$RUNNER_TEMP"
       - name: "TOR grain bit (#3342), incomplete own-bound fix: both oracles must break"
         run: |
           set -e
@@ -205,9 +199,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           submodules: true
-      - uses: YosysHQ/setup-oss-cad-suite@aefa8397bbf8fc6670a0a62af9805a89738f3cde # v3.1.0
-        with:
-          version: '2026-04-07'
+      - run: bash tools/oss-cad-suite.sh "$RUNNER_TEMP"
       - run: bash fv/validation/mutation_test.sh
 
   # Sail adapter mutation (evidence/sail/TIER1_PROTOCOL.md), on demand only
@@ -219,9 +211,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           submodules: true
-      - uses: YosysHQ/setup-oss-cad-suite@aefa8397bbf8fc6670a0a62af9805a89738f3cde # v3.1.0
-        with:
-          version: '2026-04-07'
+      - run: bash tools/oss-cad-suite.sh "$RUNNER_TEMP"
       - run: make sail-rtl
       - run: bash fv/validation/sail_mutation.sh
 
@@ -234,8 +224,6 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           submodules: true
-      - uses: YosysHQ/setup-oss-cad-suite@aefa8397bbf8fc6670a0a62af9805a89738f3cde # v3.1.0
-        with:
-          version: '2026-04-07'
+      - run: bash tools/oss-cad-suite.sh "$RUNNER_TEMP"
       - run: make sail-rtl
       - run: bash fv/validation/sail_port.sh
