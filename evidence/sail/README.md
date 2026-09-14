@@ -87,8 +87,10 @@ Agreement with generated `sail-riscv` **0.12** for `cv64a6_imafdc_sv39` at G=1
 with 8 entries, over the domain above. Not ISA conformance: whether Sail matches
 the specification is outside the proof, and at one leaf point it does not. For a
 TOR entry whose predecessor is NAPOT, Sail's lower bound keeps bit 0, where #884
-says it is ignored. That never changes a decision, because the NAPOT predecessor
-covers the word with higher priority.
+says it is ignored. By inspection that never changes a decision, because the
+NAPOT predecessor covers the word with higher priority. Section 3.1 of
+[TIER1_PROTOCOL.md](TIER1_PROTOCOL.md) checks it formally; it is frozen, not yet
+run.
 
 Sail checks every byte of the access, and `a_no_boundary_cross` proves an
 aligned access stays inside one 8-byte granule, so CVA6's single-address

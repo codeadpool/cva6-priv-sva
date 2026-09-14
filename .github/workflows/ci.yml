@@ -31,15 +31,17 @@ jobs:
       - run: make versions
       # Sail slice must still be upstream's code, re-derived not hand-edited
       - run: make sail-provenance
-      # exception: Sail miter wrapper, where the assumes are the stated
-      # equivalence domain. Three (reserved==0, mode!=NA4, !(W&&!R)) are CSR
-      # invariants proven separately in csr_warl; two restrict the access to
-      # aligned and non-wrapping. any assume elsewhere still fails the build
+      # assumes only in the two Sail harnesses, five each: their stated domains.
+      # Three (reserved==0, mode!=NA4, !(W&&!R)) are CSR invariants proven in
+      # csr_warl; two restrict the access. Any assume elsewhere fails the build
       - name: no assumes (soundness gate)
         run: |
-          if grep -rnw assume fv/ --exclude=pmp_sail_ref_fv.sv; then
+          if git grep -nw assume -- fv/ ':!fv/wrappers/pmp_sail_ref_fv.sv' ':!fv/wrappers/sail_leaf_fv.sv'; then
             echo "unexpected assume in fv/ (free inputs only)"; exit 1; fi
-          echo "no assumes in fv/ outside the Sail miter domain"
+          for f in fv/wrappers/pmp_sail_ref_fv.sv fv/wrappers/sail_leaf_fv.sv; do
+            test "$(grep -cE '^[[:space:]]*assume[[:space:]]*\(' "$f")" = 5 || { echo "$f: expected 5 assumes"; exit 1; }
+          done
+          echo "assumes only in the two Sail harness domains"
       # The twelve expected-CEX probes fail bmc by design, so keep going and gate on
       # the explicit verdict check below rather than the aggregate exit code.
       # Every Makefile category except sail, which runs in verify-sail

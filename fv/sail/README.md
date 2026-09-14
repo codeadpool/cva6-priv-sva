@@ -5,6 +5,8 @@ executable model adopted by RISC-V International), specialized and compiled to
 SystemVerilog for comparison with CVA6's `pmp.sv`. The miter is
 `fv/wrappers/pmp_sail_ref_fv.sv` + `fv/sva/pmp_sail_ref_sva.sv`, run by
 `fv/checks/sail_pmp*.sby`; results and scope are in `evidence/sail/README.md`.
+The Tier 1 Section 3.1 harness, `fv/wrappers/sail_leaf_fv.sv` run by
+`fv/checks/sail_leaf*.sby`, drives the same generated SV without CVA6.
 
 ```
 slice/              Sail sources we compile (sail-riscv 0.12)

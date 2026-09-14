@@ -4,7 +4,7 @@ Authored 2026-09-12 against the Tier 0 baseline `7ed3e166`, before any
 Tier 1 BMC, proof, or cover result was generated. Claims retain the
 configuration and domain in [README.md](README.md).
 
-This document records predictions, not results. Before executing Section 1,
+Sections 1-3 record predictions, not results. Before executing Section 1,
 all mutation patches, the runner, and the observational-equivalence harness
 will be committed together and their hashes recorded in a dated execution
 freeze. Before executing Section 2, the ported slice, generated RTL, adapters,
@@ -160,7 +160,7 @@ before execution:
 
 ## Dated amendments and results
 
-Append entries here. Do not rewrite the protocol or predictions above.
+Entries are appended in date order; nothing above is rewritten.
 
 ### 2026-09-12: Section 1 execution freeze
 
@@ -473,3 +473,33 @@ inert at the composed `pmpCheck` decision because the preceding NAPOT result
 terminates first". It does not call the behavior a Sail defect or claim an
 architectural decision mismatch. If master changes before filing, the
 experiment is rerun on the new code.
+
+### 2026-09-14: Section 3.1 execution freeze
+
+Committed together before any Section 3.1 bmc, prove or cover run; the results
+entry cites this commit:
+
+| File | sha256 |
+|---|---|
+| `fv/wrappers/sail_leaf_fv.sv` | `8250b206d097f315dcb4b91f1165bee241abc36599bbcc74dee16c5d3d778340` |
+| `fv/sva/sail_leaf_sva.sv` | `0a2e3420bf9c23496bad78cdfb58a0b8c23ada086e5225c6ca85ce4e0b85ed79` |
+| `fv/wrappers/sail_leaf_shim_0_12.sv` | `43131e3c67316ea7b96feda64ad5bc589fe013e7e953d7feed6601a92ab97b09` |
+| `fv/wrappers/sail_leaf_shim_0_14.sv` | `b5bc43067922164d69e06e52e982671501c87739d4caff83e04b7a3980a29859` |
+| `fv/checks/sail_leaf.sby` | `bd151221f03fb253d26e1972ad088a6c57e08f5c9d29d846a99e8c144880a359` |
+| `fv/checks/sail_leaf_0_12.sby` | `9165dbda36ad27bf1a426be61db7ac08c27b5265ca4434ab93f05751f6aef77d` |
+| `.github/workflows/ci.yml` | `450ee4c192c5aeafb443bdfcc04be08939a2e263e0861dd8ead8ea5ed52e9ccb` |
+| `README.md` | `5ca415b9a4498ac9fc5290af35cedd84861df3fb47c5f58b2591c03ff4a89010` |
+
+The generated SV and `sail_modules.sv` are unchanged since Section 2; their
+hashes are in `fv/sail/PROVENANCE`. The `ci.yml` step "no assumes" allows
+assumptions only in the two Sail harnesses and requires five in each.
+
+Pre-run checks, 2026-09-14: 0.12 and 0.14 both elaborate in yosys-slang with 0
+errors and 0 warnings; yosys `check` reports no problems, and neither design has
+registers or latches. No bmc, prove or cover task was run.
+
+Source observation: the generated `pmpMatchAddr` declares its exception outputs
+but never assigns them (`sail_pmp_0_12.sv:1145-1146`,
+`sail_pmp_0_14.sv:1304-1305`). `check` finds no undriven wire, so they hold the
+`bit` default 0, and `a_helpers_no_internal_exception` can fail only through
+`pmpCheckRWX`.

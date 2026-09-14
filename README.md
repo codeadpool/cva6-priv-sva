@@ -51,9 +51,11 @@ The suite is validated:
   `cv64a6_imafdch_sv39` (RVH=1). Both runs are archived under `evidence/`,
   each labelled with the commit it was proven against. F6 and F7 are known
   upstream issues with no fix of ours, so no "after" evidence is claimed.
-- **No assumptions.** Outside the Sail miter, `fv/` contains no `assume`, so the
-  proven properties hold under unconstrained inputs (CI enforces this). The
-  miter's five assumes are its stated domain: `evidence/sail/README.md`.
+- **No assumptions.** Outside `fv/wrappers/pmp_sail_ref_fv.sv` and
+  `fv/wrappers/sail_leaf_fv.sv`, `fv/` contains no `assume`, so the proven
+  properties hold under unconstrained inputs (CI enforces this). Each of those
+  two Sail harnesses has five assumes, its stated domain:
+  `evidence/sail/README.md` and `evidence/sail/TIER1_PROTOCOL.md`.
 
 ## Layout
 ```
