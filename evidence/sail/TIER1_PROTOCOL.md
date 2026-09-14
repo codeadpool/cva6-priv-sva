@@ -296,3 +296,180 @@ outcome; seven (A4, A5, A7, A8, A9, A11, A13) name different detecting
 assertions than in Section 1, because a run names only what its own
 counterexample violates and the designs differ. No invalid run. Every prove
 model has zero registers, so each prove verdict covers the whole domain.
+
+### 2026-09-14: Section 3.1 preregistration, TOR predecessor grain bit
+
+This entry was written before any Section 3.1 bmc, prove or cover run. It
+formalizes a discrepancy already identified by source inspection and noted in
+`evidence/sail/README.md`; it is not a blind discovery experiment. After
+execution begins, the predictions stay unchanged; corrections and results are
+appended as dated entries.
+
+#### Question
+
+At G=1, Sail uses `pmpReadAddrReg(i-1)` as entry i's TOR lower bound. When
+entry i-1 is NAPOT, that value retains `pmpaddr[i-1][0]`. The ratified
+specification states that `pmpaddr[G-1:0]` does not affect TOR matching, and
+riscv-isa-manual issue #884 confirms that this includes a register used as the
+following entry's lower bound.
+
+The experiment asks:
+
+1. Can Sail's per-entry TOR match differ from the match obtained after clearing
+   that predecessor bit?
+2. If so, can replacing Sail's predecessor value with the specification-derived
+   value change the Boolean allow/deny decision returned by `pmpCheck`?
+
+#### Source observations before execution
+
+- Primary Sail model: sail-riscv 0.14, `29e6158f0a88bdb26b9fbcd0718ab919449b5179`.
+- Historical replication: sail-riscv 0.12, `65ddde80ee2b131bf46c20e6e748343c336c4071`.
+- At the time of writing, sail-riscv master is
+  `22fad389cb0ca92ef8f3cfff91fe258f14ee8de8`; its `model/pmp/pmp_control.sail`
+  and `model/pmp/pmp_regs.sail` are byte-identical to 0.14.
+- Specification: riscv-isa-manual `be8cb008612ce2ac1712e4ba3f09fc2109c0d462`,
+  `src/priv/machine.adoc:3519-3528`.
+- Issue #884 was closed on 2025-12-09 after confirming that the TOR grain rule
+  covers both uses of a PMP address register: as its entry's upper bound and as
+  the following entry's lower bound.
+
+#### Design
+
+Sail only; no CVA6 RTL is present. Files:
+
+- `fv/wrappers/sail_leaf_fv.sv`
+- `fv/sva/sail_leaf_sva.sv`
+- `fv/wrappers/sail_leaf_shim_0_12.sv` and `fv/wrappers/sail_leaf_shim_0_14.sv`
+- `fv/checks/sail_leaf.sby` for 0.14
+- `fv/checks/sail_leaf_0_12.sby` for 0.12
+
+The harness instantiates `pmpCheckHw` and, for each slot used by its 16-entry
+loop, the generated `pmpReadAddrReg`, `pmpMatchAddr`, `pmpCheckRWX` and
+`pmpLocked` helpers.
+
+The generated 0.12 and 0.14 helper interfaces differ in two mangled port names:
+the `pmpMatchAddr` physical-address input and the `pmpCheckRWX` exception
+outputs. Each `.sby` file selects its version's shim, which connects the helpers
+by named ports. Positional port mapping is not used.
+
+For each entry i:
+
+- `effective[i]` is the result of `pmpReadAddrReg(i)`.
+- `m_sail[i]` is `pmpMatchAddr` using `effective[i-1]` as the predecessor when i > 0.
+- `m_arch[i]` is the same call, except predecessor bit 0 is cleared.
+- `decide(m)` reproduces `pmpCheck`'s first-result rule: NoMatch continues;
+  PartialMatch denies; Match allows only when RWX grants the operation, or when
+  privilege is M and the entry is unlocked; no match allows only M-mode.
+
+The comparison projects results to Boolean allow/deny. It does not compare
+exception causes or other payload fields.
+
+#### Domain
+
+- G=1, PLEN=56.
+- Eight symbolic implemented PMP entries; slots 8-63 are fixed OFF.
+- The specialized Sail decision loop examines slots 0-15.
+- Reserved configuration bits are zero; NA4 is excluded; W=1, R=0 is excluded.
+- Operations are `Load(Data)`, `Store(Data)` and `InstructionFetch`.
+- Privileges are U, S and M.
+- Width is any integer from 1 through 4096 bytes, the range admitted by the
+  specialized `pmpCheck` source type.
+- Any alignment is admitted.
+- The access interval may not wrap past the top of the 56-bit physical-address space.
+
+The generated SystemVerilog port does not retain Sail's dependent width type, so
+the wrapper explicitly assumes `1 <= width <= 4096`. This domain is intentionally
+wider than the CVA6 miter's naturally aligned 1/2/4/8-byte domain.
+
+Define `c2_domain` as a width in {1, 2, 4, 8} that is naturally aligned and
+non-wrapping.
+
+#### Preregistered properties
+
+| Name | Statement | Prediction |
+|---|---|---|
+| `a_decide_faithful` | `decide(m_sail)` equals the Boolean result of `pmpCheckHw` | PROVE |
+| `a_leaf_unobservable` | `decide(m_arch) == decide(m_sail)` | PROVE |
+| `a_leaf_shape` | For i = 1..15, a leaf mismatch implies entry i is TOR, entry i-1 is NAPOT, and raw `pmpaddr[i-1][0]` is one | PROVE |
+| `a_leaf_preempted` | A leaf mismatch at i implies the predecessor has the same non-NoMatch result in both vectors, so entry i cannot decide either composition | PROVE |
+| `a_partial_outside_c2_domain` | A leaf mismatch with a predecessor PartialMatch implies the access is outside `c2_domain` | PROVE |
+| `a_top_no_internal_exception` | `pmpCheckHw` raises no internal Sail exception | PROVE |
+| `a_helpers_no_internal_exception` | Every directly instantiated `pmpMatchAddr` and `pmpCheckRWX` raises no internal Sail exception | PROVE |
+| `c_leaf_diff_aligned4` | A 4-byte, 4-byte-aligned access reaches `m_sail[i] = NoMatch`, `m_arch[i] = Match`, with the predecessor returning Match | REACHED |
+| `c_leaf_diff_partial` | A leaf mismatch is reached with the predecessor returning PartialMatch | REACHED |
+
+The first cover supplies a small, aligned witness suitable for an upstream
+report. The second establishes that PartialMatch preemption is reachable in the
+wider domain. The "only outside `c2_domain`" claim rests on
+`a_partial_outside_c2_domain`, not on the cover.
+
+#### Predicted task verdicts
+
+For both 0.14 and 0.12:
+
+| Task | Predicted result |
+|---|---|
+| `bmc` | PASS |
+| `prove` | PASS |
+| `cover` | PASS, both named covers reached |
+
+Every proof model is predicted to contain zero registers. The result gate checks
+the two cover names individually rather than accepting an aggregate cover status
+alone.
+
+#### Interpretation rules
+
+- If `a_decide_faithful` fails, no composed-equivalence conclusion is drawn.
+- If either internal-exception assertion fails, the affected run is an invalid
+  harness result until diagnosed.
+- A reached leaf-difference cover establishes a component-level discrepancy only.
+- `a_leaf_unobservable` establishes observational equivalence only for the single
+  predecessor-bit transformation, Boolean PMP allow/deny, and the domain above.
+- No result validates Sail source against the ISA generally or validates the
+  Sail-to-SystemVerilog translation generally.
+- Every failed prediction is reported; no failed or inconvenient case is removed
+  from the result set.
+
+#### Freeze and execution
+
+Before any bmc, prove or cover run:
+
+1. Perform elaboration-only checks for both generated-model versions.
+2. Freeze the wrapper, checker, both `.sby` files, both version shims, the CI
+   assumption gate and the README change.
+3. Record their SHA-256 hashes and the execution commit in a dated freeze entry.
+4. The CI assumption gate allows assumptions only in
+   `fv/wrappers/pmp_sail_ref_fv.sv` and `fv/wrappers/sail_leaf_fv.sv`, checks
+   the expected assumption count in each file separately, and fails on
+   assumptions anywhere else under `fv/`.
+
+After execution, archive each isolated work directory's `sources.sha256`, logs,
+witnesses and the register-count check under `evidence/sail/leaf/`. Append
+results without editing this protocol. Only then add both `.sby` files to the
+permanent `verify-sail` matrix.
+
+#### Scope
+
+The result covers Sail's PMP decision for G=1, PLEN=56, eight symbolic
+implemented entries in the specialized 16-entry model, the stated legal CSR
+snapshots, Data loads and stores, instruction fetches, widths 1-4096, and
+non-wrapping addresses.
+
+It does not cover other grains, entry counts, physical-address widths, access
+constructors, virtual privilege modes, exception payload equivalence,
+native-Sail versus generated-SystemVerilog fidelity, or general ISA conformance.
+
+#### Upstream reporting
+
+An upstream report is prepared only after:
+
+1. the 0.14 results are complete;
+2. current Sail master is checked again;
+3. the duplicate search is repeated, including open PMP work such as #1651;
+4. the aligned 4-byte witness and the composed-equivalence proof are archived.
+
+The report describes a "per-entry TOR-bound discrepancy that is semantically
+inert at the composed `pmpCheck` decision because the preceding NAPOT result
+terminates first". It does not call the behavior a Sail defect or claim an
+architectural decision mismatch. If master changes before filing, the
+experiment is rerun on the new code.
