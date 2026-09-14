@@ -1,15 +1,17 @@
 name: sail-regen
 # The committed Sail SV must regenerate byte-for-byte from its slice with the
 # digest-pinned official compiler. regen.sh reads only fv/sail/, so this runs
-# when fv/sail/ changes, weekly, and on demand.
+# when fv/sail/ changes (not its docs), weekly, and on demand.
 on:
   push:
     paths:
       - 'fv/sail/**'
+      - '!fv/sail/**.md'
       - '.github/workflows/sail-regen.yml'
   pull_request:
     paths:
       - 'fv/sail/**'
+      - '!fv/sail/**.md'
       - '.github/workflows/sail-regen.yml'
   schedule:
     - cron: '17 4 * * 1'
