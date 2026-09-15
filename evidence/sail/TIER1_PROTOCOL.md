@@ -730,3 +730,24 @@ The result covers the #3490 CVA6 matcher and sail-riscv 0.14 `pmpMatchAddr` at
 G=1, for one entry pair in the c2 domain. It does not cover other grains, other
 RTL, Sail's complete architectural interface beyond Section 3.1, or golden-model
 projections generally.
+
+### 2026-09-15: Section 3.3 execution freeze
+
+Committed together before any Section 3.3 bmc, prove or cover run; the results
+entry cites this commit:
+
+| File | sha256 |
+|---|---|
+| `fv/wrappers/sail_oracle_fv.sv` | `5937dbb81bd56cc77041d3e35fd1a0186294feb96a4ac047966fad55c6db6817` |
+| `fv/sva/sail_oracle_sva.sv` | `460830ab13ecaa5d3a665ae93ed1c85ad2d733fd0d061ca5f82f0176084f3ad8` |
+| `fv/checks/sail_oracle.sby` | `762f0290a4d3f86f6af387b0c2564c08eebf9b0419e14f71a17d1e437492aaf0` |
+| `fv/checks/sail_oracle_reject.sby` | `99a2672c1699114b612df2a0e0f1e84a11fa41632af784630a79b36bc765be66` |
+
+The #3490 `pmp_entry.sv`, the sail-riscv 0.14 generated SV and the Section 3.1
+shim are unchanged from the preregistration (`14b2601`) and the Section 3.1
+freeze.
+
+Pre-run checks, 2026-09-15: both builds, with and without `SAIL_ORACLE_REJECT`,
+elaborate in yosys-slang with 0 errors and 0 warnings; yosys `check` reports no
+problems, and neither design has registers or latches. No bmc, prove or cover
+task was run.

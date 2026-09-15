@@ -1,0 +1,40 @@
+# Section 3.3 (evidence/sail/TIER1_PROTOCOL.md): sail_oracle.sby built with
+# SAIL_ORACLE_REJECT, so a_extracted_sail_leaf_equiv is the only checker assert.
+# Predicted: bmc FAIL, prove FAIL, cover PASS.
+
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc:   mode bmc
+bmc:   depth 2
+prove: mode prove
+prove: depth 2
+cover: mode cover
+cover: depth 2
+
+[engines]
+bmc:   smtbmc boolector
+prove: smtbmc boolector
+cover: smtbmc boolector
+
+[script]
+plugin -i slang
+read_slang -D SAIL_ORACLE_REJECT --single-unit --std 1800-2023 --top sail_oracle_fv config_pkg.sv cv64a6_imafdc_sv39_config_pkg.sv riscv_pkg.sv build_config_pkg.sv lzc.sv cf_math_pkg.sv pmp_entry.sv sail_pmp_0_14.sv sail_leaf_shim_0_14.sv sail_oracle_sva.sv sail_oracle_fv.sv
+prep -top sail_oracle_fv
+
+[files]
+../../cva6/core/include/config_pkg.sv
+../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv
+../../cva6/core/include/riscv_pkg.sv
+../../cva6/core/include/build_config_pkg.sv
+../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv
+../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv
+../../results/sail_rtl/pr3490/pmp_entry.sv
+../sail/generated/sail_pmp_0_14.sv
+../sail/generated/sail_modules.sv
+../wrappers/sail_leaf_shim_0_14.sv
+../sva/sail_oracle_sva.sv
+../wrappers/sail_oracle_fv.sv
