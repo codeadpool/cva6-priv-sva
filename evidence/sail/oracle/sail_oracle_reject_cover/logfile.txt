@@ -1,0 +1,37 @@
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Removing directory '/workspace/results/oracle/sail/sail_oracle_reject_cover'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/results/oracle/sail/sail_oracle_reject_cover/src/config_pkg.sv'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/oracle/sail/sail_oracle_reject_cover/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/results/oracle/sail/sail_oracle_reject_cover/src/riscv_pkg.sv'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/results/oracle/sail/sail_oracle_reject_cover/src/build_config_pkg.sv'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/results/oracle/sail/sail_oracle_reject_cover/src/lzc.sv'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/oracle/sail/sail_oracle_reject_cover/src/cf_math_pkg.sv'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Copy '/workspace/fv/checks/../../results/sail_rtl/pr3490/pmp_entry.sv' to '/workspace/results/oracle/sail/sail_oracle_reject_cover/src/pmp_entry.sv'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Copy '/workspace/fv/checks/../sail/generated/sail_pmp_0_14.sv' to '/workspace/results/oracle/sail/sail_oracle_reject_cover/src/sail_pmp_0_14.sv'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Copy '/workspace/fv/checks/../sail/generated/sail_modules.sv' to '/workspace/results/oracle/sail/sail_oracle_reject_cover/src/sail_modules.sv'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Copy '/workspace/fv/checks/../wrappers/sail_leaf_shim_0_14.sv' to '/workspace/results/oracle/sail/sail_oracle_reject_cover/src/sail_leaf_shim_0_14.sv'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Copy '/workspace/fv/checks/../sva/sail_oracle_sva.sv' to '/workspace/results/oracle/sail/sail_oracle_reject_cover/src/sail_oracle_sva.sv'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] Copy '/workspace/fv/checks/../wrappers/sail_oracle_fv.sv' to '/workspace/results/oracle/sail/sail_oracle_reject_cover/src/sail_oracle_fv.sv'.
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] engine_0: smtbmc boolector
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] base: starting process "cd /workspace/results/oracle/sail/sail_oracle_reject_cover/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] base: finished (returncode=0)
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] prep: starting process "cd /workspace/results/oracle/sail/sail_oracle_reject_cover/model; yosys -ql design_prep.log design_prep.ys"
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] prep: finished (returncode=0)
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] smt2: starting process "cd /workspace/results/oracle/sail/sail_oracle_reject_cover/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] smt2: finished (returncode=0)
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] engine_0: starting process "cd /workspace/results/oracle/sail/sail_oracle_reject_cover; yosys-smtbmc -s boolector --presat --unroll -c --noprogress -t 2  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2"
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] engine_0: ##   0:00:00  Solver: boolector
+SBY 15:41:37 [/workspace/results/oracle/sail/sail_oracle_reject_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] engine_0: ##   0:00:00  Reached cover statement in step 0 at sail_oracle_fv: chk.c_aligned4_extracted_rejects
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace0.smtc
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace0.yw
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] engine_0: ##   0:00:00  Status: passed
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] engine_0: finished (returncode=0)
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] engine_0: Status returned by engine: pass
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:00 (0)
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:00 (0)
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] summary: engine_0 (smtbmc boolector) returned pass
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] summary: cover trace: /workspace/results/oracle/sail/sail_oracle_reject_cover/engine_0/trace0.vcd
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] summary:   reached cover statement sail_oracle_fv.\chk.c_aligned4_extracted_rejects at sail_oracle_sva.sv:44.5-45.74
+SBY 15:41:38 [/workspace/results/oracle/sail/sail_oracle_reject_cover] DONE (PASS, rc=0)

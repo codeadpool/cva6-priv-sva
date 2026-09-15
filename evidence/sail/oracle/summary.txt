@@ -1,0 +1,2 @@
+sail_oracle         bmc PASS  prove PASS  cover PASS  witness 1/1  failed: none  registers 0
+sail_oracle_reject  bmc FAIL  prove FAIL  cover PASS  witness 1/1  failed: a_extracted_sail_leaf_equiv  registers 0

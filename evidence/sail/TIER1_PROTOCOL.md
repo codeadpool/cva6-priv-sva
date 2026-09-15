@@ -751,3 +751,59 @@ Pre-run checks, 2026-09-15: both builds, with and without `SAIL_ORACLE_REJECT`,
 elaborate in yosys-slang with 0 errors and 0 warnings; yosys `check` reports no
 problems, and neither design has registers or latches. No bmc, prove or cover
 task was run.
+
+### 2026-09-15: Section 3.3 results
+
+Run on the frozen commit `47bf364` after its CI passed. Logs, source hashes and
+traces are archived under `evidence/sail/oracle/`; `summary.txt` records the
+checked verdicts.
+
+| File | bmc | prove | cover | Registers | Prediction |
+|---|---|---|---|---|---|
+| `sail_oracle.sby` | PASS | PASS | PASS, named witness reached | 0 | holds |
+| `sail_oracle_reject.sby` | FAIL | FAIL | PASS, named witness reached | 0 | holds |
+
+Every prediction held. The proof model contains exactly the five checker
+assertions; the reject model contains only `a_extracted_sail_leaf_equiv`, which
+both bmc and prove name. All sources match the freeze and the pins.
+
+The bridge holds: in the c2 domain, corrected CVA6 equals the bit-0-masked Sail
+match, which is never PartialMatch. Every disagreement with the extracted helper
+has the Section 3.1 shape, and the predecessor has already returned a
+non-NoMatch result, so `pmpCheck` cannot reach the disagreeing entry.
+
+Reject counterexample (bmc and prove, identical): an 8-byte access at
+`0xe929084ffbfff8`. The predecessor is NAPOT, raw `pmpaddr` `0x3a4a4213feffff`
+(bit 0 one), region `[0xe929084ff80000, 0xe9290850000000)`; the entry is TOR.
+Sail's lower bound `0xe929084ffbfffc` falls inside the access, so the extracted
+helper returns PartialMatch; CVA6 matches, as does the masked bound
+`0xe929084ffbfff8`.
+
+Aligned witness (`sail_oracle_cover/trace0.vcd`): a 4-byte access at
+`0xc6c67f01200000`. The predecessor is NAPOT, raw `pmpaddr` `0x31b19fc0480001`,
+region `[0xc6c67f01200000, 0xc6c67f01200010)`; the entry is TOR. Sail's lower
+bound `0xc6c67f01200004` leaves the whole access below the entry, so the helper
+returns NoMatch; CVA6 matches. The cover does not constrain `m_arch` or
+`m_prev`, so their displayed trace values are not evidence. The separately
+proven bridge establishes `m_arch == Match`, while the preemption property
+establishes `m_prev != NoMatch` for the same inputs.
+
+A leaf oracle extracted from Sail's private `pmpMatchAddr` therefore rejects the
+corrected matcher, while the complete `pmpCheck` decision accepts it in S/U (c2;
+Section 2 P1; Section 3.1). This confirms the Section 3.1 discrepancy; it is not
+a new finding.
+
+Both `.sby` files now run in `verify-sail`. CI checks the verdicts, zero
+registers, the #3490 source hash and the named cover, and for the reject file
+exactly one failed assertion, `a_extracted_sail_leaf_equiv`, with a trace.
+
+### 2026-09-15: Section 3.2 deferred
+
+The planned native-Sail versus generated-SystemVerilog differential was neither
+preregistered nor run in this phase. Section 3.3 closes the experimental scope.
+
+All Sail-facing formal results therefore rely on generated SystemVerilog that CI
+reproduces byte-for-byte from pinned Sail source and a pinned compiler. This
+establishes provenance and reproducibility, not semantic equivalence with native
+Sail. Differential validation remains future work, and no claim in this artifact
+assumes that translation fidelity has been established.

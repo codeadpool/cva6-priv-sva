@@ -83,7 +83,9 @@ jobs:
   # Sail miter, one job per column (evidence/sail/): golden (c1) fails a_amatch_arch;
   # with #3490 (c2) every property proves; with #3177 also fixed (c3)
   # a_full_equiv proves, so the M-divergence cover is the only miss.
-  # sail_leaf*: Tier 1 Section 3.1 on Sail 0.14 / 0.12; all pass, both covers reached
+  # sail_leaf*: Tier 1 Section 3.1 on Sail 0.14 / 0.12; all pass, both covers reached.
+  # sail_oracle*: Tier 1 Section 3.3; the reject file fails by design, naming only
+  # a_extracted_sail_leaf_equiv
   verify-sail:
     name: verify-sail ${{ matrix.sby }}
     runs-on: ubuntu-latest
@@ -97,6 +99,8 @@ jobs:
           - { sby: sail_pmp_full, expect: PASS PASS FAIL }
           - { sby: sail_leaf, expect: PASS PASS PASS }
           - { sby: sail_leaf_0_12, expect: PASS PASS PASS }
+          - { sby: sail_oracle, expect: PASS PASS PASS }
+          - { sby: sail_oracle_reject, expect: FAIL FAIL PASS }
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -124,6 +128,20 @@ jobs:
                 { echo "$c not reached"; exit 1; }
             done ;;
           esac
+          case "$s" in sail_oracle*)
+            echo "d460cad15eafe78c9c1de689238ec4579279ef28c556d8ac231715afff84c702  results/sail_rtl/pr3490/pmp_entry.sv" |
+              sha256sum -c --quiet
+            grep -q 'Reached cover statement .*chk\.c_aligned4_extracted_rejects' "results/sail/${s}_cover/logfile.txt" ||
+              { echo "c_aligned4_extracted_rejects not reached"; exit 1; } ;;
+          esac
+          if [ "$s" = sail_oracle_reject ]; then
+            for t in bmc prove; do
+              log=results/sail/${s}_$t/logfile.txt
+              test "$(grep -c 'failed assertion' "$log")" = 1
+              grep -q 'failed assertion .*chk\.a_extracted_sail_leaf_equiv' "$log"
+              test -f "results/sail/${s}_$t/engine_0/trace.vcd"
+            done
+          fi
           echo "verdicts as expected"
 
   # third_party/ported/ must be byte-identical to its pinned upstream commits
