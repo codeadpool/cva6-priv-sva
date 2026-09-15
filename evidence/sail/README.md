@@ -111,4 +111,5 @@ c2 theorems hold on master over the same domain, and with the #3177 patch full
 equivalence holds ([port/summary.txt](port/summary.txt)). Section 3.1, the leaf
 point in Scope, is done: every prediction held. On sail-riscv 0.14 and 0.12, for
 widths 1-4096 at any alignment, the per-entry match differs but `pmpCheck`'s
-decision never does ([leaf/summary.txt](leaf/summary.txt)).
+decision never does ([leaf/summary.txt](leaf/summary.txt)). Reported upstream as
+[riscv/sail-riscv#1951](https://github.com/riscv/sail-riscv/issues/1951).

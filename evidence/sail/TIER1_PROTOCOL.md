@@ -564,3 +564,169 @@ the 24 constant assertions.
 Both `.sby` files now run in the permanent `verify-sail` CI matrix. CI checks the
 expected BMC and proof verdicts, zero-register result, and reachability of both
 named covers.
+
+### 2026-09-15: Section 3.1 upstream report
+
+Filed as [riscv/sail-riscv#1951](https://github.com/riscv/sail-riscv/issues/1951)
+after the reporting conditions held: the 0.14 results were complete; Sail master
+`22fad389` retained the 0.14 PMP logic; the duplicate search, including open PR
+#1651, found no correction; and the aligned witness and composed-equivalence
+proof were archived at `3ac9039`.
+
+The report identifies a per-entry discrepancy that does not change the composed
+`pmpCheck` decision in the checked domain. It also records the source-level
+extension to G>1, outside the formal result.
+
+### 2026-09-15: Section 3.3 preregistration, extracted leaf oracle
+
+Written before any Section 3.3 bmc, prove or cover run. Predictions are
+immutable after execution begins; corrections and results will be appended.
+
+#### Question
+
+The c2 result proves that CVA6's `pmp_entry.sv` with the merged #3490
+correction implements the specification-derived G=1 point-match relation.
+Section 3.1 reaches an aligned four-byte access where Sail's private
+`pmpMatchAddr` helper differs from the same helper with the predecessor's bit 0
+cleared.
+
+Those results use different harnesses and interfaces: CVA6 matches one address,
+while Sail matches an address interval and returns Match, PartialMatch or
+NoMatch. Section 3.3 checks that bridge directly in one harness.
+
+This is a confirmation of the Section 3.1 discrepancy, not a new finding, and
+is not counted as one.
+
+#### Frozen sources
+
+- CVA6: v5.3.0 `pmp_entry.sv` plus the archived #3490 patch, produced by
+  `make sail-rtl`; sha256
+  `d460cad15eafe78c9c1de689238ec4579279ef28c556d8ac231715afff84c702`. The file
+  is byte-identical to the merged #3490 file, the frozen Section 2 master
+  snapshot `49b5fa9e`, and live master `07228a6` checked on 2026-09-15.
+- Sail: sail-riscv 0.14 generated SystemVerilog pinned by `fv/sail/PROVENANCE`,
+  using the frozen Section 3.1 shim.
+- `pmpMatchAddr` is private in Sail source. It is tested here as an extracted
+  leaf oracle, not as an advertised architectural interface.
+
+#### Design
+
+Files:
+
+- `fv/wrappers/sail_oracle_fv.sv`
+- `fv/sva/sail_oracle_sva.sv`
+- `fv/checks/sail_oracle.sby`: proofs and witness cover
+- `fv/checks/sail_oracle_reject.sby`: with `SAIL_ORACLE_REJECT`, only the
+  expected-failing assertion, plus the same cover
+
+The harness uses one predecessor/entry pair with shared symbolic addresses and
+configurations:
+
+- `cva6_match`: corrected CVA6 `pmp_entry`;
+- `m_sail`: Sail `pmpMatchAddr`, using the predecessor's `pmpReadAddrReg` value;
+- `m_arch`: the same Sail helper with predecessor bit 0 cleared;
+- `m_prev`: Sail's match for the predecessor.
+
+Slots 0 and 1 hold the pair; slots 2-63 are OFF.
+
+The extracted oracle agrees with CVA6 only when it returns Match for a CVA6
+match and NoMatch otherwise. PartialMatch is a disagreement.
+
+There are no assumptions. Every assertion is conditional on the domain, and the
+witness cover includes the same condition.
+
+#### Domain
+
+- G=1, PLEN=56;
+- widths 1, 2, 4 or 8;
+- naturally aligned, non-wrapping accesses;
+- legal configuration snapshots: reserved bits zero, NA4 excluded, and no
+  W=1, R=0.
+
+This is the c2 domain in which CVA6's point match represents the complete
+access.
+
+#### Predictions
+
+| Property | Prediction |
+|---|---|
+| `a_cva6_matches_arch_leaf`: corrected CVA6 equals `m_arch == Match` | PROVE |
+| `a_arch_leaf_not_partial`: `m_arch` is never PartialMatch | PROVE |
+| `a_leaf_disagreement_shape`: every disagreement requires current TOR, predecessor NAPOT and predecessor raw bit 0 set | PROVE |
+| `a_leaf_disagreement_preempted`: every disagreement has `m_prev != NoMatch` | PROVE |
+| `a_sail_helper_no_internal_exception`: no helper raises an internal exception | PROVE (holds by construction) |
+| `c_aligned4_extracted_rejects`: aligned four-byte case where CVA6 matches and `m_sail` is NoMatch | REACHED |
+| `a_extracted_sail_leaf_equiv`: extracted oracle agrees with CVA6 | FAIL in the isolated reject file |
+
+Expected task results:
+
+| File | bmc | prove | cover |
+|---|---|---|---|
+| `sail_oracle.sby` | PASS | PASS | PASS, named witness reached |
+| `sail_oracle_reject.sby` | FAIL | FAIL | PASS, named witness reached |
+
+Every model must contain zero registers. A reject result counts only if:
+
+- bmc and prove end in FAIL, not ERROR, UNKNOWN or TIMEOUT;
+- the log names only `a_extracted_sail_leaf_equiv` from this checker;
+- a counterexample trace exists and has the proven disagreement shape;
+- all frozen source hashes match.
+
+The upstream assertions inside `pmp_entry.sv` are not experimental predictions;
+the assertion-name check prevents their failure from being misattributed.
+
+#### Interpretation
+
+A failure of `a_extracted_sail_leaf_equiv` means that Sail's private helper,
+when promoted to a leaf oracle, rejects the corrected matcher. It is not a
+failure of Sail's architectural interface and not a new Sail defect.
+
+No oracle conclusion is drawn if either bridge property fails. The preemption
+theorem connects the result to Section 3.1; the composed decision is not
+re-proved here.
+
+#### Four oracle constructions
+
+| Oracle | Provenance | Boundary | Verdict on #3490 |
+|---|---|---|---|
+| PMP-5 | RTL transcription | Entry point match | Rejects |
+| PMP-10 | ISA-derived property | Entry point match | Accepts |
+| Extracted Sail `pmpMatchAddr` | Private generated helper | Entry range match in the comparable domain | Predicted: rejects |
+| Complete Sail `pmpCheck` | Sail decision function | Composed decision | Accepts in S/U; M differs only through unrelated #3177 |
+
+With #3177 also corrected, complete Sail/CVA6 equivalence proves.
+
+PMP-5, PMP-10 and c2 use v5.3.0 plus the archived #3490 correction. Section 3.3
+uses the byte-identical corrected file with sail-riscv 0.14. These are related
+archived experiments, not four outputs from one harness.
+
+They support two structured comparisons:
+
+- at the entry boundary, the ISA-derived oracle accepts the correction while the
+  RTL transcription and extracted Sail helper reject it;
+- within Sail, the extracted helper disagrees at the entry boundary while the
+  complete decision agrees in S/U because the predecessor preempts the
+  disagreement.
+
+This is a case study showing that oracle validity depends on both provenance
+and abstraction boundary, not a general theorem.
+
+#### Freeze and execution
+
+Before execution:
+
+1. Perform elaboration-only checks.
+2. Record the SHA-256 of the wrapper, checker and both `.sby` files in a dated
+   freeze entry.
+3. Commit the freeze before any bmc, prove or cover task.
+
+After execution, archive logs, source hashes and counterexamples under
+`evidence/sail/oracle/`, append the results, and add both jobs to
+`verify-sail`. The reject job must enforce the failure criteria above.
+
+#### Scope
+
+The result covers the #3490 CVA6 matcher and sail-riscv 0.14 `pmpMatchAddr` at
+G=1, for one entry pair in the c2 domain. It does not cover other grains, other
+RTL, Sail's complete architectural interface beyond Section 3.1, or golden-model
+projections generally.
