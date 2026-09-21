@@ -208,3 +208,23 @@ The 0.12 backport, a composed-miter rerun, permanent CI integration, and any
 new discovery claim are excluded as diminishing-return work outside the frozen
 research scope.
 
+## Dated amendments and results
+
+### 2026-09-21: execution preparation
+
+The execution gate governs the `fixcert_*` tasks only; CI keeps running the
+frozen suite.
+
+From a clean checkout, before the first `fixcert_*` task:
+
+1. Start from an empty `results/sail_fixcert/`, so the working copy is rebuilt
+   from the frozen inputs.
+2. Initialize the `cva6` submodule.
+3. Run `make sail-rtl`. It builds `results/sail_rtl/pr3490/pmp_entry.sv`, which
+   both oracle `.sby` files read; its SHA-256 must be
+   `d460cad15eafe78c9c1de689238ec4579279ef28c556d8ac231715afff84c702`.
+
+`make sail-rtl` only applies the frozen #3490 patch; it runs no solver and
+discloses no result. The regenerated `sail_pmp_0_14.sv` must hash to
+`d0e0400debfe9815776d138223f5114fbe50efba92e35d9e6205dae79b83147a`, the file
+elaborated in the pre-run checks, and `sail_modules.sv` must match `PROVENANCE`.
