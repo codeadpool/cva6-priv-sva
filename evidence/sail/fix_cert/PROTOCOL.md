@@ -228,3 +228,32 @@ From a clean checkout, before the first `fixcert_*` task:
 discloses no result. The regenerated `sail_pmp_0_14.sv` must hash to
 `d0e0400debfe9815776d138223f5114fbe50efba92e35d9e6205dae79b83147a`, the file
 elaborated in the pre-run checks, and `sail_modules.sv` must match `PROVENANCE`.
+
+### 2026-09-24: merged correction and refreeze
+
+`riscv/sail-riscv#1959` merged on 2026-09-24 as
+`442e693a7f4890c2d70384c33a5f4f91603c7264`. Its `model/pmp/pmp_control.sail`
+has SHA-256 `f3da23cdd783ad84e7d40c82a28e61db20cbf78fcfd093e9e76d0c194ead085a`.
+
+The merged hunk is not identical to head `25002553`: a review suggestion (head
+`ea6ab3b5`) removed the `grain == 0` early return from `pmpTORBound`. At G=1,
+the only grain the slice uses, both forms compute `addr & ~1`.
+
+As the execution gate requires, the specialization patch now carries the merged
+form. Properties, predictions, and interpretation are unchanged. These hashes
+replace the patch entry under Frozen inputs and the `sail_pmp_0_14.sv` hash in
+the 2026-09-21 entry:
+
+| File | SHA-256 |
+|---|---|
+| `evidence/sail/fix_cert/slice_0_14_fix.patch` | `0794b3c9cb588c7fe2e26d28dc306f897d9b487995c2635a9a9336f89f1eb6e2` |
+| Patched `slice_0_14/pmp_control.sail` | `98d54f7ca23b7c9b1aeb352b4e7fcfcf1acb7ee76b32204c1194f5db48735324` |
+| Regenerated `sail_pmp_0_14.sv` | `33261dc433f54e69f22b401f980cea4e22301d828e3ddbec73f67e86258e2d94` |
+
+Apart from renumbered compiler temporaries, the regenerated SystemVerilog
+differs from the 2026-09-21 build only in `pmpTORBound`, which loses the
+`grain != 0` multiplexer.
+
+Pre-run checks, 2026-09-24: all three models elaborate in yosys-slang with zero
+errors and zero warnings. Yosys `check` reports no problems, and no model
+contains a register or latch. No BMC, prove, or cover task was run.

@@ -6,23 +6,21 @@ Validate:  patch -p1 --dry-run -d <copy-root> < slice_0_14_fix.patch
 
 --- a/fv/sail/slice_0_14/pmp_control.sail
 +++ b/fv/sail/slice_0_14/pmp_control.sail
-@@ -73,6 +73,15 @@
+@@ -73,6 +73,13 @@
    then    PMP_Match
    else    PMP_PartialMatch
 
 +// #1959: the low grain bits of a pmpaddr are ignored when it is used as a TOR
 +// bound, so a NAPOT predecessor's readback cannot shift the lower bound.
-+function pmpTORBound(addr : xlenbits, grain : range(0, 63)) -> xlenbits =
-+  if grain == 0 then addr
-+  else {
-+    let mask : xlenbits = zero_extend(ones(min(grain, xlen)));
-+    addr & ~(mask)
-+  }
++function pmpTORBound(addr : xlenbits, grain : range(0, 63)) -> xlenbits = {
++  let mask : xlenbits = zero_extend(ones(min(grain, xlen)));
++  addr & ~(mask)
++}
 +
  function pmpMatchAddr(
    Physaddr(addr) : physaddr,
    width : xlenbits,
-@@ -88,6 +97,8 @@
+@@ -88,6 +95,8 @@
        // "If PMP entry [i]'s A field is set to TOR, the entry matches
        //  any address y such that pmpaddr[i-1] <= y < pmpaddr[i]"
        // "If pmpaddr[i-1] >= pmpaddr[i] and pmpcfg[i].A=TOR, then PMP entry i matches no addresses."
