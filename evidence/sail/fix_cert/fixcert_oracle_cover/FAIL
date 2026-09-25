@@ -1,0 +1,8 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
+engine_0 (smtbmc boolector) returned FAIL
+cover trace: engine_0/trace0.vcd
+cover trace: engine_0/trace0.yw
+  reached cover statement sail_oracle_fv.\chk.c_aligned4_extracted_accepts at fixcert_oracle_sva.sv:45.5-48.50
+unreached cover statements:
+  sail_oracle_fv.\chk.c_aligned4_extracted_rejects at fixcert_oracle_sva.sv:43.5-44.74

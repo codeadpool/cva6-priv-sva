@@ -1,0 +1,37 @@
+SBY 23:06:46 [/workspace/results/sail_fixcert/fixcert_leaf_cover] Removing directory '/workspace/results/sail_fixcert/fixcert_leaf_cover'.
+SBY 23:06:46 [/workspace/results/sail_fixcert/fixcert_leaf_cover] Copy '/workspace/fv/checks/../../results/sail_fixcert/generated/sail_pmp_0_14.sv' to '/workspace/results/sail_fixcert/fixcert_leaf_cover/src/sail_pmp_0_14.sv'.
+SBY 23:06:46 [/workspace/results/sail_fixcert/fixcert_leaf_cover] Copy '/workspace/fv/checks/../../results/sail_fixcert/generated/sail_modules.sv' to '/workspace/results/sail_fixcert/fixcert_leaf_cover/src/sail_modules.sv'.
+SBY 23:06:46 [/workspace/results/sail_fixcert/fixcert_leaf_cover] Copy '/workspace/fv/checks/../wrappers/sail_leaf_shim_0_14.sv' to '/workspace/results/sail_fixcert/fixcert_leaf_cover/src/sail_leaf_shim_0_14.sv'.
+SBY 23:06:46 [/workspace/results/sail_fixcert/fixcert_leaf_cover] Copy '/workspace/fv/checks/../sva/fixcert_leaf_sva.sv' to '/workspace/results/sail_fixcert/fixcert_leaf_cover/src/fixcert_leaf_sva.sv'.
+SBY 23:06:46 [/workspace/results/sail_fixcert/fixcert_leaf_cover] Copy '/workspace/fv/checks/../wrappers/sail_leaf_fv.sv' to '/workspace/results/sail_fixcert/fixcert_leaf_cover/src/sail_leaf_fv.sv'.
+SBY 23:06:46 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: smtbmc boolector
+SBY 23:06:46 [/workspace/results/sail_fixcert/fixcert_leaf_cover] base: starting process "cd /workspace/results/sail_fixcert/fixcert_leaf_cover/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY 23:07:04 [/workspace/results/sail_fixcert/fixcert_leaf_cover] base: finished (returncode=0)
+SBY 23:07:04 [/workspace/results/sail_fixcert/fixcert_leaf_cover] prep: starting process "cd /workspace/results/sail_fixcert/fixcert_leaf_cover/model; yosys -ql design_prep.log design_prep.ys"
+SBY 23:07:07 [/workspace/results/sail_fixcert/fixcert_leaf_cover] prep: finished (returncode=0)
+SBY 23:07:07 [/workspace/results/sail_fixcert/fixcert_leaf_cover] smt2: starting process "cd /workspace/results/sail_fixcert/fixcert_leaf_cover/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY 23:07:07 [/workspace/results/sail_fixcert/fixcert_leaf_cover] smt2: finished (returncode=0)
+SBY 23:07:07 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: starting process "cd /workspace/results/sail_fixcert/fixcert_leaf_cover; yosys-smtbmc -s boolector --presat --unroll -c --noprogress -t 2  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2"
+SBY 23:07:07 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: ##   0:00:00  Solver: boolector
+SBY 23:07:07 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY 23:07:08 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: ##   0:00:00  Reached cover statement in step 0 at sail_leaf_fv: chk.c_relevant_tor_after_napot
+SBY 23:07:08 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
+SBY 23:07:08 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+SBY 23:07:08 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace0.smtc
+SBY 23:07:08 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace0.yw
+SBY 23:07:08 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: ##   0:00:01  Checking cover reachability in step 0..
+SBY 23:07:09 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: ##   0:00:02  Checking cover reachability in step 1..
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: ##   0:00:02  Unreached cover statement at sail_leaf_fv: chk.c_leaf_diff_aligned4
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: ##   0:00:02  Unreached cover statement at sail_leaf_fv: chk.c_leaf_diff_partial
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: ##   0:00:02  Status: failed
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: finished (returncode=1)
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] engine_0: Status returned by engine: FAIL
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:23 (23)
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:24 (24)
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] summary: engine_0 (smtbmc boolector) returned FAIL
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] summary: cover trace: /workspace/results/sail_fixcert/fixcert_leaf_cover/engine_0/trace0.vcd
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] summary:   reached cover statement sail_leaf_fv.\chk.c_relevant_tor_after_napot at fixcert_leaf_sva.sv:68.5-68.51
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] summary: unreached cover statements:
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] summary:   sail_leaf_fv.\chk.c_leaf_diff_aligned4 at fixcert_leaf_sva.sv:66.5-66.45
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] summary:   sail_leaf_fv.\chk.c_leaf_diff_partial at fixcert_leaf_sva.sv:67.5-67.43
+SBY 23:07:10 [/workspace/results/sail_fixcert/fixcert_leaf_cover] DONE (FAIL, rc=2)

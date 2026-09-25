@@ -118,3 +118,9 @@ Section 3.3 is done: a leaf oracle extracted from Sail's private `pmpMatchAddr`
 helper rejects CVA6's merged #3490 matcher, while the complete `pmpCheck`
 decision accepts it in S/U. It confirms the leaf point; it is not a new finding
 ([oracle/summary.txt](oracle/summary.txt)).
+
+The leaf point is fixed upstream by
+[riscv/sail-riscv#1959](https://github.com/riscv/sail-riscv/pull/1959) (merged
+2026-09-24). A post-freeze check, preregistered in
+[fix_cert/PROTOCOL.md](fix_cert/PROTOCOL.md), confirms that the extracted oracle
+then accepts the #3490 matcher ([fix_cert/summary.txt](fix_cert/summary.txt)).

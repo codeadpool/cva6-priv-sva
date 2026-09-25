@@ -1,0 +1,3 @@
+fixcert_leaf           bmc PASS  prove PASS  cover FAIL  reached 1/3  failed: none  registers 0
+fixcert_oracle         bmc PASS  prove PASS  cover FAIL  reached 1/2  failed: none  registers 0
+fixcert_oracle_reject  bmc PASS  prove PASS  cover FAIL  reached 1/2  failed: none  registers 0

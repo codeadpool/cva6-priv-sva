@@ -1,0 +1,43 @@
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Removing directory '/workspace/results/sail_fixcert/fixcert_oracle_prove'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Copy '/workspace/fv/checks/../../cva6/core/include/config_pkg.sv' to '/workspace/results/sail_fixcert/fixcert_oracle_prove/src/config_pkg.sv'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Copy '/workspace/fv/checks/../../cva6/core/include/cv64a6_imafdc_sv39_config_pkg.sv' to '/workspace/results/sail_fixcert/fixcert_oracle_prove/src/cv64a6_imafdc_sv39_config_pkg.sv'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Copy '/workspace/fv/checks/../../cva6/core/include/riscv_pkg.sv' to '/workspace/results/sail_fixcert/fixcert_oracle_prove/src/riscv_pkg.sv'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Copy '/workspace/fv/checks/../../cva6/core/include/build_config_pkg.sv' to '/workspace/results/sail_fixcert/fixcert_oracle_prove/src/build_config_pkg.sv'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/lzc.sv' to '/workspace/results/sail_fixcert/fixcert_oracle_prove/src/lzc.sv'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Copy '/workspace/fv/checks/../../cva6/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv' to '/workspace/results/sail_fixcert/fixcert_oracle_prove/src/cf_math_pkg.sv'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Copy '/workspace/fv/checks/../../results/sail_rtl/pr3490/pmp_entry.sv' to '/workspace/results/sail_fixcert/fixcert_oracle_prove/src/pmp_entry.sv'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Copy '/workspace/fv/checks/../../results/sail_fixcert/generated/sail_pmp_0_14.sv' to '/workspace/results/sail_fixcert/fixcert_oracle_prove/src/sail_pmp_0_14.sv'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Copy '/workspace/fv/checks/../../results/sail_fixcert/generated/sail_modules.sv' to '/workspace/results/sail_fixcert/fixcert_oracle_prove/src/sail_modules.sv'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Copy '/workspace/fv/checks/../wrappers/sail_leaf_shim_0_14.sv' to '/workspace/results/sail_fixcert/fixcert_oracle_prove/src/sail_leaf_shim_0_14.sv'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Copy '/workspace/fv/checks/../sva/fixcert_oracle_sva.sv' to '/workspace/results/sail_fixcert/fixcert_oracle_prove/src/fixcert_oracle_sva.sv'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] Copy '/workspace/fv/checks/../wrappers/sail_oracle_fv.sv' to '/workspace/results/sail_fixcert/fixcert_oracle_prove/src/sail_oracle_fv.sv'.
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0: smtbmc boolector
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] base: starting process "cd /workspace/results/sail_fixcert/fixcert_oracle_prove/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] base: finished (returncode=0)
+SBY 23:07:12 [/workspace/results/sail_fixcert/fixcert_oracle_prove] prep: starting process "cd /workspace/results/sail_fixcert/fixcert_oracle_prove/model; yosys -ql design_prep.log design_prep.ys"
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] prep: finished (returncode=0)
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] smt2: starting process "cd /workspace/results/sail_fixcert/fixcert_oracle_prove/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] smt2: finished (returncode=0)
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.basecase: starting process "cd /workspace/results/sail_fixcert/fixcert_oracle_prove; yosys-smtbmc -s boolector --presat --unroll --noprogress -t 2  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2"
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.induction: starting process "cd /workspace/results/sail_fixcert/fixcert_oracle_prove; yosys-smtbmc -s boolector --presat --unroll -i --noprogress -t 2  --append 0 --dump-vcd engine_0/trace_induct.vcd --dump-yw engine_0/trace_induct.yw --dump-vlogtb engine_0/trace_induct_tb.v --dump-smtc engine_0/trace_induct.smtc model/design_smt2.smt2"
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.basecase: ##   0:00:00  Solver: boolector
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.induction: ##   0:00:00  Solver: boolector
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 0..
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 0..
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.induction: ##   0:00:00  Trying induction in step 2..
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 1..
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 1..
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.induction: ##   0:00:00  Temporal induction successful.
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.induction: ##   0:00:00  Status: passed
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.induction: finished (returncode=0)
+SBY 23:07:13 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.induction: Status returned by engine for induction: pass
+SBY 23:07:14 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.basecase: ##   0:00:01  Status: passed
+SBY 23:07:14 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.basecase: finished (returncode=0)
+SBY 23:07:14 [/workspace/results/sail_fixcert/fixcert_oracle_prove] engine_0.basecase: Status returned by engine for basecase: pass
+SBY 23:07:14 [/workspace/results/sail_fixcert/fixcert_oracle_prove] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
+SBY 23:07:14 [/workspace/results/sail_fixcert/fixcert_oracle_prove] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:02 (2)
+SBY 23:07:14 [/workspace/results/sail_fixcert/fixcert_oracle_prove] summary: engine_0 (smtbmc boolector) returned pass for basecase
+SBY 23:07:14 [/workspace/results/sail_fixcert/fixcert_oracle_prove] summary: engine_0 (smtbmc boolector) returned pass for induction
+SBY 23:07:14 [/workspace/results/sail_fixcert/fixcert_oracle_prove] summary: engine_0 did not produce any traces
+SBY 23:07:14 [/workspace/results/sail_fixcert/fixcert_oracle_prove] summary: successful proof by k-induction.
+SBY 23:07:14 [/workspace/results/sail_fixcert/fixcert_oracle_prove] DONE (PASS, rc=0)

@@ -257,3 +257,46 @@ differs from the 2026-09-21 build only in `pmpTORBound`, which loses the
 Pre-run checks, 2026-09-24: all three models elaborate in yosys-slang with zero
 errors and zero warnings. Yosys `check` reports no problems, and no model
 contains a register or latch. No BMC, prove, or cover task was run.
+
+### 2026-09-24: results
+
+Executed from frozen commit `50b15c9` after its CI passed. Logs, source hashes,
+and cover traces are archived beside this protocol; `summary.txt` records the
+checked verdicts.
+
+| File | BMC | Prove | Cover | Registers | Prediction |
+|---|---|---|---|---:|---|
+| `fixcert_leaf.sby` | PASS | PASS | **FAIL (expected):** control cover reached; both former leaf-disagreement covers unreached | 0 | holds |
+| `fixcert_oracle.sby` | PASS | PASS | **FAIL (expected):** acceptance cover reached; former rejection cover unreached | 0 | holds |
+| `fixcert_oracle_reject.sby` | PASS | PASS | **FAIL (expected):** same cover results as `fixcert_oracle.sby` | 0 | holds |
+
+A cover task reports `FAIL` when any named cover is unreached. These failures
+are expected: the obsolete discrepancy witnesses must disappear, while the new
+control covers must remain reachable.
+
+Every preregistered prediction held, and every source matched the freeze.
+Most importantly, `a_extracted_sail_leaf_equiv`, which failed in Section 3.3,
+is now proven.
+
+The load-bearing comparison preserves the CVA6 RTL, wrapper, domain predicate,
+and equivalence assertion from Section 3.3. The only changed inputs are the
+Sail model, now carrying merged PR #1959, and the checker copy, which adds only
+the acceptance cover.
+
+The complete assignments from Section 3.3, the rejection counterexample at
+`0xe929084ffbfff8` and the aligned witness at `0xc6c67f01200000`, remain within
+the proven domain. The universal proof therefore covers both. The new acceptance
+covers witness continued reachability but lie away from the corrected lower
+bound; acceptance at the bound rests on the proof, not on those covers.
+
+In the leaf model, assertions comparing the two match instances reduce to
+constant true, as predicted: after #1959, internal normalization makes the
+external normalization redundant. Yosys folds those comparisons, leaving the
+non-degenerate decision-faithfulness and exception checks for the solver. The
+relevant TOR-after-NAPOT control cover remains reachable, so disappearance of
+the old discrepancy covers is not caused by loss of the triggering
+configuration.
+
+Within the stated `G=1` domain, the extracted Sail leaf oracle therefore accepts
+the corrected CVA6 matcher once Sail carries merged PR #1959. No claim is made
+outside the limits stated under **Interpretation**.
