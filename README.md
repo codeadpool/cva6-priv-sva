@@ -5,28 +5,29 @@ Open-source formal verification (SystemVerilog Assertions, proven with
 trap delegation, `mret`/`sret`, mstatus stacking, and the MMU↔PMP interaction
 as implemented in the **CVA6** application-class core (v5.3.0, pinned submodule).
 
-> Status (2026-09-12): base properties proven (bmc + induction + cover, every
-> antecedent cover-witnessed) across PMP incl. a multi-entry reference model,
-> PMP-CSR WARL, trap delegation/return, mstatus stacking, privilege invariants,
-> and the MMU-PMP interaction. A set of witness probes fail by design, each a
-> machine-checked counterexample to a spec nonconformance. Seven findings. Five
-> are our own: F5 (interrupt mtval/stval, #3379, PR #3386) and F8 (unlegalized
-> `dcsr.prv` lets `dret` set priv_lvl to an unimplemented encoding, #3383,
-> PR #3387), both fixed upstream; and F9 (`mstatus.MPP` retains the
-> reserved encoding 2'b10 when the hypervisor extension is enabled: an
-> incomplete fix of the RVH=0-only #1988/#2274 affecting RVH=1 builds only, not
-> the default config; reported as #3411, fixed by PR #3414); and F10 (the page-table walker follows a
-> non-leaf PTE carrying reserved A/D/U bits instead of raising a page fault, in
-> every paged-MMU configuration with RVH=0 including the default one; reported as
-> #3420, fixed by PR #3422, certified by induction); and F11 (the walker puts a
-> PMP-denied PTE address on the memory interface before enforcing the denial: the
-> access fault is still raised, but the denied read request is not suppressed at
-> the D-cache interface; reported
-> as #3430, no fix submitted). Two independently rediscover
-> upstream issues: F6 (MPRV-on-xret, #3294, since closed by PR #3551) and F7
-> (PMP M-mode priority, #3177, open). CVA6's PMP is also equivalence-checked
-> against the Sail model: `evidence/sail/README.md`. Findings:
-> `docs/FINDINGS.md`; full table: `docs/PROPERTY_PLAN.md`.
+> **Status (2026-09-28).** Base properties are proven (bmc, induction and
+> cover, every antecedent cover-witnessed) across PMP, PMP-CSR WARL, trap
+> delegation and return, mstatus stacking, privilege invariants and the MMU-PMP
+> interaction. Witness probes fail by design, each a machine-checked
+> counterexample to a spec nonconformance. Five findings are ours, four of them
+> fixed upstream by our PRs; two rediscover upstream issues.
+
+| Finding | What | Upstream |
+|---|---|---|
+| F5 | Interrupt traps leave the instruction encoding in `mtval`/`stval` | #3379, fixed by our PR #3386 |
+| F8 | `dret` can set an unimplemented privilege level (`dcsr.prv` not legalized) | #3383, fixed by our PR #3387 |
+| F9 | `mstatus.MPP` keeps the reserved encoding 2'b10 at RVH=1 (incomplete fix of #1988/#2274) | #3411, fixed by our PR #3414 |
+| F10 | The page-table walker follows a non-leaf PTE with reserved A/D/U bits (RVH=0) | #3420, fixed by our PR #3422 |
+| F11 | The walker requests a PMP-denied PTE before enforcing the denial; the fault is still raised | #3430, reported, no fix submitted |
+| F6 | Rediscovers: `mstatus.MPRV` not cleared on xRET | #3294, closed by PR #3551 (not ours) |
+| F7 | Rediscovers: PMP M-mode priority | #3177, open |
+
+CVA6's PMP is also checked against the RISC-V Sail model with a miter
+([evidence/sail/README.md](evidence/sail/README.md)). A leaf-level discrepancy
+in Sail's TOR bound (proven decision-neutral at G=1) was reported as sail-riscv
+#1951 and fixed by our PR #1959, merged 2026-09-24; its fix certification is in
+[evidence/sail/fix_cert/](evidence/sail/fix_cert/PROTOCOL.md). Details:
+[docs/FINDINGS.md](docs/FINDINGS.md), [docs/PROPERTY_PLAN.md](docs/PROPERTY_PLAN.md).
 
 ## Validation
 
